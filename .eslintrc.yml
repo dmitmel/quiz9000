@@ -1,0 +1,47 @@
+extends: react-app
+env:
+  jquery: true
+rules:
+  indent:
+    - warn
+    - 2
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - warn
+    - single
+  semi:
+    - warn
+    - always
+  no-console: off
+  no-debugger: off
+  no-empty:
+    - warn
+  no-extra-parens:
+    - warn
+    - all
+    - conditionalAssign: false
+      returnAssign: false
+      ignoreJSX: multi-line
+  no-extra-semi: warn
+  block-scoped-var: error
+  consistent-return: error
+  dot-notation: warn
+  no-empty-function: warn
+  no-floating-decimal: warn
+  no-global-assign: error
+  no-implicit-coercion: error
+  no-invalid-this: off
+  no-multi-spaces: warn
+  no-useless-return: warn
+  no-return-assign: off
+  no-void: error
+  no-shadow: warn
+  no-undef-init: error
+  no-catch-shadow: warn
+  global-require: off
+  jsx-a11y/anchor-is-valid:
+    - warn
+    - aspects: invalidHref
+  jsx-a11y/href-no-hash: off
