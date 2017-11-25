@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
 import NavDrawer from './NavDrawer';
 import AppBar from './MainAppBar';
 
@@ -58,9 +57,7 @@ class Page extends Component {
       <div className={classes.root}>
         <NavDrawer open={navOpen} />
         <AppBar title={title} />
-        <main className={classes.content}>
-          <Typography type="body1">{children}</Typography>
-        </main>
+        <main className={classes.content}>{children}</main>
       </div>
     );
   }

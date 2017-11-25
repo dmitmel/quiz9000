@@ -1,6 +1,7 @@
 import React from 'react';
 import Router from './Router';
 import Page from './Page';
+import Explore from './Explore';
 
 export default function App() {
   return (
@@ -12,7 +13,7 @@ export default function App() {
         },
         {
           path: /^\/explore\/?$/,
-          render: () => <Page title="Explore" />
+          render: () => <Explore />
         },
         {
           path: /.*/,

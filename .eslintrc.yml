@@ -11,6 +11,7 @@ rules:
   quotes:
     - warn
     - single
+    - avoidEscape: true
   semi:
     - warn
     - always
@@ -28,7 +29,6 @@ rules:
   block-scoped-var: error
   consistent-return: error
   dot-notation: warn
-  no-empty-function: warn
   no-floating-decimal: warn
   no-global-assign: error
   no-implicit-coercion: error
