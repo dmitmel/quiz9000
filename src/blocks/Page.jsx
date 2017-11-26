@@ -8,8 +8,11 @@ const styles = theme => ({
   root: {
     display: 'flex'
   },
-  content: {
+  contentWrapper: {
     width: '100%',
+    position: 'relative'
+  },
+  content: {
     height: 'calc(100vh - 56px)',
     marginTop: 56,
     padding: theme.spacing.unit * 3,
@@ -60,9 +63,11 @@ class Page extends Component {
       <div className={classes.root}>
         <NavDrawer open={navOpen} />
         <AppBar title={title} />
-        <main className={classes.content} {...contentProps}>
-          {children}
-        </main>
+        <div className={classes.contentWrapper}>
+          <main className={classes.content} {...contentProps}>
+            {children}
+          </main>
+        </div>
       </div>
     );
   }

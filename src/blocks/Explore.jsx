@@ -8,9 +8,6 @@ import Quiz from './Quiz';
 import { database } from '../firebase';
 
 const styles = theme => ({
-  root: {
-    position: 'relative'
-  },
   list: {
     background: theme.palette.background.paper
   },
@@ -20,7 +17,7 @@ const styles = theme => ({
     left: '50%',
     transform: 'translate(-50%, -50%)'
   },
-  loadingAfterList: {
+  loadingList: {
     display: 'block',
     margin: '0 auto',
     marginTop: theme.spacing.unit * 2.75
@@ -62,9 +59,10 @@ class Explore extends Component {
     this._fetchedRef = this._quizzesRef.limitToFirst(
       quizzesPerPage * this._pages
     );
-    this._fetchedRef.on('value', snapshot =>
-      this.setState({ quizzes: snapshot.val(), loading: false })
-    );
+    this._fetchedRef.on('value', snapshot => {
+      this.setState({ quizzes: snapshot.val(), loading: false });
+      this._checkListHeight();
+    });
   }
 
   _checkListHeight = () => {
@@ -74,6 +72,7 @@ class Explore extends Component {
     const { scrollTop, scrollHeight, clientHeight } = this.content;
     if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
       this._pages += 1;
+      console.log(this._pages);
       this._fetchCurrent();
     }
   };
@@ -86,7 +85,6 @@ class Explore extends Component {
     return (
       <Page
         title="Explore"
-        className={classes.root}
         contentProps={{
           onScroll: this._checkListHeight,
           ref: content => (this.content = content)
@@ -99,7 +97,7 @@ class Explore extends Component {
 
         {loading && (
           <CircularProgress
-            className={quizzes ? classes.loadingAfterList : classes.loading}
+            className={quizzes ? classes.loadingList : classes.loading}
           />
         )}
       </Page>
