@@ -54,13 +54,15 @@ class Page extends Component {
 
   render() {
     const { navOpen } = this.state;
-    const { title, classes, children } = this.props;
+    const { title, classes, children, contentProps } = this.props;
 
     return (
       <div className={classes.root}>
         <NavDrawer open={navOpen} />
         <AppBar title={title} />
-        <main className={classes.content}>{children}</main>
+        <main className={classes.content} {...contentProps}>
+          {children}
+        </main>
       </div>
     );
   }

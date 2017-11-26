@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import Icon from 'material-ui/Icon';
-import Button from 'material-ui/Button';
+import List from 'material-ui/List';
+import { CircularProgress } from 'material-ui/Progress';
 import Page from './Page';
+import Quiz from './Quiz';
 import { database } from '../firebase';
 
 const styles = theme => ({
   list: {
-    background: theme.palette.background.paper
+    background: theme.palette.background.paper,
+    marginBottom: theme.spacing.unit * 2.75
   },
-  listItemIcon: {
-    borderRadius: 0
+  loading: {
+    display: 'block',
+    margin: '0 auto'
   }
 });
 
 const quizzesPerPage = 1;
+const scrollThreshold = 25;
 
 class Explore extends Component {
   static propTypes = {
@@ -37,6 +39,7 @@ class Explore extends Component {
     this._quizzesRef.on('value', snapshot => {
       this._quizzesLength = snapshot.numChildren();
     });
+
     this._fetchCurrent();
   }
 
@@ -52,52 +55,29 @@ class Explore extends Component {
     );
   }
 
-  _fetchMore = () => {
-    this._pages += 1;
-    this._fetchCurrent();
+  _onScroll = ({ target }) => {
+    if (this._pages * quizzesPerPage >= this._quizzesLength) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = target;
+    if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
+      this._pages += 1;
+      this._fetchCurrent();
+    }
   };
 
   render() {
-    return <Page title="Explore">{this._renderContent()}</Page>;
-  }
-
-  _renderContent() {
     const { classes } = this.props;
 
-    if (!this.state) return null;
     const { quizzes } = this.state;
-    if (!quizzes) return null;
-
-    const disableFetchMore =
-      this._pages * quizzesPerPage >= this._quizzesLength;
 
     return (
-      <div>
-        <List className={classes.list}>
-          {quizzes.map(quiz => (
-            <ListItem key={quiz.name} button>
-              {quiz.image ? (
-                <Avatar
-                  src={quiz.image}
-                  alt="icon"
-                  className={classes.listItemIcon}
-                />
-              ) : (
-                <Avatar>
-                  <Icon>book</Icon>
-                </Avatar>
-              )}
-              <ListItemText primary={quiz.name} secondary={quiz.description} />
-            </ListItem>
-          ))}
-        </List>
-
-        <div>
-          <Button onClick={this._fetchMore} disabled={disableFetchMore}>
-            Fetch more
-          </Button>
-        </div>
-      </div>
+      <Page title="Explore" contentProps={{ onScroll: this._onScroll }}>
+        {quizzes && (
+          <List className={classes.list}>
+            {quizzes.map(quiz => <Quiz {...quiz} />)}
+          </List>
+        )}
+      </Page>
     );
   }
 }
