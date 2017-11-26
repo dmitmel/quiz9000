@@ -27,7 +27,8 @@ class Explore extends Component {
   };
 
   state = {
-    quizzes: null
+    quizzes: null,
+    loading: false
   };
 
   _pages = 1;
@@ -47,15 +48,18 @@ class Explore extends Component {
     // clean up prev ref
     if (this._fetchedRef) this._fetchedRef.off('value');
 
+    this.setState({ loading: true });
+
     this._fetchedRef = this._quizzesRef.limitToFirst(
       quizzesPerPage * this._pages
     );
     this._fetchedRef.on('value', snapshot =>
-      this.setState({ quizzes: snapshot.val() })
+      this.setState({ quizzes: snapshot.val(), loading: false })
     );
   }
 
   _onScroll = ({ target }) => {
+    if (this.state.loading) return;
     if (this._pages * quizzesPerPage >= this._quizzesLength) return;
 
     const { scrollTop, scrollHeight, clientHeight } = target;
@@ -68,7 +72,7 @@ class Explore extends Component {
   render() {
     const { classes } = this.props;
 
-    const { quizzes } = this.state;
+    const { quizzes, loading } = this.state;
 
     return (
       <Page title="Explore" contentProps={{ onScroll: this._onScroll }}>
@@ -77,6 +81,8 @@ class Explore extends Component {
             {quizzes.map(quiz => <Quiz {...quiz} />)}
           </List>
         )}
+
+        {loading && <CircularProgress className={classes.loading} />}
       </Page>
     );
   }
