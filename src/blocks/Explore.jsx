@@ -24,6 +24,7 @@ const styles = theme => ({
   }
 });
 
+const quizHeight = 68;
 const quizzesPerPage = 10;
 const scrollThreshold = 25;
 
@@ -37,43 +38,41 @@ class Explore extends Component {
     loading: false
   };
 
-  _pages = 1;
-  _quizzesLength = 0;
+  _listRef = null;
   _fetchedRef = null;
+  _quizzes = Math.ceil(window.innerHeight / quizHeight) + 1;
+  _quizzesLength = 0;
 
   componentDidMount() {
-    this._quizzesRef = database.ref('quizzes');
-    this._quizzesRef.on('value', snapshot => {
-      this._quizzesLength = snapshot.numChildren();
-    });
+    const quizzesRef = database.ref('quizzes');
+    this._listRef = quizzesRef.child('list');
 
-    this._fetchCurrent();
+    quizzesRef
+      .child('length')
+      .on('value', snapshot => (this._quizzesLength = snapshot.val()));
+
+    this._fetchQuizzes();
   }
 
-  _fetchCurrent() {
-    // clean up prev ref
+  _fetchQuizzes() {
     if (this._fetchedRef) this._fetchedRef.off('value');
 
     this.setState({ loading: true });
 
-    this._fetchedRef = this._quizzesRef.limitToFirst(
-      quizzesPerPage * this._pages
+    this._fetchedRef = this._listRef.limitToFirst(this._quizzes);
+    this._fetchedRef.on('value', snapshot =>
+      this.setState({ quizzes: snapshot.val(), loading: false })
     );
-    this._fetchedRef.on('value', snapshot => {
-      this.setState({ quizzes: snapshot.val(), loading: false });
-      this._checkListHeight();
-    });
   }
 
   _checkListHeight = () => {
     if (this.state.loading) return;
-    if (this._pages * quizzesPerPage >= this._quizzesLength) return;
+    if (this._quizzes >= this._quizzesLength) return;
 
     const { scrollTop, scrollHeight, clientHeight } = this.content;
     if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
-      this._pages += 1;
-      console.log(this._pages);
-      this._fetchCurrent();
+      this._quizzes += quizzesPerPage;
+      this._fetchQuizzes();
     }
   };
 
