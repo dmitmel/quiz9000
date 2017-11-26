@@ -6,18 +6,21 @@ import AppBar from './MainAppBar';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    height: '100vh'
+    display: 'flex'
   },
   content: {
     width: '100%',
+    height: 'calc(100vh - 56px)',
     marginTop: 56,
     padding: theme.spacing.unit * 3,
     backgroundColor: theme.palette.background.default,
+    overflow: 'auto',
     '@media (orientation: landscape)': {
+      height: 'calc(100vh - 48px)',
       marginTop: 48
     },
     [theme.breakpoints.up('sm')]: {
+      height: 'calc(100vh - 64px)',
       marginTop: 64
     }
   }

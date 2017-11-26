@@ -17,7 +17,6 @@ const logoSize = 2 / 3;
 const styles = theme => ({
   drawerPaper: {
     width: NavDrawer.width,
-    height: '100vh',
     [theme.breakpoints.up('md')]: {
       position: 'relative'
     }
