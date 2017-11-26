@@ -28,11 +28,15 @@ class Explore extends Component {
     quizzes: null
   };
 
-  pages = 1;
+  _pages = 1;
+  _quizzesLength = 0;
   _fetchedRef = null;
 
   componentDidMount() {
     this._quizzesRef = database.ref('quizzes');
+    this._quizzesRef.on('value', snapshot => {
+      this._quizzesLength = snapshot.numChildren();
+    });
     this._fetchCurrent();
   }
 
@@ -41,7 +45,7 @@ class Explore extends Component {
     if (this._fetchedRef) this._fetchedRef.off('value');
 
     this._fetchedRef = this._quizzesRef.limitToFirst(
-      quizzesPerPage * this.pages
+      quizzesPerPage * this._pages
     );
     this._fetchedRef.on('value', snapshot =>
       this.setState({ quizzes: snapshot.val() })
@@ -49,7 +53,7 @@ class Explore extends Component {
   }
 
   _fetchMore = () => {
-    this.pages += 1;
+    this._pages += 1;
     this._fetchCurrent();
   };
 
@@ -63,6 +67,9 @@ class Explore extends Component {
     if (!this.state) return null;
     const { quizzes } = this.state;
     if (!quizzes) return null;
+
+    const disableFetchMore =
+      this._pages * quizzesPerPage >= this._quizzesLength;
 
     return (
       <div>
@@ -86,7 +93,9 @@ class Explore extends Component {
         </List>
 
         <div>
-          <Button onClick={this._fetchMore}>Fetch more</Button>
+          <Button onClick={this._fetchMore} disabled={disableFetchMore}>
+            Fetch more
+          </Button>
         </div>
       </div>
     );
