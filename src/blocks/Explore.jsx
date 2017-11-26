@@ -90,7 +90,7 @@ class Explore extends Component {
         }}>
         {quizzes && (
           <List className={classes.list}>
-            {quizzes.map((quiz, i) => <Quiz key={i} {...quiz} />)}
+            {quizzes.map((quiz, i) => <Quiz key={quiz.id} {...quiz} />)}
           </List>
         )}
 
