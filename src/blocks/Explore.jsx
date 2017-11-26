@@ -8,17 +8,26 @@ import Quiz from './Quiz';
 import { database } from '../firebase';
 
 const styles = theme => ({
+  root: {
+    position: 'relative'
+  },
   list: {
-    background: theme.palette.background.paper,
-    marginBottom: theme.spacing.unit * 2.75
+    background: theme.palette.background.paper
   },
   loading: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  },
+  loadingAfterList: {
     display: 'block',
-    margin: '0 auto'
+    margin: '0 auto',
+    marginTop: theme.spacing.unit * 2.75
   }
 });
 
-const quizzesPerPage = 1;
+const quizzesPerPage = 10;
 const scrollThreshold = 25;
 
 class Explore extends Component {
@@ -58,11 +67,11 @@ class Explore extends Component {
     );
   }
 
-  _onScroll = ({ target }) => {
+  _checkListHeight = () => {
     if (this.state.loading) return;
     if (this._pages * quizzesPerPage >= this._quizzesLength) return;
 
-    const { scrollTop, scrollHeight, clientHeight } = target;
+    const { scrollTop, scrollHeight, clientHeight } = this.content;
     if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
       this._pages += 1;
       this._fetchCurrent();
@@ -75,14 +84,24 @@ class Explore extends Component {
     const { quizzes, loading } = this.state;
 
     return (
-      <Page title="Explore" contentProps={{ onScroll: this._onScroll }}>
+      <Page
+        title="Explore"
+        className={classes.root}
+        contentProps={{
+          onScroll: this._checkListHeight,
+          ref: content => (this.content = content)
+        }}>
         {quizzes && (
           <List className={classes.list}>
-            {quizzes.map(quiz => <Quiz {...quiz} />)}
+            {quizzes.map((quiz, i) => <Quiz key={i} {...quiz} />)}
           </List>
         )}
 
-        {loading && <CircularProgress className={classes.loading} />}
+        {loading && (
+          <CircularProgress
+            className={quizzes ? classes.loadingAfterList : classes.loading}
+          />
+        )}
       </Page>
     );
   }
