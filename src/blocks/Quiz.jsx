@@ -18,9 +18,7 @@ Quiz.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-function Quiz(props) {
-  const { name, description, image, classes } = props;
-
+function Quiz({ name, description, image, classes }) {
   return (
     <ListItem key={name} button>
       {/* eslint-disable indent */}

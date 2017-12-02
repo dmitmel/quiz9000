@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
+import { styles as getAvatarStyles } from 'material-ui/Avatar/Avatar';
+import { styles as getListItemStyles } from 'material-ui/List/ListItem';
 import Page from './Page';
 import Quiz from './Quiz';
 import { database } from '../firebase';
@@ -24,13 +26,13 @@ const styles = theme => ({
   }
 });
 
-const quizHeight = 68;
 const quizzesPerPage = 10;
 const scrollThreshold = 25;
 
 class Explore extends Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
   };
 
   state = {
@@ -38,47 +40,84 @@ class Explore extends Component {
     loading: false
   };
 
-  _listRef = null;
-  _fetchedRef = null;
-  _quizzes = Math.ceil(window.innerHeight / quizHeight) + 1;
   _quizzesLength = 0;
 
   componentDidMount() {
-    const quizzesRef = database.ref('quizzes');
-    this._listRef = quizzesRef.child('list');
+    const quizzesRef = database.ref('/quizzes');
 
-    quizzesRef
-      .child('length')
-      .on('value', snapshot => (this._quizzesLength = snapshot.val()));
-
-    this._fetchQuizzes();
+    // TODO: add sorting options
+    // get ref to the whole list
+    this._listRef = quizzesRef.child('/list').orderByKey();
+    // get length of the list without downloading it
+    quizzesRef.child('/length').once('value', snapshot => {
+      this._quizzesLength = snapshot.val();
+      this._fetchFirstPage();
+    });
   }
 
-  _fetchQuizzes() {
-    if (this._fetchedRef) this._fetchedRef.off('value');
+  _fetchFirstPage() {
+    const quizHeight = this._calcQuizHeight();
+    const count =
+      Math.ceil(window.innerHeight / quizHeight) +
+      // fetch one more to ensure that user can scroll
+      1;
+    this._fetchQuizzes(count);
+  }
 
-    this.setState({ loading: true });
-
-    this._fetchedRef = this._listRef.limitToFirst(this._quizzes);
-    this._fetchedRef.on('value', snapshot =>
-      this.setState({ quizzes: snapshot.val(), loading: false })
+  _calcQuizHeight() {
+    const { theme } = this.props;
+    const avatarStyles = getAvatarStyles(theme);
+    const listItemStyles = getListItemStyles(theme);
+    return (
+      avatarStyles.root.height +
+      listItemStyles.default.paddingTop +
+      listItemStyles.default.paddingBottom
     );
   }
 
-  _checkListHeight = () => {
+  _fetchQuizzes(count) {
     if (this.state.loading) return;
-    if (this._quizzes >= this._quizzesLength) return;
 
+    const currentQuizzes = this.state.quizzes || [];
+    if (currentQuizzes.length >= this._quizzesLength) return;
+
+    // start loading
+    this.setState({ loading: true }, () => {
+      const ref = (this._nextRef || this._listRef).limitToFirst(
+        count + /* fetch one more to get next key */ 1
+      );
+
+      ref.once('value', snapshot => {
+        const fetchedQuizzes = [];
+
+        // read fetched quizzes
+        let i = 0;
+        snapshot.forEach(quizRef => {
+          if (i < count) fetchedQuizzes.push(quizRef.val());
+          else
+            // create ref to next page
+            this._nextRef = this._listRef.startAt(quizRef.key);
+          i++;
+        });
+
+        // update state
+        this.setState(({ quizzes }) => ({
+          quizzes: (quizzes || []).concat(fetchedQuizzes),
+          loading: false
+        }));
+      });
+    });
+  }
+
+  _checkListHeight = () => {
     const { scrollTop, scrollHeight, clientHeight } = this.content;
     if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
-      this._quizzes += quizzesPerPage;
-      this._fetchQuizzes();
+      this._fetchQuizzes(quizzesPerPage);
     }
   };
 
   render() {
     const { classes } = this.props;
-
     const { quizzes, loading } = this.state;
 
     return (
@@ -90,7 +129,7 @@ class Explore extends Component {
         }}>
         {quizzes && (
           <List className={classes.list}>
-            {quizzes.map((quiz, i) => <Quiz key={quiz.id} {...quiz} />)}
+            {quizzes.map(quiz => <Quiz key={quiz.id} {...quiz} />)}
           </List>
         )}
 
@@ -104,4 +143,4 @@ class Explore extends Component {
   }
 }
 
-export default withStyles(styles)(Explore);
+export default withStyles(styles, { withTheme: true })(Explore);
