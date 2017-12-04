@@ -12,15 +12,16 @@ const styles = theme => ({
 });
 
 Quiz.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   image: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
 
-function Quiz({ name, description, image, classes }) {
+function Quiz({ id, name, description, image, classes }) {
   return (
-    <ListItem key={name} button>
+    <ListItem button component="a" href={`#/quiz/details/${id}`}>
       {/* eslint-disable indent */}
       {image ? 
         <Avatar src={image} alt="icon" className={classes.quizImage} />

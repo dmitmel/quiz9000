@@ -31,7 +31,7 @@ const styles = theme => ({
 
 class Page extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     search: PropTypes.func,
     classes: PropTypes.object.isRequired
   };

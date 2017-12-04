@@ -33,7 +33,7 @@ const styles = theme => ({
 });
 
 MainAppBar.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
 
@@ -53,13 +53,15 @@ function MainAppBar({ title, classes }, { openNav }) {
           <Icon>menu</Icon>
         </IconButton>
 
-        <Typography
-          type="title"
-          color="inherit"
-          noWrap
-          className={classes.title}>
-          {title}
-        </Typography>
+        {title && (
+          <Typography
+            type="title"
+            color="inherit"
+            noWrap
+            className={classes.title}>
+            {title}
+          </Typography>
+        )}
 
         <IconButton color="contrast" aria-label="Search">
           <Icon>search</Icon>

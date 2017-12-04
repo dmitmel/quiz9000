@@ -6,7 +6,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import { styles as getAvatarStyles } from 'material-ui/Avatar/Avatar';
 import { styles as getListItemStyles } from 'material-ui/List/ListItem';
 import Page from './Page';
-import Quiz from './Quiz';
+import ExploreListItem from './Explore/ExploreListItem';
 import { database } from '../firebase';
 
 const styles = theme => ({
@@ -129,7 +129,7 @@ class Explore extends Component {
         }}>
         {quizzes && (
           <List className={classes.list}>
-            {quizzes.map(quiz => <Quiz key={quiz.id} {...quiz} />)}
+            {quizzes.map(quiz => <ExploreListItem key={quiz.id} {...quiz} />)}
           </List>
         )}
 
