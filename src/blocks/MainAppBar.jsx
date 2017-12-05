@@ -22,10 +22,10 @@ const styles = theme => ({
       display: 'none'
     }
   },
-  moreIcon: {
-    width: 36,
-    marginRight: -12
-  },
+  // moreIcon: {
+  //   width: 36,
+  //   marginRight: -12
+  // },
   title: {
     // fill all available space
     flex: 1
@@ -63,7 +63,7 @@ function MainAppBar({ title, classes }, { openNav }) {
           </Typography>
         )}
 
-        <IconButton color="contrast" aria-label="Search">
+        {/* <IconButton color="contrast" aria-label="Search">
           <Icon>search</Icon>
         </IconButton>
         <IconButton
@@ -71,7 +71,7 @@ function MainAppBar({ title, classes }, { openNav }) {
           className={classes.moreIcon}
           aria-label="More">
           <Icon>more_vert</Icon>
-        </IconButton>
+        </IconButton> */}
       </Toolbar>
     </AppBar>
   );
