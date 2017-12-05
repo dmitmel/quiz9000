@@ -54,6 +54,7 @@ module.exports = {
       // changing JS code would still trigger a refresh.
     ],
     vendor: [
+      require.resolve('firebase'),
       require.resolve('./polyfills'),
       require.resolve('prop-types'),
       require.resolve('react'),

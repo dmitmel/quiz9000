@@ -57,6 +57,7 @@ module.exports = {
     // In production, we only want to load the polyfills and the app code.
     app: [require.resolve('./polyfills'), paths.appIndexJs],
     vendor: [
+      require.resolve('firebase'),
       require.resolve('./polyfills'),
       require.resolve('react'),
       require.resolve('react-dom'),

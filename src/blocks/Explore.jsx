@@ -48,6 +48,7 @@ class Explore extends Component {
     // TODO: add sorting options
     // get ref to the whole list
     this._listRef = quizzesRef.child('/list').orderByKey();
+    this._nextRef = this._listRef;
     // get length of the list without downloading it
     quizzesRef.child('/length').once('value', snapshot => {
       this._quizzesLength = snapshot.val();
@@ -83,7 +84,7 @@ class Explore extends Component {
 
     // start loading
     this.setState({ loading: true }, () => {
-      const ref = (this._nextRef || this._listRef).limitToFirst(
+      const ref = this._nextRef.limitToFirst(
         count + /* fetch one more to get next key */ 1
       );
 
