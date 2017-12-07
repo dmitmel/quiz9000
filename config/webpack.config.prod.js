@@ -10,7 +10,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
-const package = require('../package.json');
+const packageJson = require('../package.json');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -267,8 +267,8 @@ module.exports = {
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
     new webpack.DefinePlugin({
-      'process.env.repoURL': JSON.stringify(package.repository),
-      'process.env.bugsURL': JSON.stringify(package.bugs)
+      'process.env.repoURL': JSON.stringify(packageJson.repository),
+      'process.env.bugsURL': JSON.stringify(packageJson.bugs)
     }),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
