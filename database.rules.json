@@ -1,0 +1,11 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": false,
+    "quizzes": {
+      "list": {
+        ".indexOn": "id"
+      }
+    }
+  }
+}
