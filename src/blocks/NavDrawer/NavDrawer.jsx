@@ -9,8 +9,8 @@ import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
 import NavItem from './NavItem';
 
-import logoBlue from '../img/logo/blue.svg';
-import logoWhite from '../img/logo/white.svg';
+import logoBlue from '../../img/logo/blue.svg';
+import logoWhite from '../../img/logo/white.svg';
 
 const logoSize = 2 / 3;
 

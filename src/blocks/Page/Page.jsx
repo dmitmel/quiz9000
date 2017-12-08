@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import NavDrawer from './NavDrawer';
-import AppBar from './MainAppBar';
+import NavDrawer from '../NavDrawer';
+import AppBar from '../MainAppBar';
 
 const styles = theme => ({
   root: {

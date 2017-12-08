@@ -5,9 +5,9 @@ import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
 import { styles as getAvatarStyles } from 'material-ui/Avatar/Avatar';
 import { styles as getListItemStyles } from 'material-ui/List/ListItem';
-import Page from './Page';
-import ExploreListItem from './Explore/ExploreListItem';
-import { database } from '../firebase';
+import Page from '../Page';
+import ExploreListItem from './ExploreListItem';
+import { database } from '../../firebase';
 
 const styles = theme => ({
   list: {

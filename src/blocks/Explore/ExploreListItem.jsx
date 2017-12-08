@@ -11,7 +11,7 @@ const styles = theme => ({
   }
 });
 
-Quiz.propTypes = {
+ExploreListItem.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
@@ -19,7 +19,7 @@ Quiz.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-function Quiz({ id, name, description, image, classes }) {
+function ExploreListItem({ id, name, description, image, classes }) {
   return (
     <ListItem button component="a" href={`#/quiz/details/${id}`}>
       {/* eslint-disable indent */}
@@ -36,4 +36,4 @@ function Quiz({ id, name, description, image, classes }) {
   );
 }
 
-export default withStyles(styles)(Quiz);
+export default withStyles(styles)(ExploreListItem);
