@@ -8,7 +8,7 @@ import Router from './Router';
 // Helpers
 // =============================================================================
 
-const currentPath = '';
+let currentPath = '';
 
 function setPath(newPath) {
   window.location.hash = `#${newPath}`;
@@ -51,39 +51,6 @@ describe('A router', function() {
     setPath('/path');
     // then:
     expect(router.state('path')).toEqual(currentPath);
-  });
-
-  // `onPathChange`
-  // ===========================================================================
-  it('should not call `onPathChange` after init', function() {
-    // given:
-    setPath('/path');
-    const onPathChange = stub();
-    shallow(<Router routes={[]} onPathChange={onPathChange} />);
-    // then:
-    expect(onPathChange.notCalled).toBeTruthy();
-  });
-
-  it('should call `onPathChange` when `window.location.hash` changes', function() {
-    // given:
-    const onPathChange = stub();
-    shallow(<Router routes={[]} onPathChange={onPathChange} />);
-    // when:
-    setPath('/path/new');
-    // then:
-    expect(onPathChange.calledOnce).toBeTruthy();
-    expect(onPathChange.firstCall.args).toEqual([currentPath]);
-  });
-
-  it('should not call `onPathChange` after being unmounted', function() {
-    // given:
-    const onPathChange = stub();
-    const router = shallow(<Router routes={[]} onPathChange={onPathChange} />);
-    // when:
-    router.unmount();
-    setPath('/path');
-    // then:
-    expect(onPathChange.notCalled).toBeTruthy();
   });
 
   // Routes
