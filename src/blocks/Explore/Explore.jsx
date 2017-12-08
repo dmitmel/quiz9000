@@ -7,7 +7,7 @@ import { styles as getAvatarStyles } from 'material-ui/Avatar/Avatar';
 import { styles as getListItemStyles } from 'material-ui/List/ListItem';
 import Page from '../Page';
 import ExploreListItem from './ExploreListItem';
-import { database } from '../../firebase';
+import database, { quizzes as quizzesDB } from '../../db';
 
 const styles = theme => ({
   list: {
@@ -43,14 +43,11 @@ class Explore extends Component {
   _quizzesLength = 0;
 
   componentDidMount() {
-    const quizzesRef = database.ref('/quizzes');
+    this._quizzesGen = quizzesDB.quizzesGenerator();
+    this._quizzesGen.next();
 
-    // TODO: add sorting options
-    // get ref to the whole list
-    this._listRef = quizzesRef.child('/list').orderByKey();
-    this._nextRef = this._listRef;
     // get length of the list without downloading it
-    quizzesRef.child('/length').once('value', snapshot => {
+    database.ref('/quizzes/length').once('value', snapshot => {
       this._quizzesLength = snapshot.val();
       this._fetchFirstPage();
     });
@@ -83,31 +80,15 @@ class Explore extends Component {
     if (currentQuizzes.length >= this._quizzesLength) return;
 
     // start loading
-    this.setState({ loading: true }, () => {
-      const ref = this._nextRef.limitToFirst(
-        count + /* fetch one more to get next key */ 1
-      );
-
-      ref.once('value', snapshot => {
-        const fetchedQuizzes = [];
-
-        // read fetched quizzes
-        let i = 0;
-        snapshot.forEach(quizRef => {
-          if (i < count) fetchedQuizzes.push(quizRef.val());
-          else
-            // create ref to next page
-            this._nextRef = this._listRef.startAt(quizRef.key);
-          i++;
-        });
-
+    this.setState({ loading: true }, () =>
+      this._quizzesGen.next(count).value.then(fetchedQuizzes =>
         // update state
         this.setState(({ quizzes }) => ({
           quizzes: (quizzes || []).concat(fetchedQuizzes),
           loading: false
-        }));
-      });
-    });
+        }))
+      )
+    );
   }
 
   _checkListHeight = () => {

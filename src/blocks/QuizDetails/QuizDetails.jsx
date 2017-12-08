@@ -6,7 +6,7 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Page from '../Page';
-import { database } from '../../firebase';
+import { quizzes as quizzesDB } from '../../db';
 
 const styles = theme => ({
   loading: {
@@ -48,16 +48,11 @@ class QuizDetails extends Component {
   _fetchQuiz() {
     const id = parseInt(this.props.id, 10);
 
-    this.setState({ loading: true });
-
-    database
-      .ref('/quizzes/list')
-      .orderByChild('id')
-      .equalTo(id)
-      .limitToFirst(1)
-      .once('child_added', snapshot =>
-        this.setState({ quiz: snapshot.val(), loading: false })
-      );
+    this.setState({ loading: true }, () => {
+      quizzesDB
+        .findQuizBy('id', id)
+        .then(quiz => this.setState({ quiz, loading: false }));
+    });
   }
 
   render() {
