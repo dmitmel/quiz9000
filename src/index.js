@@ -1,7 +1,7 @@
 import registerServiceWorker from './registerServiceWorker';
 import 'normalize.css';
 import './resets.css';
-import renderApp from './render-app';
+import renderApp from './renderApp';
 
 registerServiceWorker();
 

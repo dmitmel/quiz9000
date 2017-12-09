@@ -5,7 +5,7 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import theme from './theme';
 import App from './blocks/App';
 
-export default function renderApp() {
+export default function renderAppHot() {
   const render = () => {
     ReactDOM.render(
       <AppContainer>

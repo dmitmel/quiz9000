@@ -10,7 +10,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
-const WebAppManifestPlugin = require('./web-app-manifest-plugin');
+const WebAppManifestPlugin = require('./WebAppManifestPlugin');
 const packageJson = require('../package.json');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
