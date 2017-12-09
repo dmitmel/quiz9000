@@ -64,7 +64,7 @@ class NavDrawer extends Component {
         <Toolbar>
           <img alt="logo" src={logoPath} className={classes.logo} />
           <Typography type="title" noWrap>
-            Quiz9000
+            {process.env.REACT_APP_NAME}
           </Typography>
         </Toolbar>
         <Divider />
