@@ -5,11 +5,10 @@ import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
-import { styles as getAvatarStyles } from 'material-ui/Avatar/Avatar';
-import { styles as getListItemStyles } from 'material-ui/List/ListItem';
 import Page from '../Page';
 import ExploreListItem from './ExploreListItem';
 import database, { quizzes as quizzesDB } from '../../db';
+import setState from '../../utils/setState';
 
 const styles = theme => ({
   list: {
@@ -33,8 +32,7 @@ const scrollThreshold = 25;
 
 class Explore extends Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired
   };
 
   state = {
@@ -45,58 +43,38 @@ class Explore extends Component {
   _quizzesLength = 0;
 
   componentDidMount() {
-    this._quizzesGen = quizzesDB.quizzesGenerator();
-    this._quizzesGen.next();
+    this._quizzesGen = quizzesDB.quizzesToPages(quizzesPerPage);
 
     // get length of the list without downloading it
     database.ref('/quizzes/length').once('value', snapshot => {
       this._quizzesLength = snapshot.val();
-      this._fetchFirstPage();
+      this._fetchMore();
     });
   }
 
-  _fetchFirstPage() {
-    const quizHeight = this._calcQuizHeight();
-    const count =
-      Math.ceil(window.innerHeight / quizHeight) +
-      // fetch one more to ensure that user can scroll
-      1;
-    this._fetchQuizzes(count);
-  }
-
-  _calcQuizHeight() {
-    const { theme } = this.props;
-    const avatarStyles = getAvatarStyles(theme);
-    const listItemStyles = getListItemStyles(theme);
-    return (
-      avatarStyles.root.height +
-      listItemStyles.default.paddingTop +
-      listItemStyles.default.paddingBottom
-    );
-  }
-
-  _fetchQuizzes(count) {
-    if (this.state.loading) return;
+  _fetchMore = () => {
+    if (this.state.loading) return null;
 
     const currentQuizzes = this.state.quizzes || [];
-    if (currentQuizzes.length >= this._quizzesLength) return;
+    if (currentQuizzes.length >= this._quizzesLength) return null;
 
-    // start loading
-    this.setState({ loading: true }, () =>
-      this._quizzesGen.next(count).value.then(fetchedQuizzes =>
-        // update state
-        this.setState(({ quizzes }) => ({
-          quizzes: (quizzes || []).concat(fetchedQuizzes),
-          loading: false
-        }))
-      )
-    );
-  }
-
-  _checkListHeight = () => {
     const { scrollTop, scrollHeight, clientHeight } = this.content;
-    if (scrollTop + clientHeight >= scrollHeight - scrollThreshold)
-      this._fetchQuizzes(quizzesPerPage);
+    if (scrollTop + clientHeight < scrollHeight - scrollThreshold) return null;
+
+    return (
+      setState(this, { loading: true })
+        // start loading
+        .then(() => this._quizzesGen.next().value)
+        // update state
+        .then(fetchedQuizzes =>
+          setState(this, ({ quizzes }) => ({
+            quizzes: (quizzes || []).concat(fetchedQuizzes),
+            loading: false
+          }))
+        )
+        // try again
+        .then(this._fetchMore)
+    );
   };
 
   render() {
@@ -120,7 +98,7 @@ class Explore extends Component {
           ]
         }}
         contentProps={{
-          onScroll: this._checkListHeight,
+          onScroll: this._fetchMore,
           ref: content => (this.content = content)
         }}>
         {quizzes && (
@@ -139,4 +117,4 @@ class Explore extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Explore);
+export default withStyles(styles)(Explore);
