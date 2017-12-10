@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import IconButton from 'material-ui/IconButton';
+import Icon from 'material-ui/Icon';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
 import { styles as getAvatarStyles } from 'material-ui/Avatar/Avatar';
@@ -93,9 +95,8 @@ class Explore extends Component {
 
   _checkListHeight = () => {
     const { scrollTop, scrollHeight, clientHeight } = this.content;
-    if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
+    if (scrollTop + clientHeight >= scrollHeight - scrollThreshold)
       this._fetchQuizzes(quizzesPerPage);
-    }
   };
 
   render() {
@@ -104,7 +105,7 @@ class Explore extends Component {
 
     return (
       <Page
-        title="Explore"
+        appBarProps={{ title: 'Explore' }}
         contentProps={{
           onScroll: this._checkListHeight,
           ref: content => (this.content = content)

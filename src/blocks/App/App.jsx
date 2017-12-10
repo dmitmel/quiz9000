@@ -10,7 +10,7 @@ export default function App() {
       routes={[
         {
           path: /^\/library\/?$/,
-          render: () => <Page title="Library" />
+          render: () => <Page appBarProps={{ title: 'Library' }} />
         },
         {
           path: /^\/explore\/?$/,

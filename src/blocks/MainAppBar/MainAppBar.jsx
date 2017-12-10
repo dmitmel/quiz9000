@@ -15,25 +15,26 @@ const styles = theme => ({
       width: `calc(100% - ${NavDrawer.width}px)`
     }
   },
-  navIcon: {
+  navButton: {
     marginLeft: -12,
     marginRight: 20,
     [theme.breakpoints.up('md')]: {
       display: 'none'
     }
   },
-  // moreIcon: {
-  //   width: 36,
-  //   marginRight: -12
-  // },
   title: {
     // fill all available space
     flex: 1
+  },
+  lastButton: {
+    // width: 36,
+    marginRight: -12
   }
 });
 
 MainAppBar.propTypes = {
   title: PropTypes.string,
+  buttons: PropTypes.arrayOf(PropTypes.element),
   classes: PropTypes.object.isRequired
 };
 
@@ -41,13 +42,27 @@ MainAppBar.contextTypes = {
   openNav: PropTypes.func.isRequired
 };
 
-function MainAppBar({ title, classes }, { openNav }) {
+function MainAppBar({ title, buttons, classes }, { openNav }) {
+  if (buttons) {
+    let lastButton = buttons[buttons.length - 1];
+    lastButton = (
+      <div key={-1} className={classes.lastButton}>
+        {lastButton}
+      </div>
+    );
+
+    buttons = buttons
+      .slice(0, -1)
+      .map((button, i) => <div key={i}>{button}</div>);
+    buttons.push(lastButton);
+  }
+
   return (
     <AppBar position="absolute" className={classes.root}>
       <Toolbar>
         <IconButton
           color="contrast"
-          className={classes.navIcon}
+          className={classes.navButton}
           onClick={openNav}
           aria-label="Menu">
           <Icon>menu</Icon>
@@ -63,10 +78,9 @@ function MainAppBar({ title, classes }, { openNav }) {
           </Typography>
         )}
 
-        {/* <IconButton color="contrast" aria-label="Search">
-          <Icon>search</Icon>
-        </IconButton>
-        <IconButton
+        {buttons}
+
+        {/* <IconButton
           color="contrast"
           className={classes.moreIcon}
           aria-label="More">

@@ -60,7 +60,7 @@ class QuizDetails extends Component {
     const { quiz, loading } = this.state;
 
     return (
-      <Page title={quiz && quiz.name}>
+      <Page appBarProps={{ title: 'Quiz' }}>
         {loading && <CircularProgress className={classes.loading} />}
 
         {quiz && (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import NavDrawer from '../NavDrawer';
-import AppBar from '../MainAppBar';
+import MainAppBar from '../MainAppBar';
 
 const styles = theme => ({
   root: {
@@ -32,8 +32,8 @@ const styles = theme => ({
 
 class Page extends Component {
   static propTypes = {
-    title: PropTypes.string,
-    search: PropTypes.func,
+    appBarProps: PropTypes.object,
+    contentProps: PropTypes.object,
     classes: PropTypes.object.isRequired
   };
 
@@ -58,12 +58,12 @@ class Page extends Component {
 
   render() {
     const { navOpen } = this.state;
-    const { title, classes, children, contentProps } = this.props;
+    const { appBarProps, contentProps, classes, children } = this.props;
 
     return (
       <div className={classes.root}>
         <NavDrawer open={navOpen} />
-        <AppBar title={title} />
+        <MainAppBar {...appBarProps} />
         <div className={classes.contentWrapper}>
           <main className={classes.content} {...contentProps}>
             {children}
