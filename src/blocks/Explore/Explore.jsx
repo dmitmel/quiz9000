@@ -105,7 +105,20 @@ class Explore extends Component {
 
     return (
       <Page
-        appBarProps={{ title: 'Explore' }}
+        appBarProps={{
+          title: 'Explore',
+          buttons: [
+            <IconButton color="contrast" aria-label="Search">
+              <Icon>search</Icon>
+            </IconButton>,
+            <IconButton color="contrast" aria-label="Sort by">
+              <Icon>sort</Icon>
+            </IconButton>,
+            <IconButton color="contrast" aria-label="Refresh">
+              <Icon>refresh</Icon>
+            </IconButton>
+          ]
+        }}
         contentProps={{
           onScroll: this._checkListHeight,
           ref: content => (this.content = content)
