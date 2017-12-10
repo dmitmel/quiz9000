@@ -16,20 +16,29 @@ const listRefByKeys = listRef.orderByKey();
 export function quizzesToPages() {
   let fetchedCount = 0;
 
-  function createQuery(count) {
-    return listRefByKeys
-      .startAt(String(fetchedCount))
-      .limitToFirst(count)
-      .once('value');
+  function getFetchedQuizzes(snapshot) {
+    const fetchedQuizzes = [];
+    snapshot.forEach(quizRef => {
+      fetchedQuizzes.push(quizRef.val());
+    });
+    return fetchedQuizzes;
   }
 
   return {
     fetchMore: count =>
-      createQuery(count).then(snapshot => {
-        const fetchedQuizzes = snapshot.val();
-        fetchedCount += fetchedQuizzes.length;
-        return fetchedQuizzes;
-      }),
-    reload: () => createQuery(fetchedCount).then(snapshot => snapshot.val())
+      listRefByKeys
+        .startAt(String(fetchedCount))
+        .limitToFirst(count)
+        .once('value')
+        .then(snapshot => {
+          const fetchedQuizzes = getFetchedQuizzes(snapshot);
+          fetchedCount += fetchedQuizzes.length;
+          return fetchedQuizzes;
+        }),
+    refresh: () =>
+      listRefByKeys
+        .limitToFirst(fetchedCount)
+        .once('value')
+        .then(getFetchedQuizzes)
   };
 }

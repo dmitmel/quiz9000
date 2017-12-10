@@ -37,7 +37,8 @@ class Explore extends Component {
 
   state = {
     quizzes: null,
-    loading: false
+    loading: false,
+    refreshing: false
   };
 
   _quizzesLength = 0;
@@ -77,9 +78,23 @@ class Explore extends Component {
     );
   };
 
+  _reload = () => {
+    if (this.state.loading) return null;
+
+    return setState(this, { loading: true, refreshing: true })
+      .then(this._quizzesGen.refresh)
+      .then(fetchedQuizzes =>
+        setState(this, {
+          quizzes: fetchedQuizzes,
+          loading: false,
+          refreshing: false
+        })
+      );
+  };
+
   render() {
     const { classes } = this.props;
-    const { quizzes, loading } = this.state;
+    const { quizzes, loading, refreshing } = this.state;
 
     return (
       <Page
@@ -92,7 +107,11 @@ class Explore extends Component {
             <IconButton color="contrast" aria-label="Sort by">
               <Icon>sort</Icon>
             </IconButton>,
-            <IconButton color="contrast" aria-label="Refresh">
+            <IconButton
+              color="contrast"
+              className={refreshing ? 'animation-spin' : ''}
+              onClick={this._reload}
+              aria-label="Refresh">
               <Icon>refresh</Icon>
             </IconButton>
           ]
