@@ -13,29 +13,23 @@ export function findQuizBy(prop, val) {
 }
 
 const listRefByKeys = listRef.orderByKey();
-export function* quizzesToPages(quizzesPerPage) {
-  let nextRef = listRefByKeys;
+export function quizzesToPages() {
+  let fetchedCount = 0;
 
-  function fetchMore() {
-    return nextRef
-      .limitToFirst(quizzesPerPage + /* fetch one more to get next key */ 1)
-      .once('value')
-      .then(snapshot => {
-        const fetchedQuizzes = [];
-
-        // read fetched quizzes
-        let i = 0;
-        snapshot.forEach(quizRef => {
-          if (i < quizzesPerPage) fetchedQuizzes.push(quizRef.val());
-          else
-            // create ref to next page
-            nextRef = listRefByKeys.startAt(quizRef.key);
-          i++;
-        });
-
-        return fetchedQuizzes;
-      });
+  function createQuery(count) {
+    return listRefByKeys
+      .startAt(String(fetchedCount))
+      .limitToFirst(count)
+      .once('value');
   }
 
-  while (true) yield fetchMore();
+  return {
+    fetchMore: count =>
+      createQuery(count).then(snapshot => {
+        const fetchedQuizzes = snapshot.val();
+        fetchedCount += fetchedQuizzes.length;
+        return fetchedQuizzes;
+      }),
+    reload: () => createQuery(fetchedCount).then(snapshot => snapshot.val())
+  };
 }

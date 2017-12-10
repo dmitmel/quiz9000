@@ -43,7 +43,7 @@ class Explore extends Component {
   _quizzesLength = 0;
 
   componentDidMount() {
-    this._quizzesGen = quizzesDB.quizzesToPages(quizzesPerPage);
+    this._quizzesGen = quizzesDB.quizzesToPages();
 
     // get length of the list without downloading it
     quizzesDB.lengthRef.once('value', snapshot => {
@@ -64,7 +64,7 @@ class Explore extends Component {
     return (
       setState(this, { loading: true })
         // start loading
-        .then(() => this._quizzesGen.next().value)
+        .then(() => this._quizzesGen.fetchMore(quizzesPerPage))
         // update state
         .then(fetchedQuizzes =>
           setState(this, ({ quizzes }) => ({
