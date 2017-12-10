@@ -1,6 +1,7 @@
 import { database } from './firebase';
 
 export const listRef = database.ref('/quizzes/list');
+export const lengthRef = database.ref('/quizzes/length');
 
 export function findQuizBy(prop, val) {
   return listRef

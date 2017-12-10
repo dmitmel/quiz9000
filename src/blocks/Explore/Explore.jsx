@@ -7,7 +7,7 @@ import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
 import Page from '../Page';
 import ExploreListItem from './ExploreListItem';
-import database, { quizzes as quizzesDB } from '../../db';
+import { quizzes as quizzesDB } from '../../db';
 import setState from '../../utils/setState';
 
 const styles = theme => ({
@@ -46,7 +46,7 @@ class Explore extends Component {
     this._quizzesGen = quizzesDB.quizzesToPages(quizzesPerPage);
 
     // get length of the list without downloading it
-    database.ref('/quizzes/length').once('value', snapshot => {
+    quizzesDB.lengthRef.once('value', snapshot => {
       this._quizzesLength = snapshot.val();
       this._fetchMore();
     });
