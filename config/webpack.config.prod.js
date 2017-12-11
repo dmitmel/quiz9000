@@ -169,7 +169,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test: /\.(s[ac]ss|css)$/,
+            test: /\.css$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -201,12 +201,6 @@ module.exports = {
                             flexbox: 'no-2009'
                           })
                         ],
-                        sourceMap: shouldUseSourceMap
-                      }
-                    },
-                    {
-                      loader: 'sass-loader',
-                      options: {
                         sourceMap: shouldUseSourceMap
                       }
                     }
