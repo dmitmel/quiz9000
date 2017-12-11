@@ -30,6 +30,12 @@ const styles = theme => ({
 const quizzesPerPage = 10;
 const scrollThreshold = 25;
 
+const LoadingState = {
+  noLoading: 0,
+  fetchingMore: 1,
+  refreshing: 2
+};
+
 class Explore extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired
@@ -37,8 +43,7 @@ class Explore extends Component {
 
   state = {
     quizzes: null,
-    loading: false,
-    refreshing: false
+    loadingState: LoadingState.noLoading
   };
 
   _quizzesLength = 0;
@@ -54,7 +59,7 @@ class Explore extends Component {
   }
 
   _fetchMore = () => {
-    if (this.state.loading) return null;
+    if (this.state.loadingState !== LoadingState.noLoading) return null;
 
     const currentQuizzes = this.state.quizzes || [];
     if (currentQuizzes.length >= this._quizzesLength) return null;
@@ -63,14 +68,14 @@ class Explore extends Component {
     if (scrollTop + clientHeight < scrollHeight - scrollThreshold) return null;
 
     return (
-      setState(this, { loading: true })
+      setState(this, { loadingState: LoadingState.fetchingMore })
         // start loading
         .then(() => this._quizzesGen.fetchMore(quizzesPerPage))
         // update state
         .then(fetchedQuizzes =>
           setState(this, ({ quizzes }) => ({
             quizzes: (quizzes || []).concat(fetchedQuizzes),
-            loading: false
+            loadingState: LoadingState.noLoading
           }))
         )
         // try again
@@ -78,23 +83,25 @@ class Explore extends Component {
     );
   };
 
-  _reload = () => {
-    if (this.state.loading) return null;
+  _refresh = () => {
+    if (this.state.loadingState !== LoadingState.noLoading) return null;
 
-    return setState(this, { loading: true, refreshing: true })
+    return setState(this, {
+      quizzes: null,
+      loadingState: LoadingState.refreshing
+    })
       .then(this._quizzesGen.refresh)
       .then(fetchedQuizzes =>
         setState(this, {
           quizzes: fetchedQuizzes,
-          loading: false,
-          refreshing: false
+          loadingState: LoadingState.noLoading
         })
       );
   };
 
   render() {
     const { classes } = this.props;
-    const { quizzes, loading, refreshing } = this.state;
+    const { quizzes, loadingState } = this.state;
 
     return (
       <Page
@@ -109,8 +116,11 @@ class Explore extends Component {
             </IconButton>,
             <IconButton
               color="contrast"
-              className={refreshing ? 'animation-spin' : ''}
-              onClick={this._reload}
+              disabled={loadingState !== LoadingState.noLoading}
+              className={
+                loadingState === LoadingState.refreshing ? 'animation-spin' : ''
+              }
+              onClick={this._refresh}
               aria-label="Refresh">
               <Icon>refresh</Icon>
             </IconButton>
@@ -126,7 +136,7 @@ class Explore extends Component {
           </List>
         )}
 
-        {loading && (
+        {loadingState !== LoadingState.noLoading && (
           <CircularProgress
             className={quizzes ? classes.loadingList : classes.loading}
           />
