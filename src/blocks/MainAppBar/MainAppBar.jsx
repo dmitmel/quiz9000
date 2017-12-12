@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -7,6 +7,7 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import NavDrawer from '../NavDrawer';
+import MainAppBarMenu from './MainAppBarMenu';
 
 const styles = theme => ({
   root: {
@@ -26,69 +27,61 @@ const styles = theme => ({
     // fill all available space
     flex: 1
   },
-  lastButton: {
-    // width: 36,
+  menuButton: {
+    width: 36,
     marginRight: -12
   }
 });
 
-MainAppBar.propTypes = {
-  title: PropTypes.string,
-  buttons: PropTypes.arrayOf(PropTypes.element),
-  classes: PropTypes.object.isRequired
-};
+class MainAppBar extends Component {
+  static propTypes = {
+    title: PropTypes.string,
+    buttons: PropTypes.arrayOf(PropTypes.element),
+    menuItems: PropTypes.array,
+    classes: PropTypes.object.isRequired
+  };
 
-MainAppBar.contextTypes = {
-  openNav: PropTypes.func.isRequired
-};
+  static contextTypes = {
+    openNav: PropTypes.func.isRequired
+  };
 
-function MainAppBar({ title, buttons, classes }, { openNav }) {
-  if (buttons) {
-    let lastButton = buttons[buttons.length - 1];
-    lastButton = (
-      <div key={-1} className={classes.lastButton}>
-        {lastButton}
-      </div>
+  render() {
+    const { title, buttons, menuItems, classes } = this.props;
+    const { openNav } = this.context;
+
+    return (
+      <AppBar position="absolute" className={classes.root}>
+        <Toolbar>
+          <IconButton
+            color="contrast"
+            className={classes.navButton}
+            onClick={openNav}
+            aria-label="Menu">
+            <Icon>menu</Icon>
+          </IconButton>
+
+          {title && (
+            <Typography
+              type="title"
+              color="inherit"
+              noWrap
+              className={classes.title}>
+              {title}
+            </Typography>
+          )}
+
+          {buttons && buttons.map((button, i) => <div key={i}>{button}</div>)}
+
+          {menuItems && (
+            <MainAppBarMenu
+              items={menuItems}
+              classes={{ button: classes.menuButton }}
+            />
+          )}
+        </Toolbar>
+      </AppBar>
     );
-
-    buttons = buttons
-      .slice(0, -1)
-      .map((button, i) => <div key={i}>{button}</div>);
-    buttons.push(lastButton);
   }
-
-  return (
-    <AppBar position="absolute" className={classes.root}>
-      <Toolbar>
-        <IconButton
-          color="contrast"
-          className={classes.navButton}
-          onClick={openNav}
-          aria-label="Menu">
-          <Icon>menu</Icon>
-        </IconButton>
-
-        {title && (
-          <Typography
-            type="title"
-            color="inherit"
-            noWrap
-            className={classes.title}>
-            {title}
-          </Typography>
-        )}
-
-        {buttons}
-
-        {/* <IconButton
-          color="contrast"
-          className={classes.moreIcon}
-          aria-label="More">
-          <Icon>more_vert</Icon>
-        </IconButton> */}
-      </Toolbar>
-    </AppBar>
-  );
 }
 
 export default withStyles(styles)(MainAppBar);

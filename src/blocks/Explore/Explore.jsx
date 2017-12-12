@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
+import { MenuItem } from 'material-ui/Menu';
 import Page from '../Page';
 import ExploreListItem from './ExploreListItem';
 import { quizzes as quizzesDB } from '../../db';
@@ -103,29 +104,26 @@ class Explore extends Component {
     const { classes } = this.props;
     const { quizzes, loadingState } = this.state;
 
+    const appBarProps = {
+      title: 'Explore',
+      buttons: [
+        <IconButton color="contrast" aria-label="Search">
+          <Icon>search</Icon>
+        </IconButton>
+      ],
+      menuItems: [
+        <MenuItem>Sort by</MenuItem>,
+        <MenuItem
+          disabled={loadingState !== LoadingState.noLoading}
+          onClick={this._refresh}>
+          Refresh
+        </MenuItem>
+      ]
+    };
+
     return (
       <Page
-        appBarProps={{
-          title: 'Explore',
-          buttons: [
-            <IconButton color="contrast" aria-label="Search">
-              <Icon>search</Icon>
-            </IconButton>,
-            <IconButton color="contrast" aria-label="Sort by">
-              <Icon>sort</Icon>
-            </IconButton>,
-            <IconButton
-              color="contrast"
-              disabled={loadingState !== LoadingState.noLoading}
-              className={
-                loadingState === LoadingState.refreshing ? 'animation-spin' : ''
-              }
-              onClick={this._refresh}
-              aria-label="Refresh">
-              <Icon>refresh</Icon>
-            </IconButton>
-          ]
-        }}
+        appBarProps={appBarProps}
         contentProps={{
           onScroll: this._fetchMore,
           ref: content => (this.content = content)
