@@ -17,8 +17,8 @@ export default function App() {
           render: () => <Explore />
         },
         {
-          path: /^\/quiz\/details\/(\d+)\/?$/,
-          render: ({ match }) => <QuizDetails id={match[1]} />
+          path: /^\/quiz\/(\d+)\/?$/,
+          render: ({ match }) => <QuizDetails id={parseInt(match[1], 10)} />
         },
         {
           path: /.*/,

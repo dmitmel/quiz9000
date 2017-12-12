@@ -21,7 +21,7 @@ ExploreListItem.propTypes = {
 
 function ExploreListItem({ id, name, description, image, classes }) {
   return (
-    <ListItem button component="a" href={`#/quiz/details/${id}`}>
+    <ListItem button component="a" href={`#/quiz/${id}`}>
       {/* eslint-disable indent */}
       {image ? 
         <Avatar src={image} alt="icon" className={classes.quizImage} />

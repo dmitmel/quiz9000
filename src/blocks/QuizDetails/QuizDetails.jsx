@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import IconButton from 'material-ui/IconButton';
+import Icon from 'material-ui/Icon';
+import { MenuItem } from 'material-ui/Menu';
 import { CircularProgress } from 'material-ui/Progress';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Page from '../Page';
 import { quizzes as quizzesDB } from '../../db';
+import setState from '../../utils/setState';
 
 const styles = theme => ({
   loading: {
@@ -32,7 +36,7 @@ const styles = theme => ({
 
 class QuizDetails extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     classes: PropTypes.object.isRequired
   };
 
@@ -45,22 +49,40 @@ class QuizDetails extends Component {
     this._fetchQuiz();
   }
 
-  _fetchQuiz() {
-    const id = parseInt(this.props.id, 10);
+  _fetchQuiz = () => {
+    if (this.state.loading) return null;
 
-    this.setState({ loading: true }, () => {
-      quizzesDB
-        .findQuizBy('id', id)
-        .then(quiz => this.setState({ quiz, loading: false }));
-    });
-  }
+    return setState(this, { loading: true })
+      .then(() => quizzesDB.findQuizBy('id', this.props.id))
+      .then(quiz => setState(this, { quiz, loading: false }));
+  };
+
+  _refresh = () => {
+    if (this.state.loading) return null;
+
+    return setState(this, { quiz: null }).then(this._fetchQuiz);
+  };
 
   render() {
     const { classes } = this.props;
     const { quiz, loading } = this.state;
 
+    const appBarProps = {
+      title: 'Quiz',
+      buttons: [
+        <IconButton color="contrast" aria-label="Search">
+          <Icon>search</Icon>
+        </IconButton>
+      ],
+      menuItems: [
+        <MenuItem disabled={loading} onClick={this._refresh}>
+          Refresh
+        </MenuItem>
+      ]
+    };
+
     return (
-      <Page appBarProps={{ title: 'Quiz' }}>
+      <Page appBarProps={appBarProps}>
         {loading && <CircularProgress className={classes.loading} />}
 
         {quiz && (
