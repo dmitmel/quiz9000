@@ -37,33 +37,17 @@ class Page extends Component {
     classes: PropTypes.object.isRequired
   };
 
-  static childContextTypes = {
-    openNav: PropTypes.func.isRequired,
-    closeNav: PropTypes.func.isRequired
+  _openNav = () => {
+    this._nav && this._nav.open();
   };
-
-  state = { navOpen: false };
-
-  openNav = () => {
-    this.setState({ navOpen: true });
-  };
-
-  closeNav = () => {
-    this.setState({ navOpen: false });
-  };
-
-  getChildContext() {
-    return { openNav: this.openNav, closeNav: this.closeNav };
-  }
 
   render() {
-    const { navOpen } = this.state;
     const { appBarProps, contentProps, classes, children } = this.props;
 
     return (
       <div className={classes.root}>
-        <NavDrawer open={navOpen} />
-        <MainAppBar {...appBarProps} />
+        <NavDrawer selfRef={nav => (this._nav = nav)} />
+        <MainAppBar openNav={this._openNav} {...appBarProps} />
         <div className={classes.contentWrapper}>
           <main className={classes.content} {...contentProps}>
             {children}

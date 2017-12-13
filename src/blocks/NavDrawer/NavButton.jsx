@@ -9,18 +9,9 @@ NavButton.propTypes = {
   onClick: PropTypes.func
 };
 
-NavButton.contextTypes = {
-  closeNav: PropTypes.func.isRequired
-};
-
-export default function NavButton({ icon, text, onClick }, { closeNav }) {
+export default function NavButton({ icon, text, onClick }) {
   return (
-    <ListItem
-      button
-      onClick={() => {
-        onClick && onClick();
-        closeNav();
-      }}>
+    <ListItem button onClick={onClick}>
       <ListItemIcon>
         <Icon>{icon}</Icon>
       </ListItemIcon>

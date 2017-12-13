@@ -35,19 +35,15 @@ const styles = theme => ({
 
 class MainAppBar extends Component {
   static propTypes = {
+    openNav: PropTypes.func,
     title: PropTypes.string,
     buttons: PropTypes.arrayOf(PropTypes.element),
     menuItems: PropTypes.array,
     classes: PropTypes.object.isRequired
   };
 
-  static contextTypes = {
-    openNav: PropTypes.func.isRequired
-  };
-
   render() {
-    const { title, buttons, menuItems, classes } = this.props;
-    const { openNav } = this.context;
+    const { openNav, title, buttons, menuItems, classes } = this.props;
 
     return (
       <AppBar position="absolute" className={classes.root}>
@@ -56,7 +52,7 @@ class MainAppBar extends Component {
             color="contrast"
             className={classes.navButton}
             onClick={openNav}
-            aria-label="Menu">
+            aria-label="Open nav">
             <Icon>menu</Icon>
           </IconButton>
 

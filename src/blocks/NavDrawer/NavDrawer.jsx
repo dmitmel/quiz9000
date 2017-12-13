@@ -43,22 +43,34 @@ class NavDrawer extends Component {
   static width = 280;
 
   static propTypes = {
-    open: PropTypes.bool.isRequired,
+    selfRef: PropTypes.func,
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired
   };
 
-  static contextTypes = {
-    closeNav: PropTypes.func.isRequired
+  state = { open: false };
+
+  componentDidMount() {
+    const { selfRef } = this.props;
+    selfRef && selfRef(this);
+  }
+
+  open = () => {
+    this.setState({ open: true });
+  };
+
+  close = () => {
+    this.setState({ open: false });
   };
 
   _openSettings = () => {
+    this.close();
     this._settings.open();
   };
 
   render() {
-    const { open, classes, theme } = this.props;
-    const { closeNav } = this.context;
+    const { classes, theme } = this.props;
+    const { open } = this.state;
 
     const logoPath = theme.palette.type === 'dark' ? logoWhite : logoBlue;
 
@@ -73,8 +85,18 @@ class NavDrawer extends Component {
         <Divider />
 
         <List>
-          <NavLink icon="library_books" text="Library" link="#/library" />
-          <NavLink icon="apps" text="Explore" link="#/explore" />
+          <NavLink
+            icon="library_books"
+            text="Library"
+            link="#/library"
+            onClick={this.close}
+          />
+          <NavLink
+            icon="apps"
+            text="Explore"
+            link="#/explore"
+            onClick={this.close}
+          />
         </List>
         <Divider />
         <List>
@@ -87,11 +109,13 @@ class NavDrawer extends Component {
             icon="code"
             text="Source code"
             link={process.env.REACT_APP_REPO}
+            onClick={this.close}
           />
           <NavLink
             icon="bug_report"
             text="Report a bug"
             link={process.env.REACT_APP_BUGS}
+            onClick={this.close}
           />
         </List>
       </div>
@@ -104,7 +128,7 @@ class NavDrawer extends Component {
             type="temporary"
             anchor="left"
             open={open}
-            onRequestClose={closeNav}
+            onRequestClose={this.close}
             ModalProps={{ keepMounted: true }}
             classes={{ paper: classes.drawerPaper }}>
             {navItems}
