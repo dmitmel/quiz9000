@@ -7,7 +7,9 @@ import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
 import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
-import NavItem from './NavItem';
+import NavLink from './NavLink';
+import NavButton from './NavButton';
+import Settings from '../Settings';
 
 import logoBlue from '../../img/logo/blue.svg';
 import logoWhite from '../../img/logo/white.svg';
@@ -37,9 +39,6 @@ const styles = theme => ({
   }
 });
 
-const repoURL = process.env.repoURL;
-const bugsURL = process.env.bugsURL;
-
 class NavDrawer extends Component {
   static width = 280;
 
@@ -51,6 +50,10 @@ class NavDrawer extends Component {
 
   static contextTypes = {
     closeNav: PropTypes.func.isRequired
+  };
+
+  _openSettings = () => {
+    this._settings.open();
   };
 
   render() {
@@ -70,14 +73,26 @@ class NavDrawer extends Component {
         <Divider />
 
         <List>
-          <NavItem icon="library_books" text="Library" link="#/library" />
-          <NavItem icon="apps" text="Explore" link="#/explore" />
+          <NavLink icon="library_books" text="Library" link="#/library" />
+          <NavLink icon="apps" text="Explore" link="#/explore" />
         </List>
         <Divider />
         <List>
-          <NavItem icon="settings" text="Settings" link="#/settings" />
-          <NavItem icon="code" text="Source code" link={repoURL} />
-          <NavItem icon="bug_report" text="Report a bug" link={bugsURL} />
+          <NavButton
+            icon="settings"
+            text="Settings"
+            onClick={this._openSettings}
+          />
+          <NavLink
+            icon="code"
+            text="Source code"
+            link={process.env.REACT_APP_REPO}
+          />
+          <NavLink
+            icon="bug_report"
+            text="Report a bug"
+            link={process.env.REACT_APP_BUGS}
+          />
         </List>
       </div>
     );
@@ -103,6 +118,8 @@ class NavDrawer extends Component {
             {navItems}
           </Drawer>
         </Hidden>
+
+        <Settings ref={settings => (this._settings = settings)} />
       </div>
     );
   }

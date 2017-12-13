@@ -11,7 +11,6 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const WebAppManifestPlugin = require('./WebAppManifestPlugin');
-const packageJson = require('../package.json');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -261,10 +260,6 @@ module.exports = {
     // It is absolutely essential that NODE_ENV was set to production here.
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
-    new webpack.DefinePlugin({
-      'process.env.repoURL': JSON.stringify(packageJson.repository),
-      'process.env.bugsURL': JSON.stringify(packageJson.bugs)
-    }),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
       compress: {

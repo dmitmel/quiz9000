@@ -10,7 +10,6 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const WebAppManifestPlugin = require('./WebAppManifestPlugin');
-const packageJson = require('../package.json');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -241,10 +240,6 @@ module.exports = {
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
     new webpack.DefinePlugin(env.stringified),
-    new webpack.DefinePlugin({
-      'process.env.repoURL': JSON.stringify(packageJson.repository),
-      'process.env.bugsURL': JSON.stringify(packageJson.bugs)
-    }),
     // This is necessary to emit hot updates (currently CSS only):
     new webpack.HotModuleReplacementPlugin(),
     // Watcher doesn't work well if you mistype casing in a path so we use

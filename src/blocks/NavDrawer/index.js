@@ -1,2 +1,3 @@
 export { default } from './NavDrawer';
-export { default as NavItem } from './NavItem';
+export { default as NavLink } from './NavLink';
+export { default as NavButton } from './NavButton';
