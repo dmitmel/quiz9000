@@ -9,13 +9,13 @@ const styles = theme => ({
     display: 'flex'
   },
   contentWrapper: {
-    width: '100%',
-    position: 'relative'
+    width: '100%'
   },
   content: {
     height: 'calc(100vh - 56px)',
     marginTop: 56,
     padding: theme.spacing.unit * 2,
+    position: 'relative',
     backgroundColor: theme.palette.background.default,
     overflow: 'auto',
     '@media (orientation: landscape)': {

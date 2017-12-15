@@ -96,7 +96,7 @@ class QuizDetails extends Component {
               <div className={classes.headerRight}>
                 <Typography type="title">{quiz.name}</Typography>
                 <Typography type="subheading">
-                  {quiz.author || 'Unknown author'}
+                  {quiz.author ? quiz.author.name : 'Unknown author'}
                 </Typography>
               </div>
             </div>

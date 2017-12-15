@@ -12,26 +12,23 @@ const styles = theme => ({
 });
 
 ExploreListItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  image: PropTypes.string,
+  quiz: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired
 };
 
-function ExploreListItem({ id, name, description, image, classes }) {
+function ExploreListItem({ quiz, classes }) {
   return (
-    <ListItem button component="a" href={`#/quiz/${id}`}>
+    <ListItem button component="a" href={`#/quiz/${quiz.id}`}>
       {/* eslint-disable indent */}
-      {image ? 
-        <Avatar src={image} alt="icon" className={classes.quizImage} />
-       : (
+      {quiz.image ? ( // eslint-disable-line no-extra-parens
+        <Avatar src={quiz.image} alt="icon" className={classes.quizImage} />
+      ) : (
         <Avatar>
           <Icon>book</Icon>
         </Avatar>
       )}
       {/* eslint-enable indent */}
-      <ListItemText primary={name} secondary={description} />
+      <ListItemText primary={quiz.name} secondary={quiz.description} />
     </ListItem>
   );
 }
