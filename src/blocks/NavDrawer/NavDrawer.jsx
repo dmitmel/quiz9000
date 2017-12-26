@@ -128,7 +128,7 @@ class NavDrawer extends Component {
             type="temporary"
             anchor="left"
             open={open}
-            onRequestClose={this.close}
+            onClose={this.close}
             ModalProps={{ keepMounted: true }}
             classes={{ paper: classes.drawerPaper }}>
             {navItems}

@@ -24,7 +24,7 @@ export default class Settings extends React.Component {
     const { open } = this.state;
 
     return (
-      <Dialog open={open} onRequestClose={this.close}>
+      <Dialog open={open} onClose={this.close}>
         <DialogTitle>Settings</DialogTitle>
         <DialogContent>
           <DialogContentText>Settings will be here.</DialogContentText>
