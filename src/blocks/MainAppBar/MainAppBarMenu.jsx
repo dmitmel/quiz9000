@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
-import Menu from 'material-ui/Menu';
+import Menu, { MenuItem } from 'material-ui/Menu';
 
 const styles = {
+  root: {},
   button: {},
   item: {
     '&:focus': {
@@ -14,11 +15,15 @@ const styles = {
   }
 };
 
-let menuCounter = 0;
-
 class MainAppBarMenu extends Component {
   static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.element),
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        disabled: PropTypes.bool,
+        onClick: PropTypes.func
+      })
+    ).isRequired,
     classes: PropTypes.object.isRequired
   };
 
@@ -26,8 +31,6 @@ class MainAppBarMenu extends Component {
     open: false,
     button: null
   };
-
-  _menuID = `MainAppBarMenu-${menuCounter++}`;
 
   _open = e => {
     this.setState({ open: true, button: e.currentTarget });
@@ -48,23 +51,28 @@ class MainAppBarMenu extends Component {
           className={classes.button}
           onClick={this._open}
           aria-label="Open menu"
-          aria-owns={open ? this._menuID : null}
+          aria-owns={open ? classes.root : null}
           aria-haspopup="true">
           <Icon>more_vert</Icon>
         </IconButton>
 
         {items && (
           <Menu
-            id={this._menuID}
+            id={classes.root}
             anchorEl={button}
             open={open}
             onClose={this._close}>
             {items &&
-              items.map((item, i) => (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                <div key={i} className={classes.item} onClick={this._close}>
-                  {item}
-                </div>
+              items.map(({ name, disabled, onClick }) => (
+                <MenuItem
+                  key={name}
+                  disabled={disabled}
+                  onClick={() => {
+                    this._close();
+                    onClick && onClick();
+                  }}>
+                  {name}
+                </MenuItem>
               ))}
           </Menu>
         )}

@@ -63,7 +63,9 @@ function MainAppBar({ openNav, title, buttons, menuItems, classes }) {
           </Typography>
         )}
 
-        {buttons && buttons.map((button, i) => <div key={i}>{button}</div>)}
+        {buttons &&
+          // eslint-disable-next-line react/no-array-index-key
+          buttons.map((button, i) => <div key={i}>{button}</div>)}
 
         {menuItems && (
           <MainAppBarMenu

@@ -5,7 +5,6 @@ import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
-import { MenuItem } from 'material-ui/Menu';
 import Page from '../Page';
 import ExploreListItem from './ExploreListItem';
 import { quizzes as quizzesDB } from '../../db';
@@ -112,12 +111,14 @@ class Explore extends Component {
         </IconButton>
       ],
       menuItems: [
-        <MenuItem>Sort by</MenuItem>,
-        <MenuItem
-          disabled={loadingState !== LoadingState.noLoading}
-          onClick={this._refresh}>
-          Refresh
-        </MenuItem>
+        {
+          name: 'Sort by'
+        },
+        {
+          name: 'Refresh',
+          disabled: loadingState !== LoadingState.noLoading,
+          onClick: this._refresh
+        }
       ]
     };
 

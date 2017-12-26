@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
-import { MenuItem } from 'material-ui/Menu';
 import { CircularProgress } from 'material-ui/Progress';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
@@ -34,7 +33,8 @@ const styles = theme => ({
   }
 });
 
-class QuizDetails extends Component {
+@withStyles(styles)
+export default class QuizDetails extends Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     classes: PropTypes.object.isRequired
@@ -75,9 +75,11 @@ class QuizDetails extends Component {
         </IconButton>
       ],
       menuItems: [
-        <MenuItem disabled={loading} onClick={this._refresh}>
-          Refresh
-        </MenuItem>
+        {
+          name: 'Refresh',
+          disabled: loading,
+          onClick: this._refresh
+        }
       ]
     };
 
@@ -110,5 +112,3 @@ class QuizDetails extends Component {
     );
   }
 }
-
-export default withStyles(styles)(QuizDetails);

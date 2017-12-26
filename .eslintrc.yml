@@ -52,7 +52,6 @@ rules:
         - src/**/*.test.{js,jsx}
     - optionalDependencies: false
   react/forbid-prop-types: off
-  react/no-array-index-key: off
   react/prop-types:
     - error
     - ignore:
