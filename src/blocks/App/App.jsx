@@ -18,6 +18,7 @@ export default function App() {
         },
         {
           path: /^\/quiz\/(\d+)\/?$/,
+          // eslint-disable-next-line react/prop-types
           render: ({ match }) => <QuizDetails id={parseInt(match[1], 10)} />
         },
         {
