@@ -5,14 +5,14 @@ import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import Menu from 'material-ui/Menu';
 
-const styles = theme => ({
+const styles = {
   button: {},
   item: {
     '&:focus': {
       outline: 'none'
     }
   }
-});
+};
 
 let menuCounter = 0;
 
@@ -61,6 +61,7 @@ class MainAppBarMenu extends Component {
             onRequestClose={this._close}>
             {items &&
               items.map((item, i) => (
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                 <div key={i} className={classes.item} onClick={this._close}>
                   {item}
                 </div>
