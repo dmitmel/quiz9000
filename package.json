@@ -48,6 +48,7 @@
     "jest": "^22.0.4",
     "postcss-flexbugs-fixes": "^3.2.0",
     "postcss-loader": "^2.0.6",
+    "raf": "^3.4.0",
     "react-dev-utils": "^4.1.0",
     "react-hot-loader": "^3.0.0",
     "react-test-renderer": "^16.0.0",
@@ -74,7 +75,7 @@
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
-      "<rootDir>/config/jest/polyfills.js",
+      "raf/polyfill",
       "<rootDir>/config/jest/enzyme.js"
     ],
     "testMatch": [
