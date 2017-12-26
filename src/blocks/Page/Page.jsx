@@ -37,6 +37,11 @@ class Page extends Component {
     classes: PropTypes.object.isRequired
   };
 
+  static defaultProps = {
+    appBarProps: {},
+    contentProps: {}
+  };
+
   _openNav = () => {
     this._nav && this._nav.open();
   };
