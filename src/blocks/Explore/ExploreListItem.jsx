@@ -5,11 +5,11 @@ import { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import Icon from 'material-ui/Icon';
 
-const styles = theme => ({
+const styles = {
   quizImage: {
     borderRadius: 0
   }
-});
+};
 
 ExploreListItem.propTypes = {
   quiz: PropTypes.object.isRequired,
@@ -19,15 +19,13 @@ ExploreListItem.propTypes = {
 function ExploreListItem({ quiz, classes }) {
   return (
     <ListItem button component="a" href={`#/quiz/${quiz.id}`}>
-      {/* eslint-disable indent */}
-      {quiz.image ? ( // eslint-disable-line no-extra-parens
+      {quiz.image ? (
         <Avatar src={quiz.image} alt="icon" className={classes.quizImage} />
       ) : (
         <Avatar>
           <Icon>book</Icon>
         </Avatar>
       )}
-      {/* eslint-enable indent */}
       <ListItemText primary={quiz.name} secondary={quiz.description} />
     </ListItem>
   );
