@@ -39,7 +39,8 @@ const styles = theme => ({
   }
 });
 
-class NavDrawer extends Component {
+@withStyles(styles, { withTheme: true })
+export default class NavDrawer extends Component {
   static width = 280;
 
   static propTypes = {
@@ -148,5 +149,3 @@ class NavDrawer extends Component {
     );
   }
 }
-
-export default withStyles(styles, { withTheme: true })(NavDrawer);

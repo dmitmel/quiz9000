@@ -15,7 +15,8 @@ const styles = {
   }
 };
 
-class MainAppBarMenu extends Component {
+@withStyles(styles)
+export default class MainAppBarMenu extends Component {
   static propTypes = {
     items: PropTypes.arrayOf(
       PropTypes.shape({
@@ -80,5 +81,3 @@ class MainAppBarMenu extends Component {
     );
   }
 }
-
-export default withStyles(styles)(MainAppBarMenu);

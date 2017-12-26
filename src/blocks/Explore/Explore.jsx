@@ -36,7 +36,8 @@ const LoadingState = {
   refreshing: 2
 };
 
-class Explore extends Component {
+@withStyles(styles)
+export default class Explore extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired
   };
@@ -144,5 +145,3 @@ class Explore extends Component {
     );
   }
 }
-
-export default withStyles(styles)(Explore);

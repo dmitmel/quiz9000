@@ -30,7 +30,8 @@ const styles = theme => ({
   }
 });
 
-class Page extends Component {
+@withStyles(styles)
+export default class Page extends Component {
   static propTypes = {
     appBarProps: PropTypes.object,
     contentProps: PropTypes.object,
@@ -62,5 +63,3 @@ class Page extends Component {
     );
   }
 }
-
-export default withStyles(styles)(Page);
