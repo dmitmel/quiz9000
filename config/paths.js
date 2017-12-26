@@ -2,54 +2,36 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
-// Make sure any symlinks in the project folder are resolved:
+// fs.realpathSync makes sure all symlinks are resolved
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
-
-const envPublicUrl = process.env.PUBLIC_URL;
-
-function ensureSlash(path, needsSlash) {
-  const hasSlash = path.endsWith('/');
-  if (hasSlash && !needsSlash) {
-    return path.substr(path, path.length - 1);
-  } else if (!hasSlash && needsSlash) {
-    return `${path}/`;
-  } else {
-    return path;
-  }
+function resolveFile(relativePath) {
+  return path.resolve(appDirectory, relativePath);
 }
 
-const getPublicUrl = appPackageJson =>
-  envPublicUrl || require(appPackageJson).homepage;
+const appPackageJson = resolveFile('package.json');
+const publicUrl =
+  process.env.PUBLIC_URL || require(appPackageJson).homepage || '/';
 
-// We use `PUBLIC_URL` environment variable or "homepage" field to infer
-// "public path" at which the app is served.
-// Webpack needs to know it to put the right <script> hrefs into HTML even in
-// single-page apps that may serve index.html for nested URLs like /todos/42.
-// We can't use a relative path in HTML because we don't want to load something
-// like /todos/42/static/js/bundle.7289d.js. We have to know the root.
-function getServedPath(appPackageJson) {
-  const publicUrl = getPublicUrl(appPackageJson);
-  const servedUrl =
-    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
-  return ensureSlash(servedUrl, true);
+function removeSlash(filePath) {
+  const hasSlash = filePath.endsWith('/');
+  return hasSlash ? filePath.slice(0, -1) : filePath;
 }
 
-// config after eject: we're in ./config/
 module.exports = {
-  dotenv: resolveApp('.env'),
-  appBuild: resolveApp('build'),
-  appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/index.js'),
-  appRenderJs: resolveApp('src/renderApp.js'),
-  appRenderHotJs: resolveApp('src/renderAppHot.js'),
-  appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('src'),
-  yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveApp('src/setupTests.js'),
-  appNodeModules: resolveApp('node_modules'),
-  publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json'))
+  appDirectory,
+  dotenv: resolveFile('.env'),
+  appBuild: resolveFile('build'),
+  appPublic: resolveFile('public'),
+  appHtml: resolveFile('public/index.html'),
+  appIndexJs: resolveFile('src/index.js'),
+  appRenderJs: resolveFile('src/renderApp.js'),
+  appRenderHotJs: resolveFile('src/renderAppHot.js'),
+  appPackageJson,
+  appSrc: resolveFile('src'),
+  yarnLockFile: resolveFile('yarn.lock'),
+  appNodeModules: resolveFile('node_modules'),
+  publicUrl,
+  // `servedPath` is where the app is served from
+  servedPath: removeSlash(url.parse(publicUrl).pathname)
 };

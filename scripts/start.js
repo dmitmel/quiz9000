@@ -1,6 +1,7 @@
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
+process.env.PUBLIC_URL = '/';
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
@@ -33,9 +34,7 @@ const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1);
-}
+if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) process.exit(1);
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
@@ -66,25 +65,25 @@ choosePort(HOST, DEFAULT_PORT)
     // Launch WebpackDevServer.
     devServer.listen(port, HOST, err => {
       if (err) {
-        return console.log(err);
+        console.log(err);
+        return;
       }
-      if (isInteractive) {
-        clearConsole();
-      }
+
+      if (isInteractive) clearConsole();
+
       console.log(chalk.cyan('Starting the development server...\n'));
       openBrowser(urls.localUrlForBrowser);
     });
 
-    ['SIGINT', 'SIGTERM'].forEach(function(sig) {
-      process.on(sig, function() {
+    ['SIGINT', 'SIGTERM'].forEach(sig => {
+      process.on(sig, () => {
         devServer.close();
         process.exit();
       });
     });
   })
   .catch(err => {
-    if (err && err.message) {
-      console.log(err.message);
-    }
+    if (err && err.message) console.log(err.message);
+
     process.exit(1);
   });

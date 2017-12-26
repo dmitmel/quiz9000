@@ -21,6 +21,7 @@ rules:
     - consistent
   func-names: off
   function-paren-newline: off
+  global-require: off
   max-len: off
   no-param-reassign: off
   no-console: off
@@ -44,6 +45,7 @@ rules:
         array: false
         object: false
     - enforceForRenamedProperties: false
+  import/no-dynamic-require: off
   import/no-extraneous-dependencies:
     - error
     - devDependencies:
