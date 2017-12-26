@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
-import { stub } from 'sinon';
 
 import Router from './Router';
 
@@ -23,7 +22,7 @@ function setPath(newPath) {
 // Tests
 // =============================================================================
 
-describe('A router', function() {
+describe('A router', () => {
   it('renders without crashing', () => {
     render(<Router routes={[]} />);
   });
@@ -36,7 +35,7 @@ describe('A router', function() {
 
   // `window.location.hash`
   // ===========================================================================
-  it('should initialize with `window.location.hash`', function() {
+  it('should initialize with `window.location.hash`', () => {
     // given:
     setPath('/path');
     const router = shallow(<Router routes={[]} />);
@@ -44,7 +43,7 @@ describe('A router', function() {
     expect(router.state('path')).toEqual(currentPath);
   });
 
-  it('should update path when `window.location.hash` changes', function() {
+  it('should update path when `window.location.hash` changes', () => {
     // given:
     const router = shallow(<Router routes={[]} />);
     // when:
@@ -55,7 +54,7 @@ describe('A router', function() {
 
   // Routes
   // ===========================================================================
-  it('should not render anything after init if route does not have render function', function() {
+  it('should not render anything after init if route does not have render function', () => {
     // given:
     setPath('/route');
     const routes = [
@@ -68,7 +67,7 @@ describe('A router', function() {
     expect(router.isEmptyRender()).toBeTruthy();
   });
 
-  it('should not render anything if route does not have render function', function() {
+  it('should not render anything if route does not have render function', () => {
     // given:
     const routes = [
       {
@@ -83,7 +82,7 @@ describe('A router', function() {
     expect(router.isEmptyRender()).toBeTruthy();
   });
 
-  it('should render matching route after init', function() {
+  it('should render matching route after init', () => {
     // given:
     setPath('/route');
     const route = <h1>/route</h1>;
@@ -98,7 +97,7 @@ describe('A router', function() {
     expect(router.equals(route)).toBeTruthy();
   });
 
-  it('should render matching route', function() {
+  it('should render matching route', () => {
     // given:
     const route = <h1>/route</h1>;
     const routes = [
@@ -115,7 +114,7 @@ describe('A router', function() {
     expect(router.equals(route)).toBeTruthy();
   });
 
-  it('should not render anything after init if there are no matching routes', function() {
+  it('should not render anything after init if there are no matching routes', () => {
     // given:
     setPath('/route/not-matching');
     const routes = [
@@ -129,7 +128,7 @@ describe('A router', function() {
     expect(router.isEmptyRender()).toBeTruthy();
   });
 
-  it('should not render anything if there are no matching routes', function() {
+  it('should not render anything if there are no matching routes', () => {
     // given:
     const routes = [
       {
@@ -147,7 +146,7 @@ describe('A router', function() {
 
   // Redirects
   // ===========================================================================
-  it('should handle redirects after init', function() {
+  it('should handle redirects after init', () => {
     // given:
     setPath('/route/1');
     const route = <h1>/route/2</h1>;
@@ -169,7 +168,7 @@ describe('A router', function() {
     expect(router.equals(route)).toBeTruthy();
   });
 
-  it('should handle redirects', function() {
+  it('should handle redirects', () => {
     // given:
     const route = <h1>/route/2</h1>;
     const routes = [

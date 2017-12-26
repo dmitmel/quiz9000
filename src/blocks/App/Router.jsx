@@ -1,6 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
+function getPath() {
+  return window.location.hash.slice(1);
+}
+
 export default class Router extends Component {
   static propTypes = {
     routes: PropTypes.arrayOf(
@@ -12,16 +16,7 @@ export default class Router extends Component {
     ).isRequired
   };
 
-  state = { path: this._getPath() };
-
-  _getPath() {
-    return window.location.hash.slice(1);
-  }
-
-  _onHashChange = () => {
-    const path = this._getPath();
-    this.setState({ path });
-  };
+  state = { path: getPath() };
 
   componentDidMount() {
     window.addEventListener('hashchange', this._onHashChange);
@@ -31,10 +26,18 @@ export default class Router extends Component {
     window.removeEventListener('hashchange', this._onHashChange);
   }
 
+  _onHashChange = () => {
+    const path = getPath();
+    this.setState({ path });
+  };
+
   render() {
+    const { routes } = this.props;
     const currentPath = this.state.path;
 
-    for (const { path, render, redirect } of this.props.routes) {
+    for (let i = 0; i < routes.length; i++) {
+      const { path, render, redirect } = routes[i];
+
       const match = path.exec(currentPath);
       if (match) {
         if (redirect) {
