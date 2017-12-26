@@ -1,47 +1,65 @@
-extends: react-app
+extends:
+  - airbnb
+  - plugin:prettier/recommended
+  - prettier/react
+parser: babel-eslint
+parserOptions:
+  ecmaFeatures:
+    generators: true
 env:
-  jquery: true
+  browser: true
+  commonjs: true
+  jest: true
 rules:
-  indent:
-    - warn
-    - 2
-  linebreak-style:
+  arrow-parens: off
+  comma-dangle:
     - error
-    - unix
-  quotes:
-    - warn
-    - single
-    - avoidEscape: true
-  semi:
-    - warn
-    - always
+    - never
+  curly:
+    - error
+    - multi-or-nest
+    - consistent
+  func-names: off
+  function-paren-newline: off
+  max-len: off
+  no-param-reassign: off
   no-console: off
-  no-debugger: off
-  no-empty:
-    - warn
-  no-extra-parens:
-    - warn
-    - all
-    - conditionalAssign: false
-      returnAssign: false
-      ignoreJSX: multi-line
-  no-extra-semi: warn
-  block-scoped-var: error
-  consistent-return: error
-  dot-notation: warn
-  no-floating-decimal: warn
-  no-global-assign: error
-  no-implicit-coercion: error
-  no-invalid-this: off
-  no-multi-spaces: warn
-  no-useless-return: warn
+  no-mixed-operators: off
+  no-multi-assign: off
+  no-nested-ternary: off
+  no-plusplus: off
   no-return-assign: off
-  no-void: error
-  no-shadow: warn
-  no-undef-init: error
-  no-catch-shadow: warn
-  global-require: off
-  jsx-a11y/anchor-is-valid:
-    - warn
-    - aspects: invalidHref
-  jsx-a11y/href-no-hash: off
+  no-underscore-dangle: off
+  no-unused-expressions:
+    - error
+    - allowShortCircuit: true
+  no-use-before-define: off
+  object-curly-newline: off
+  prefer-destructuring:
+    - error
+    - VariableDeclarator:
+        array: false
+        object: true
+      AssignmentExpression:
+        array: false
+        object: false
+    - enforceForRenamedProperties: false
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies:
+        - scripts/*.js
+        - config/**/*.js
+        - src/**/*.test.{js,jsx}
+    - optionalDependencies: false
+  react/forbid-prop-types: off
+  react/no-array-index-key: off
+  react/prop-types:
+    - error
+    - ignore:
+        - children
+      customValidators: []
+      skipUndeclared: false
+  react/require-default-props: off
+settings:
+  react:
+    version: 16.2.0
