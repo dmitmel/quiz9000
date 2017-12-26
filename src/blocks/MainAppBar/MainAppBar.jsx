@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -33,51 +33,47 @@ const styles = theme => ({
   }
 });
 
-class MainAppBar extends Component {
-  static propTypes = {
-    openNav: PropTypes.func,
-    title: PropTypes.string,
-    buttons: PropTypes.arrayOf(PropTypes.element),
-    menuItems: PropTypes.array,
-    classes: PropTypes.object.isRequired
-  };
+MainAppBar.propTypes = {
+  openNav: PropTypes.func,
+  title: PropTypes.string,
+  buttons: PropTypes.arrayOf(PropTypes.element),
+  menuItems: PropTypes.array,
+  classes: PropTypes.object.isRequired
+};
 
-  render() {
-    const { openNav, title, buttons, menuItems, classes } = this.props;
+function MainAppBar({ openNav, title, buttons, menuItems, classes }) {
+  return (
+    <AppBar position="absolute" className={classes.root}>
+      <Toolbar>
+        <IconButton
+          color="contrast"
+          className={classes.navButton}
+          onClick={openNav}
+          aria-label="Open nav">
+          <Icon>menu</Icon>
+        </IconButton>
 
-    return (
-      <AppBar position="absolute" className={classes.root}>
-        <Toolbar>
-          <IconButton
-            color="contrast"
-            className={classes.navButton}
-            onClick={openNav}
-            aria-label="Open nav">
-            <Icon>menu</Icon>
-          </IconButton>
+        {title && (
+          <Typography
+            type="title"
+            color="inherit"
+            noWrap
+            className={classes.title}>
+            {title}
+          </Typography>
+        )}
 
-          {title && (
-            <Typography
-              type="title"
-              color="inherit"
-              noWrap
-              className={classes.title}>
-              {title}
-            </Typography>
-          )}
+        {buttons && buttons.map((button, i) => <div key={i}>{button}</div>)}
 
-          {buttons && buttons.map((button, i) => <div key={i}>{button}</div>)}
-
-          {menuItems && (
-            <MainAppBarMenu
-              items={menuItems}
-              classes={{ button: classes.menuButton }}
-            />
-          )}
-        </Toolbar>
-      </AppBar>
-    );
-  }
+        {menuItems && (
+          <MainAppBarMenu
+            items={menuItems}
+            classes={{ button: classes.menuButton }}
+          />
+        )}
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 export default withStyles(styles)(MainAppBar);
