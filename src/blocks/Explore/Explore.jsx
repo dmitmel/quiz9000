@@ -47,8 +47,6 @@ class Explore extends Component {
     loadingState: LoadingState.noLoading
   };
 
-  _quizzesLength = 0;
-
   componentDidMount() {
     this._quizzesGen = quizzesDB.quizzesToPages();
 
@@ -58,6 +56,8 @@ class Explore extends Component {
       this._fetchMore();
     });
   }
+
+  _quizzesLength = 0;
 
   _fetchMore = () => {
     if (this.state.loadingState !== LoadingState.noLoading) return null;
