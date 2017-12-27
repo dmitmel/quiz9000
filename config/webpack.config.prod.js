@@ -44,7 +44,10 @@ module.exports = {
       'promise/lib/es6-extensions',
       'react',
       'react-dom',
-      'whatwg-fetch'
+      'whatwg-fetch',
+      'react-redux',
+      'redux',
+      'redux-thunk'
     ].map(resolve)
   },
   output: {
@@ -55,7 +58,7 @@ module.exports = {
     publicPath: paths.servedPath,
     // format paths in source maps as URLs on Windows
     devtoolModuleFilenameTemplate: info =>
-      path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
+      path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
   },
   resolve: {
     modules: ['node_modules', paths.appNodeModules],

@@ -41,6 +41,9 @@ module.exports = {
       'react',
       'react-dom',
       'react-error-overlay',
+      'react-redux',
+      'redux',
+      'redux-thunk',
       'whatwg-fetch'
     ].map(resolve)
   },
