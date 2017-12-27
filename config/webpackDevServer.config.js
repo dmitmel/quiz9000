@@ -1,10 +1,9 @@
-const fs = require('fs');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
 const config = require('./webpack.config.dev');
 const paths = require('./paths');
 
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
+const https = process.env.HTTPS === 'true';
 const host = process.env.HOST || '0.0.0.0';
 
 module.exports = function(proxy, allowedHost) {
@@ -67,12 +66,8 @@ module.exports = function(proxy, allowedHost) {
       ignored: /node_modules/
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
-    https: protocol === 'https' && {
-      key: fs.readFileSync('key.pem', 'utf-8'),
-      cert: fs.readFileSync('cert.pem', 'utf-8'),
-      passphrase: 'abcd'
-    },
-    host: host,
+    https,
+    host,
     overlay: false,
     historyApiFallback: {
       // Paths with dots should still use the history fallback.
