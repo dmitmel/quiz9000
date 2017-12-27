@@ -1,22 +1,24 @@
 import React from 'react';
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'react-router-redux';
+import routerHistory from '../../utils/routerHistory';
 import Library from '../Library';
 import Explore from '../Explore';
 import QuizDetails from '../QuizDetails';
 
 export default function App() {
   return (
-    <Router>
+    <Router history={routerHistory}>
       <Switch>
         <Route exact path="/library" component={Library} />
         <Route exact path="/explore" component={Explore} />
-        <Route exact path="/quiz/:id" component={QuizDetails} />
-        {/* redirect from unknown paths */}
+        <Route
+          exact
+          path="/quiz/:id"
+          render={({ match }) => (
+            <QuizDetails id={parseInt(match.params.id, 10)} />
+          )}
+        />
         <Redirect to="/library" />
       </Switch>
     </Router>
