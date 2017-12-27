@@ -47,6 +47,7 @@
     "fs-extra": "^5.0.0",
     "gh-pages": "^1.1.0",
     "html-webpack-plugin": "^2.29.0",
+    "http-server": "^0.10.0",
     "jest": "^22.0.4",
     "postcss-flexbugs-fixes": "^3.2.0",
     "postcss-loader": "^2.0.6",
@@ -66,6 +67,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "serve-build": "PUBLIC_URL=/ yarn build && http-server build",
     "test": "node scripts/test.js",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build"
@@ -94,9 +96,6 @@
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
     ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web"
-    },
     "moduleFileExtensions": [
       "web.js",
       "js",
