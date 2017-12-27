@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -7,8 +8,7 @@ import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
 import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
-import NavLink from './NavLink';
-import NavButton from './NavButton';
+import NavItem from './NavItem';
 import Settings from '../Settings';
 
 import logoBlue from '../../img/logo/blue.svg';
@@ -86,36 +86,40 @@ export default class NavDrawer extends Component {
         <Divider />
 
         <List>
-          <NavLink
+          <NavItem
             icon="library_books"
             text="Library"
-            link="#/library"
+            component={Link}
+            to="/library"
             onClick={this.close}
           />
-          <NavLink
+          <NavItem
             icon="apps"
             text="Explore"
-            link="#/explore"
+            component={Link}
+            to="/explore"
             onClick={this.close}
           />
         </List>
         <Divider />
         <List>
-          <NavButton
+          <NavItem
             icon="settings"
             text="Settings"
             onClick={this._openSettings}
           />
-          <NavLink
+          <NavItem
             icon="code"
             text="Source code"
-            link={process.env.REACT_APP_REPO}
+            component="a"
+            href={process.env.REACT_APP_REPO}
             onClick={this.close}
           />
-          <NavLink
+          <NavItem
             icon="bug_report"
             text="Report a bug"
-            link={process.env.REACT_APP_BUGS}
+            component="a"
+            href={process.env.REACT_APP_BUGS}
             onClick={this.close}
           />
         </List>

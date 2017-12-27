@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
@@ -18,7 +19,7 @@ ExploreListItem.propTypes = {
 
 function ExploreListItem({ quiz, classes }) {
   return (
-    <ListItem button component="a" href={`#/quiz/${quiz.id}`}>
+    <ListItem button component={Link} to={`/quiz/${quiz.id}`}>
       {quiz.image ? (
         <Avatar src={quiz.image} alt="icon" className={classes.quizImage} />
       ) : (

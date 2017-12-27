@@ -1,31 +1,24 @@
 import React from 'react';
-import Router from './Router';
-import Page from '../Page';
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
+import Library from '../Library';
 import Explore from '../Explore';
 import QuizDetails from '../QuizDetails';
 
 export default function App() {
   return (
-    <Router
-      routes={[
-        {
-          path: /^\/library\/?$/,
-          render: () => <Page appBarProps={{ title: 'Library' }} />
-        },
-        {
-          path: /^\/explore\/?$/,
-          render: () => <Explore />
-        },
-        {
-          path: /^\/quiz\/(\d+)\/?$/,
-          // eslint-disable-next-line react/prop-types
-          render: ({ match }) => <QuizDetails id={parseInt(match[1], 10)} />
-        },
-        {
-          path: /.*/,
-          redirect: '/library'
-        }
-      ]}
-    />
+    <Router>
+      <Switch>
+        <Route exact path="/library" component={Library} />
+        <Route exact path="/explore" component={Explore} />
+        <Route exact path="/quiz/:id" component={QuizDetails} />
+        {/* redirect from unknown paths */}
+        <Redirect to="/library" />
+      </Switch>
+    </Router>
   );
 }

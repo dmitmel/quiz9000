@@ -5,14 +5,12 @@ import Icon from 'material-ui/Icon';
 
 NavLink.propTypes = {
   icon: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
-  onClick: PropTypes.func
+  text: PropTypes.string.isRequired
 };
 
-export default function NavLink({ icon, text, link, onClick }) {
+export default function NavLink({ icon, text, ...linkProps }) {
   return (
-    <ListItem button component="a" href={link} onClick={onClick}>
+    <ListItem button {...linkProps}>
       <ListItemIcon>
         <Icon>{icon}</Icon>
       </ListItemIcon>

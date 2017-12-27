@@ -36,7 +36,7 @@ const styles = theme => ({
 @withStyles(styles)
 export default class QuizDetails extends Component {
   static propTypes = {
-    id: PropTypes.number.isRequired,
+    match: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
   };
 
@@ -52,8 +52,11 @@ export default class QuizDetails extends Component {
   _fetchQuiz = () => {
     if (this.state.loading) return null;
 
+    const { match } = this.props;
+    const id = parseInt(match.params.id, 10);
+
     return setState(this, { loading: true })
-      .then(() => quizzesDB.findQuizBy('id', this.props.id))
+      .then(() => quizzesDB.findQuizBy('id', id))
       .then(quiz => setState(this, { quiz, loading: false }));
   };
 

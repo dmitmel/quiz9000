@@ -46,6 +46,7 @@ module.exports = {
       'react-dom',
       'whatwg-fetch',
       'react-redux',
+      'react-router',
       'redux',
       'redux-thunk'
     ].map(resolve)
