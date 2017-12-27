@@ -148,7 +148,7 @@ module.exports = {
                         '>1%',
                         'last 4 versions',
                         'Firefox ESR',
-                        'not ie < 9' // react doesn't support IE8
+                        'not ie < 9' // React doesn't support IE8
                       ],
                       flexbox: 'no-2009'
                     })
@@ -165,7 +165,7 @@ module.exports = {
             // it's runtime that would otherwise processed by the `file` loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpack's internal loaders
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            exclude: /\.(js|html|json)$/,
             loader: resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]'
@@ -210,6 +210,7 @@ module.exports = {
       { test: file => file === paths.appRenderJs },
       paths.appRenderHotJs
     ),
+    // generates manifest.json and browserconfig.xml
     new WebAppManifestPlugin()
   ],
   // Some libraries import Node modules but don't use them in the browser.

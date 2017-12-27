@@ -12,114 +12,101 @@ const env = require('./env');
 const paths = require('./paths');
 const WebAppManifestPlugin = require('./WebAppManifestPlugin');
 
-// Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+const { resolve } = require;
 
-// Assert this just to be safe.
-// Development builds of React are slow and not intended for production.
+// source maps are resource heavy and can cause out of memory issue for large
+// source files
+const shouldUseSourceMap = process.env.GENERATE_SOURCE_MAP !== 'false';
+
+// assert this because development builds of React are slow and aren't intended
+// for production.
 if (env.stringified['process.env'].NODE_ENV !== '"production"')
   throw new Error('Production builds must have NODE_ENV=production.');
 
-// This is the production configuration.
-// It compiles slowly and is focused on producing a fast and minimal bundle.
-// The development configuration is different and lives in a separate file.
+// this config compiles slowly and is focused on producing a fast and minimal
+// bundle.
 module.exports = {
-  // Don't attempt to continue if there are any errors.
+  // don't attempt to continue if there are any errors
   bail: true,
-  // We generate sourcemaps in production. This is slow but gives good results.
-  // You can exclude the *.map files from the build during deployment.
-  devtool: shouldUseSourceMap ? 'source-map' : false,
+  // generate source maps only if necessary
+  devtool: shouldUseSourceMap && 'source-map',
   entry: {
-    // In production, we only want to load the polyfills and the app code.
-    app: [require.resolve('./polyfills'), paths.appIndexJs],
+    // The `app` bundle contains **app** code
+    app: [resolve('./polyfills'), paths.appIndexJs],
+    // The `vendor` bundle contains **libraries**. Their code is excluded from
+    // the `app` bundle into a separate one for improving caching in the
+    // browser because they don't change so often
     vendor: [
-      require.resolve('firebase'),
-      require.resolve('./polyfills'),
-      require.resolve('react'),
-      require.resolve('react-dom'),
-      require.resolve('react-transition-group')
-    ]
+      'firebase',
+      'object-assign',
+      'prop-types',
+      'promise/lib/rejection-tracking',
+      'promise/lib/es6-extensions',
+      'react',
+      'react-dom',
+      'whatwg-fetch'
+    ].map(resolve)
   },
   output: {
-    // The build folder.
     path: paths.appBuild,
-    // Generated JS file names (with nested folders).
-    // There will be one main bundle, and one file per asynchronous chunk.
-    // We don't currently advertise code splitting but Webpack supports it.
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-    // We inferred the "public path" (such as / or /my-project) from homepage.
+    // this is where the app is served from (`/` in the development)
     publicPath: paths.servedPath,
-    // Point sourcemap entries to original disk location (format as URL on Windows)
+    // format paths in source maps as URLs on Windows
     devtoolModuleFilenameTemplate: info =>
       path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
   },
   resolve: {
-    // This allows you to set a fallback for where Webpack should look for modules.
-    // We placed these paths second because we want `node_modules` to "win"
-    // if there are any conflicts. This matches Node resolution mechanism.
-    // https://github.com/facebookincubator/create-react-app/issues/253
     modules: ['node_modules', paths.appNodeModules],
-    // These are the reasonable defaults supported by the Node ecosystem.
-    // We also include JSX as a common component filename extension to support
-    // some tools, although we do not recommend using it, see:
-    // https://github.com/facebookincubator/create-react-app/issues/290
-    // `web` extension prefixes have been added for better support
-    // for React Native Web.
-    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
-    alias: {
-      // Support React Native Web
-      // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
-    },
+    extensions: [
+      '.js',
+      '.json',
+      // include JSX as a common component filename extension
+      '.jsx'
+    ],
     plugins: [
-      // Prevents users from importing files from outside of src/ (or node_modules/).
-      // This often causes confusion because we only process files within src/ with babel.
-      // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
-      // please link the files into your node_modules/ and let module-resolution kick in.
-      // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
+      // prevents from importing files outside of `src/` or `node_modules/`
+      new ModuleScopePlugin(paths.appSrc, [
+        // exceptions:
+        paths.appPackageJson
+      ])
     ]
   },
   module: {
+    // report missing exports as errors instead of warnings
     strictExportPresence: true,
     rules: [
-      // TODO: Disable require.ensure as it's not a standard language feature.
-      // We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
-      // { parser: { requireEnsure: false } },
-
-      // First, run the linter.
-      // It's important to do this before Babel processes the JS.
+      // run the linter
       {
         test: /\.(js|jsx)$/,
+        include: paths.appSrc,
+        // it's important to do this before Babel processes the JS
         enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint')
-            },
-            loader: require.resolve('eslint-loader')
-          }
-        ],
-        include: paths.appSrc
+        loader: resolve('eslint-loader'),
+        options: {
+          formatter: eslintFormatter,
+          configFile: '.eslintrc.yml',
+          eslintPath: resolve('eslint')
+        }
       },
       {
-        // "oneOf" will traverse all following loaders until one will
+        // `oneOf` will traverse all following loaders until one will
         // match the requirements. When no loader matches it will fall
-        // back to the "file" loader at the end of the loader list.
+        // back to the `file` loader at the end of the loader list
         oneOf: [
-          // "url" loader works just like "file" loader but it also embeds
-          // assets smaller than specified size as data URLs to avoid requests.
+          // `url` loader works like `file` loader except that it embeds small
+          // assets as data URLs to avoid requests
           {
-            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-            loader: require.resolve('url-loader'),
+            test: /\.(bmp|gif|jpe?g|png)$/,
+            loader: resolve('url-loader'),
             options: {
-              limit: 10000,
+              // limit for asset size in bytes
+              limit: 8192, // 8 KiB
               name: 'static/media/[name].[hash:8].[ext]'
             }
           },
-          // Process JS with Babel.
+          // process JS with Babel
           {
             test: /\.(js|jsx)$/,
             include: paths.appSrc,
@@ -128,35 +115,28 @@ module.exports = {
               compact: true
             }
           },
-          // The notation here is somewhat confusing.
-          // "postcss" loader applies autoprefixer to our CSS.
-          // "css" loader resolves paths in CSS and adds assets as dependencies.
-          // "style" loader normally turns CSS into JS modules injecting <style>,
-          // but unlike in development configuration, we do something different.
-          // `ExtractTextPlugin` first applies the "postcss" and "css" loaders
-          // (second argument), then grabs the result CSS and puts it into a
-          // separate file in our build process. This way we actually ship
-          // a single CSS file in production instead of JS code injecting <style>
-          // tags. If you use code splitting, however, any async bundles will still
-          // use the "style" loader inside the async code so CSS from them won't be
-          // in the main CSS file.
           {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract({
-              fallback: require.resolve('style-loader'),
+              // `style` loader turns CSS from async bundles into JS modules
+              // that inject <style> tags
+              fallback: resolve('style-loader'),
               use: [
                 {
-                  loader: require.resolve('css-loader'),
+                  // `css` loader resolves paths in CSS and adds assets as
+                  // dependencies
+                  loader: resolve('css-loader'),
                   options: {
-                    importLoaders: 1,
+                    importLoaders: true,
                     minimize: true,
                     sourceMap: shouldUseSourceMap
                   }
                 },
                 {
-                  loader: require.resolve('postcss-loader'),
+                  // `postcss` loader applies autoprefixer to CSS
+                  loader: resolve('postcss-loader'),
                   options: {
-                    // Necessary for external CSS imports to work
+                    // `ident` is necessary for external CSS imports to work
                     // https://github.com/facebookincubator/create-react-app/issues/2677
                     ident: 'postcss',
                     plugins: () => [
@@ -176,37 +156,31 @@ module.exports = {
                 }
               ]
             })
-            // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
-          // "file" loader makes sure assets end up in the `build` folder.
-          // When you `import` an asset, you get its filename.
-          // This loader don't uses a "test" so it will catch all modules
-          // that fall through the other loaders.
+          // When you `import` a static asset, `file` loader returns asset's
+          // public URL. This loader will catch all modules that fall through
+          // the other loaders
           {
-            loader: require.resolve('file-loader'),
-            // Exclude `js` files to keep "css" loader working as it injects
-            // it's runtime that would otherwise processed through "file" loader.
+            loader: resolve('file-loader'),
+            // Exclude JS files to keep `css` loader working because it injects
+            // it's runtime that would otherwise processed by the `file` loader.
             // Also exclude `html` and `json` extensions so they get processed
-            // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            // by webpack's internal loaders
+            exclude: /\.(js|html|json)$/,
             options: {
               name: 'static/media/[name].[hash:8].[ext]'
             }
           }
-          // ** STOP ** Are you adding a new loader?
-          // Make sure to add the new loader(s) before the "file" loader.
         ]
       }
     ]
   },
   plugins: [
     // Makes some environment variables available in index.html.
-    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // The served path is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    // In production, it will be an empty string unless you specify "homepage"
-    // in `package.json`, in which case it will be the pathname of that URL.
     new InterpolateHtmlPlugin(env.raw),
-    // Generates an `index.html` file with the <script> injected.
+    // injects <script> tags into `index.html`
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -224,9 +198,7 @@ module.exports = {
       }
     }),
     // Makes some environment variables available to the JS code, for example:
-    // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
-    // It is absolutely essential that NODE_ENV was set to production here.
-    // Otherwise React will be compiled in the very slow development mode.
+    // if (process.env.NODE_ENV === 'development') { ... }
     new webpack.DefinePlugin({ 'process.env': env.stringified }),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
@@ -246,18 +218,15 @@ module.exports = {
       },
       sourceMap: shouldUseSourceMap
     }),
-    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
+    // extracts CSS into a separate file
     new ExtractTextPlugin({
       filename: 'static/css/[name].[contenthash:8].css'
     }),
-    // Generate a manifest file which contains a mapping of all asset filenames
-    // to their corresponding output file so that tools can pick it up without
-    // having to parse `index.html`.
-    new ManifestPlugin({
-      fileName: 'asset-manifest.json'
-    }),
-    // Generate a service worker script that will precache, and keep up to date,
-    // the HTML & assets that are part of the Webpack build.
+    // generates a manifest file which contains a mapping of all asset
+    // filenames to their corresponding output file
+    new ManifestPlugin({ fileName: 'asset-manifest.json' }),
+    // generates a service worker script that will precache and keep up to date
+    // the HTML and assets
     new SWPrecacheWebpackPlugin({
       // By default, a cache-busting query parameter is appended to requests
       // used to populate the caches, to ensure the responses are fresh.
@@ -266,40 +235,34 @@ module.exports = {
       dontCacheBustUrlsMatching: /\.\w{8}\./,
       filename: 'service-worker.js',
       logger(message) {
-        if (message.indexOf('Total precache size is') === 0) {
-          // This message occurs for every build and is a bit too noisy.
+        if (message.indexOf('Total precache size is') === 0)
+          // this message occurs for every build and is a bit too noisy
           return;
-        }
-        if (message.indexOf('Skipping static resource') === 0) {
-          // This message obscures real errors so we ignore it.
+        if (message.indexOf('Skipping static resource') === 0)
+          // this message obscures real errors so it's ignored
           // https://github.com/facebookincubator/create-react-app/issues/2612
           return;
-        }
         console.log(message);
       },
       minify: true,
-      // For unknown URLs, fallback to the index page
+      // for unknown URLs, fallback to the index page
       navigateFallback: `${paths.servedPath}/index.html`,
-      // Ignores URLs starting from /__ (useful for Firebase):
+      // ignore URLs starting from /__ (useful for Firebase)
       // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
       navigateFallbackWhitelist: [/^(?!\/__).*/],
-      // Don't precache sourcemaps (they're large) and build asset manifest:
+      // don't precache sourcemaps (they're large) and build asset manifest
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
     }),
-    // Moment.js is an extremely popular library that bundles large locale files
-    // by default due to how Webpack interprets its code. This is a practical
-    // solution that requires the user to opt into importing specific locales.
-    // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
-    // You can remove this if you don't use Moment.js:
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // moves libraries to the `vendor` bundle
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity
     }),
+    // generates manifest.json and browserconfig.xml
     new WebAppManifestPlugin()
   ],
   // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
+  // Tell Webpack to provide empty mocks for them so importing them works
   node: {
     dgram: 'empty',
     fs: 'empty',
