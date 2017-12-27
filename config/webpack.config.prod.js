@@ -200,7 +200,12 @@ module.exports = {
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }
     new webpack.DefinePlugin({ 'process.env': env.stringified }),
-    // Minify the code.
+    // moves libraries to the `vendor` bundle
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
+    // minifies the code
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -222,6 +227,8 @@ module.exports = {
     new ExtractTextPlugin({
       filename: 'static/css/[name].[contenthash:8].css'
     }),
+    // generates manifest.json and browserconfig.xml
+    new WebAppManifestPlugin(),
     // generates a manifest file which contains a mapping of all asset
     // filenames to their corresponding output file
     new ManifestPlugin({ fileName: 'asset-manifest.json' }),
@@ -252,14 +259,7 @@ module.exports = {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       // don't precache sourcemaps (they're large) and build asset manifest
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
-    }),
-    // moves libraries to the `vendor` bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
-    // generates manifest.json and browserconfig.xml
-    new WebAppManifestPlugin()
+    })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works
