@@ -20,7 +20,7 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCE_MAP !== 'false';
 
 // assert this because development builds of React are slow and aren't intended
 // for production.
-if (env.stringified['process.env'].NODE_ENV !== '"production"')
+if (process.env.NODE_ENV !== 'production')
   throw new Error('Production builds must have NODE_ENV=production.');
 
 // this config compiles slowly and is focused on producing a fast and minimal
