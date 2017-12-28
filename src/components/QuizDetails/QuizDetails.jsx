@@ -51,7 +51,7 @@ export default class QuizDetails extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { quiz } = this.state;
-    if (quiz.id !== nextProps.id) this._refresh();
+    if (quiz && quiz.id !== nextProps.id) this._refresh();
   }
 
   _fetchQuiz = () => {

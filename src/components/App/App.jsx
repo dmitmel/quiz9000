@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { ConnectedRouter as Router } from 'react-router-redux';
+import { ConnectedRouter as Router } from 'connected-react-router';
 import routerHistory from '../../utils/routerHistory';
 import Library from '../Library';
 import Explore from '../Explore';

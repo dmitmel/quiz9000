@@ -33,6 +33,7 @@ module.exports = {
     // the `app` bundle into a separate one for improving caching in the
     // browser because they don't change so often
     vendor: [
+      'connected-react-router',
       'firebase',
       'object-assign',
       'prop-types',
