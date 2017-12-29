@@ -9,11 +9,11 @@ import routerHistory from './utils/routerHistory';
 const store = createStore(
   connectRouter(routerHistory)(reducer),
   compose(
+    applyMiddleware(thunk, routerMiddleware(routerHistory)),
     devToolsEnhancer({
       name: 'Quiz9000',
       actionCreators: actions
-    }),
-    applyMiddleware(thunk, routerMiddleware(routerHistory))
+    })
   )
 );
 

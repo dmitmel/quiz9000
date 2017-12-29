@@ -3,7 +3,7 @@ import * as actions from '../actions';
 import NavDrawer from '../components/NavDrawer';
 
 export default connect(
-  store => ({ open: store.NavDrawer.open }),
+  state => ({ open: state.NavDrawer.open }),
   dispatch => ({
     onClose: () => dispatch(actions.closeNav()),
     openSettings: () => dispatch(actions.openSettings())

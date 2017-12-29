@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
@@ -8,8 +8,6 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Page from '../Page';
-import { quizzes as quizzesDB } from '../../db';
-import setState from '../../utils/setState';
 
 const styles = theme => ({
   loading: {
@@ -33,89 +31,53 @@ const styles = theme => ({
   }
 });
 
-@withStyles(styles)
-export default class QuizDetails extends Component {
-  static propTypes = {
-    id: PropTypes.number.isRequired,
-    classes: PropTypes.object.isRequired
+QuizDetails.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  data: PropTypes.object,
+  onRefresh: PropTypes.func,
+  classes: PropTypes.object.isRequired
+};
+
+function QuizDetails({ loading, data, onRefresh, classes }) {
+  const appBarProps = {
+    title: 'Quiz',
+    buttons: [
+      <IconButton color="contrast" aria-label="Search">
+        <Icon>search</Icon>
+      </IconButton>
+    ],
+    menuItems: [
+      {
+        name: 'Refresh',
+        disabled: loading,
+        onClick: onRefresh
+      }
+    ]
   };
 
-  state = {
-    quiz: null,
-    loading: false
-  };
+  return (
+    <Page appBarProps={appBarProps}>
+      {loading && <CircularProgress className={classes.loading} />}
 
-  componentDidMount() {
-    this._fetchQuiz();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { quiz } = this.state;
-    if (quiz && quiz.id !== nextProps.id) this._refresh();
-  }
-
-  _fetchQuiz = () => {
-    if (this.state.loading) return null;
-
-    const { id } = this.props;
-
-    return setState(this, { loading: true })
-      .then(() => quizzesDB.findQuizBy('id', id))
-      .then(quiz => setState(this, { quiz, loading: false }));
-  };
-
-  _refresh = () => {
-    if (this.state.loading) return null;
-
-    return setState(this, { quiz: null }).then(this._fetchQuiz);
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { quiz, loading } = this.state;
-
-    const appBarProps = {
-      title: 'Quiz',
-      buttons: [
-        <IconButton color="contrast" aria-label="Search">
-          <Icon>search</Icon>
-        </IconButton>
-      ],
-      menuItems: [
-        {
-          name: 'Refresh',
-          disabled: loading,
-          onClick: this._refresh
-        }
-      ]
-    };
-
-    return (
-      <Page appBarProps={appBarProps}>
-        {loading && <CircularProgress className={classes.loading} />}
-
-        {quiz && (
-          <div>
-            <div className={classes.header}>
-              <Avatar
-                src={quiz.image}
-                alt={quiz.name}
-                className={classes.img}
-              />
-              <div className={classes.headerRight}>
-                <Typography type="title">{quiz.name}</Typography>
-                <Typography type="subheading">
-                  {quiz.author ? quiz.author.name : 'Unknown author'}
-                </Typography>
-              </div>
+      {data && (
+        <div>
+          <div className={classes.header}>
+            <Avatar src={data.image} alt={data.name} className={classes.img} />
+            <div className={classes.headerRight}>
+              <Typography type="title">{data.name}</Typography>
+              <Typography type="subheading">
+                By {data.author ? data.author.name : 'Unknown author'}
+              </Typography>
             </div>
-            <Divider />
-            <Typography type="subheading" className={classes.description}>
-              {quiz.description}
-            </Typography>
           </div>
-        )}
-      </Page>
-    );
-  }
+          <Divider />
+          <Typography type="subheading" className={classes.description}>
+            {data.description}
+          </Typography>
+        </div>
+      )}
+    </Page>
+  );
 }
+
+export default withStyles(styles)(QuizDetails);

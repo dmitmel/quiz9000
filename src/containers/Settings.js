@@ -3,6 +3,6 @@ import * as actions from '../actions';
 import Settings from '../components/Settings';
 
 export default connect(
-  store => ({ open: store.Settings.open }),
+  state => ({ open: state.Settings.open }),
   dispatch => ({ onClose: () => dispatch(actions.closeSettings()) })
 )(Settings);

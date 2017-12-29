@@ -4,7 +4,7 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import routerHistory from '../../utils/routerHistory';
 import Library from '../Library';
 import Explore from '../Explore';
-import QuizDetails from '../QuizDetails';
+import QuizDetails from '../../containers/QuizDetails';
 
 export default function App() {
   return (
