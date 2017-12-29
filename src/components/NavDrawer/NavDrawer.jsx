@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
@@ -41,106 +42,104 @@ const styles = theme => ({
   }
 });
 
-@connect(
-  store => ({ open: store.NavDrawer.open }),
-  dispatch => ({ onClose: () => dispatch(actions.closeNav()) })
-)
-@withStyles(styles, { withTheme: true })
-export default class NavDrawer extends Component {
-  static width = 280;
+NavDrawer.width = 280;
 
-  static propTypes = {
-    open: PropTypes.bool,
-    onClose: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired
-  };
+NavDrawer.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  openSettings: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
+};
 
-  _openSettings = () => {
-    this.props.onClose();
-    this._settings.open();
-  };
+function NavDrawer({ open, onClose, openSettings, classes, theme }) {
+  const logoPath = theme.palette.type === 'dark' ? logoWhite : logoBlue;
 
-  render() {
-    const { open, onClose, classes, theme } = this.props;
+  const navItems = (
+    <div>
+      <Toolbar>
+        <img alt="logo" src={logoPath} className={classes.logo} />
+        <Typography type="title" noWrap>
+          {process.env.REACT_APP_NAME}
+        </Typography>
+      </Toolbar>
+      <Divider />
 
-    const logoPath = theme.palette.type === 'dark' ? logoWhite : logoBlue;
+      <List>
+        <NavItem
+          icon="library_books"
+          text="Library"
+          component={Link}
+          to="/library"
+          onClick={onClose}
+        />
+        <NavItem
+          icon="apps"
+          text="Explore"
+          component={Link}
+          to="/explore"
+          onClick={onClose}
+        />
+      </List>
+      <Divider />
+      <List>
+        <NavItem
+          icon="settings"
+          text="Settings"
+          onClick={() => {
+            onClose();
+            openSettings();
+          }}
+        />
+        <NavItem
+          icon="code"
+          text="Source code"
+          component="a"
+          href={process.env.REACT_APP_REPO}
+          onClick={onClose}
+        />
+        <NavItem
+          icon="bug_report"
+          text="Report a bug"
+          component="a"
+          href={process.env.REACT_APP_BUGS}
+          onClick={onClose}
+        />
+      </List>
+    </div>
+  );
 
-    const navItems = (
-      <div>
-        <Toolbar>
-          <img alt="logo" src={logoPath} className={classes.logo} />
-          <Typography type="title" noWrap>
-            {process.env.REACT_APP_NAME}
-          </Typography>
-        </Toolbar>
-        <Divider />
+  return (
+    <div>
+      <Hidden mdUp>
+        <Drawer
+          type="temporary"
+          anchor="left"
+          open={open}
+          onClose={onClose}
+          ModalProps={{ keepMounted: true }}
+          classes={{ paper: classes.drawerPaper }}>
+          {navItems}
+        </Drawer>
+      </Hidden>
+      <Hidden mdDown implementation="css">
+        <Drawer type="permanent" open classes={{ paper: classes.drawerPaper }}>
+          {navItems}
+        </Drawer>
+      </Hidden>
 
-        <List>
-          <NavItem
-            icon="library_books"
-            text="Library"
-            component={Link}
-            to="/library"
-            onClick={onClose}
-          />
-          <NavItem
-            icon="apps"
-            text="Explore"
-            component={Link}
-            to="/explore"
-            onClick={onClose}
-          />
-        </List>
-        <Divider />
-        <List>
-          <NavItem
-            icon="settings"
-            text="Settings"
-            onClick={this._openSettings}
-          />
-          <NavItem
-            icon="code"
-            text="Source code"
-            component="a"
-            href={process.env.REACT_APP_REPO}
-            onClick={onClose}
-          />
-          <NavItem
-            icon="bug_report"
-            text="Report a bug"
-            component="a"
-            href={process.env.REACT_APP_BUGS}
-            onClick={onClose}
-          />
-        </List>
-      </div>
-    );
-
-    return (
-      <div>
-        <Hidden mdUp>
-          <Drawer
-            type="temporary"
-            anchor="left"
-            open={open}
-            onClose={onClose}
-            ModalProps={{ keepMounted: true }}
-            classes={{ paper: classes.drawerPaper }}>
-            {navItems}
-          </Drawer>
-        </Hidden>
-        <Hidden mdDown implementation="css">
-          <Drawer
-            type="permanent"
-            open
-            classes={{ paper: classes.drawerPaper }}>
-            {navItems}
-          </Drawer>
-        </Hidden>
-
-        <Settings ref={settings => (this._settings = settings)} />
-      </div>
-    );
-  }
+      <Settings />
+    </div>
+  );
 }
+
+export default compose(
+  connect(
+    store => ({ open: store.NavDrawer.open }),
+    dispatch => ({
+      onClose: () => dispatch(actions.closeNav()),
+      openSettings: () => dispatch(actions.openSettings())
+    })
+  ),
+  withStyles(styles, { withTheme: true })
+)(NavDrawer);

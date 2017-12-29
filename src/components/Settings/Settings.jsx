@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
 import Dialog, {
   DialogActions,
@@ -6,36 +8,31 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog';
+import * as actions from '../../actions';
 
-export default class Settings extends React.Component {
-  state = {
-    open: false
-  };
+Settings.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+};
 
-  open = () => {
-    this.setState({ open: true });
-  };
-
-  close = () => {
-    this.setState({ open: false });
-  };
-
-  render() {
-    const { open } = this.state;
-
-    return (
-      <Dialog open={open} onClose={this.close}>
-        <DialogTitle>Settings</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Settings will be here.</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.close}>Cancel</Button>
-          <Button onClick={this.close} color="primary" autoFocus>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
+function Settings({ open, onClose }) {
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Settings</DialogTitle>
+      <DialogContent>
+        <DialogContentText>Settings will be here.</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose} color="primary" autoFocus>
+          Save
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
+
+export default connect(
+  store => ({ open: store.Settings.open }),
+  dispatch => ({ onClose: () => dispatch(actions.closeSettings()) })
+)(Settings);
