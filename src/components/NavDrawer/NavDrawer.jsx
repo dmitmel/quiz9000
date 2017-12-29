@@ -9,7 +9,7 @@ import List from 'material-ui/List';
 import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
 import NavItem from './NavItem';
-import Settings from '../Settings';
+import Settings from '../../containers/Settings';
 
 import logoBlue from '../../img/logo/blue.svg';
 import logoWhite from '../../img/logo/white.svg';
