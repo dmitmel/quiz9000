@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import NavDrawer from '../NavDrawer';
+import NavDrawer from '../../containers/NavDrawer';
 import MainAppBar from '../MainAppBar';
 import * as actions from '../../actions';
 

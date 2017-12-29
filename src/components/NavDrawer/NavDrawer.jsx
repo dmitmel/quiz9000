@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
@@ -12,7 +10,6 @@ import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
 import NavItem from './NavItem';
 import Settings from '../Settings';
-import * as actions from '../../actions';
 
 import logoBlue from '../../img/logo/blue.svg';
 import logoWhite from '../../img/logo/white.svg';
@@ -133,13 +130,4 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
   );
 }
 
-export default compose(
-  connect(
-    store => ({ open: store.NavDrawer.open }),
-    dispatch => ({
-      onClose: () => dispatch(actions.closeNav()),
-      openSettings: () => dispatch(actions.openSettings())
-    })
-  ),
-  withStyles(styles, { withTheme: true })
-)(NavDrawer);
+export default withStyles(styles, { withTheme: true })(NavDrawer);
