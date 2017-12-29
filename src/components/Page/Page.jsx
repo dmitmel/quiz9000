@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import NavDrawer from '../NavDrawer';
 import MainAppBar from '../MainAppBar';
+import { NavDrawerActions } from '../../actions';
 
 const styles = theme => ({
   root: {
@@ -30,36 +33,35 @@ const styles = theme => ({
   }
 });
 
-@withStyles(styles)
-export default class Page extends Component {
-  static propTypes = {
-    appBarProps: PropTypes.object,
-    contentProps: PropTypes.object,
-    classes: PropTypes.object.isRequired
-  };
+Page.propTypes = {
+  appBarProps: PropTypes.object,
+  contentProps: PropTypes.object,
+  openNav: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
+};
 
-  static defaultProps = {
-    appBarProps: {},
-    contentProps: {}
-  };
+Page.defaultProps = {
+  appBarProps: {},
+  contentProps: {}
+};
 
-  _openNav = () => {
-    this._nav && this._nav.open();
-  };
-
-  render() {
-    const { appBarProps, contentProps, classes, children } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <NavDrawer selfRef={nav => (this._nav = nav)} />
-        <MainAppBar openNav={this._openNav} {...appBarProps} />
-        <div className={classes.contentWrapper}>
-          <main className={classes.content} {...contentProps}>
-            {children}
-          </main>
-        </div>
+function Page({ appBarProps, contentProps, openNav, classes, children }) {
+  return (
+    <div className={classes.root}>
+      <NavDrawer />
+      <MainAppBar openNav={openNav} {...appBarProps} />
+      <div className={classes.contentWrapper}>
+        <main className={classes.content} {...contentProps}>
+          {children}
+        </main>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default compose(
+  connect(null, dispatch => ({
+    openNav: () => dispatch(NavDrawerActions.open())
+  })),
+  withStyles(styles)
+)(Page);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
@@ -10,6 +11,7 @@ import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
 import NavItem from './NavItem';
 import Settings from '../Settings';
+import { NavDrawerActions } from '../../actions';
 
 import logoBlue from '../../img/logo/blue.svg';
 import logoWhite from '../../img/logo/white.svg';
@@ -39,39 +41,28 @@ const styles = theme => ({
   }
 });
 
+@connect(
+  store => ({ open: store.NavDrawer.open }),
+  dispatch => ({ onClose: () => dispatch(NavDrawerActions.close()) })
+)
 @withStyles(styles, { withTheme: true })
 export default class NavDrawer extends Component {
   static width = 280;
 
   static propTypes = {
-    selfRef: PropTypes.func,
+    open: PropTypes.bool,
+    onClose: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired
   };
 
-  state = { open: false };
-
-  componentDidMount() {
-    const { selfRef } = this.props;
-    selfRef && selfRef(this);
-  }
-
-  open = () => {
-    this.setState({ open: true });
-  };
-
-  close = () => {
-    this.setState({ open: false });
-  };
-
   _openSettings = () => {
-    this.close();
+    this.props.onClose();
     this._settings.open();
   };
 
   render() {
-    const { classes, theme } = this.props;
-    const { open } = this.state;
+    const { open, onClose, classes, theme } = this.props;
 
     const logoPath = theme.palette.type === 'dark' ? logoWhite : logoBlue;
 
@@ -91,14 +82,14 @@ export default class NavDrawer extends Component {
             text="Library"
             component={Link}
             to="/library"
-            onClick={this.close}
+            onClick={onClose}
           />
           <NavItem
             icon="apps"
             text="Explore"
             component={Link}
             to="/explore"
-            onClick={this.close}
+            onClick={onClose}
           />
         </List>
         <Divider />
@@ -113,14 +104,14 @@ export default class NavDrawer extends Component {
             text="Source code"
             component="a"
             href={process.env.REACT_APP_REPO}
-            onClick={this.close}
+            onClick={onClose}
           />
           <NavItem
             icon="bug_report"
             text="Report a bug"
             component="a"
             href={process.env.REACT_APP_BUGS}
-            onClick={this.close}
+            onClick={onClose}
           />
         </List>
       </div>
@@ -133,7 +124,7 @@ export default class NavDrawer extends Component {
             type="temporary"
             anchor="left"
             open={open}
-            onClose={this.close}
+            onClose={onClose}
             ModalProps={{ keepMounted: true }}
             classes={{ paper: classes.drawerPaper }}>
             {navItems}
