@@ -11,7 +11,7 @@ import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
 import NavItem from './NavItem';
 import Settings from '../Settings';
-import { NavDrawerActions } from '../../actions';
+import * as actions from '../../actions';
 
 import logoBlue from '../../img/logo/blue.svg';
 import logoWhite from '../../img/logo/white.svg';
@@ -43,7 +43,7 @@ const styles = theme => ({
 
 @connect(
   store => ({ open: store.NavDrawer.open }),
-  dispatch => ({ onClose: () => dispatch(NavDrawerActions.close()) })
+  dispatch => ({ onClose: () => dispatch(actions.closeNav()) })
 )
 @withStyles(styles, { withTheme: true })
 export default class NavDrawer extends Component {

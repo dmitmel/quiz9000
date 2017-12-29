@@ -1,4 +1,4 @@
-import { NavDrawerActions } from '../actions';
+import * as actions from '../actions';
 
 export default function NavDrawer(
   state = {
@@ -7,13 +7,13 @@ export default function NavDrawer(
   action
 ) {
   switch (action.type) {
-    case NavDrawerActions.OPEN: {
+    case actions.OPEN_NAV: {
       return {
         ...state,
         open: true
       };
     }
-    case NavDrawerActions.CLOSE: {
+    case actions.CLOSE_NAV: {
       return {
         ...state,
         open: false

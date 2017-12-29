@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import NavDrawer from '../NavDrawer';
 import MainAppBar from '../MainAppBar';
-import { NavDrawerActions } from '../../actions';
+import * as actions from '../../actions';
 
 const styles = theme => ({
   root: {
@@ -61,7 +61,7 @@ function Page({ appBarProps, contentProps, openNav, classes, children }) {
 
 export default compose(
   connect(null, dispatch => ({
-    openNav: () => dispatch(NavDrawerActions.open())
+    openNav: () => dispatch(actions.openNav())
   })),
   withStyles(styles)
 )(Page);
