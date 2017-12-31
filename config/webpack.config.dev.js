@@ -18,11 +18,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     // The `app` bundle contains **app** code
-    app: [
-      './polyfills',
-      'react-dev-utils/webpackHotDevClient',
-      'react-hot-loader/patch'
-    ]
+    app: ['./polyfills', 'react-dev-utils/webpackHotDevClient']
       .map(resolve)
       .concat([
         // the app code is included last so it won't crash the WebpackDebServer
@@ -196,28 +192,6 @@ module.exports = {
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }
     new webpack.DefinePlugin({ 'process.env': env.stringified }),
-    // replaces app renderer in the development
-    new webpack.NormalModuleReplacementPlugin(
-      {
-        test: file => {
-          const fileExt = path.extname(file);
-          const fileWithoutExt = path.basename(file, fileExt);
-          return path.extname(fileWithoutExt) === '.prod';
-        }
-      },
-      resource => {
-        const file = resource.resource;
-        const fileDir = path.dirname(file);
-        const fileExt = path.extname(file);
-        let fileWithoutExt = path.basename(file, fileExt);
-        // slice `.prod` extension
-        fileWithoutExt = path.basename(fileWithoutExt, '.prod');
-        resource.resource = path.join(
-          fileDir,
-          `${fileWithoutExt}.dev${fileExt}`
-        );
-      }
-    ),
     // emits hot updates for CSS
     new webpack.HotModuleReplacementPlugin(),
     // watcher doesn't work well if you mistype casing in a path so this plugin

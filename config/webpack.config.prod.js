@@ -115,7 +115,7 @@ module.exports = {
           {
             test: /\.(js|jsx)$/,
             include: paths.appSrc,
-            loader: require.resolve('babel-loader'),
+            loader: resolve('babel-loader'),
             options: {
               compact: true
             }

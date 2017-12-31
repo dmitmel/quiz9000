@@ -1,4 +1,6 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { hot } from 'react-hot-loader';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import routerHistory from '../../utils/routerHistory';
@@ -6,7 +8,7 @@ import Library from '../Library';
 import Explore from '../Explore';
 import QuizDetails from '../../containers/QuizDetails';
 
-export default function App() {
+function App() {
   return (
     <Router history={routerHistory}>
       <Switch>
@@ -24,3 +26,5 @@ export default function App() {
     </Router>
   );
 }
+
+export default hot(module)(App);
