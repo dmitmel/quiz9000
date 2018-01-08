@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import compose from 'recompose/compose';
+import withState from 'recompose/withState';
+import withHandlers from 'recompose/withHandlers';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
@@ -15,9 +18,11 @@ const styles = {
   }
 };
 
-@withStyles(styles)
-export default class MainAppBarMenu extends Component {
+class MainAppBarMenu extends Component {
   static propTypes = {
+    open: PropTypes.bool.isRequired,
+    onOpen: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     items: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -28,28 +33,15 @@ export default class MainAppBarMenu extends Component {
     classes: PropTypes.object.isRequired
   };
 
-  state = {
-    open: false
-  };
-
-  _open = () => {
-    this.setState({ open: true });
-  };
-
-  _close = () => {
-    this.setState({ open: false });
-  };
-
   render() {
-    const { items, classes } = this.props;
-    const { open } = this.state;
+    const { open, onOpen, onClose, items, classes } = this.props;
 
     return (
       <>
         <IconButton
           color="contrast"
           className={classes.button}
-          onClick={this._open}
+          onClick={onOpen}
           buttonRef={button => (this.button = button)}
           aria-label="Open menu"
           aria-owns={open ? classes.root : null}
@@ -62,14 +54,14 @@ export default class MainAppBarMenu extends Component {
             id={classes.root}
             anchorEl={this.button}
             open={open}
-            onClose={this._close}>
+            onClose={onClose}>
             {items &&
               items.map(({ name, disabled, onClick }) => (
                 <MenuItem
                   key={name}
                   disabled={disabled}
                   onClick={() => {
-                    this._close();
+                    onClose();
                     onClick && onClick();
                   }}>
                   {name}
@@ -81,3 +73,12 @@ export default class MainAppBarMenu extends Component {
     );
   }
 }
+
+export default compose(
+  withState('open', 'setOpen', false),
+  withHandlers({
+    onOpen: ({ setOpen }) => () => setOpen(true),
+    onClose: ({ setOpen }) => () => setOpen(false)
+  }),
+  withStyles(styles)
+)(MainAppBarMenu);
