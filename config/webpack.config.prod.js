@@ -48,6 +48,7 @@ module.exports = {
       'whatwg-fetch',
       'react-redux',
       'react-router',
+      'recompose',
       'redux',
       'redux-thunk'
     ].map(resolve)

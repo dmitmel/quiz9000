@@ -40,6 +40,7 @@ module.exports = {
       'react-error-overlay',
       'react-redux',
       'react-router',
+      'recompose',
       'redux',
       'redux-thunk',
       'whatwg-fetch'
