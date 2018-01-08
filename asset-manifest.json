@@ -1,10 +1,10 @@
 {
   "app.css": "static/css/app.3f054f48.css",
   "app.css.map": "static/css/app.3f054f48.css.map",
-  "app.js": "static/js/app.9abec217.js",
-  "app.js.map": "static/js/app.9abec217.js.map",
+  "app.js": "static/js/app.3edc2e3b.js",
+  "app.js.map": "static/js/app.3edc2e3b.js.map",
   "static/media/blue.svg": "static/media/blue.d144a868.svg",
   "static/media/white.svg": "static/media/white.788c16ce.svg",
-  "vendor.js": "static/js/vendor.33ed5e2b.js",
-  "vendor.js.map": "static/js/vendor.33ed5e2b.js.map"
+  "vendor.js": "static/js/vendor.891219de.js",
+  "vendor.js.map": "static/js/vendor.891219de.js.map"
 }
