@@ -60,7 +60,7 @@ function QuizDetails({ loading, data, onRefresh, classes }) {
       {loading && <CircularProgress className={classes.loading} />}
 
       {data && (
-        <div>
+        <>
           <div className={classes.header}>
             <Avatar src={data.image} alt={data.name} className={classes.img} />
             <div className={classes.headerRight}>
@@ -74,7 +74,7 @@ function QuizDetails({ loading, data, onRefresh, classes }) {
           <Typography type="subheading" className={classes.description}>
             {data.description}
           </Typography>
-        </div>
+        </>
       )}
     </Page>
   );

@@ -107,7 +107,7 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
   );
 
   return (
-    <div>
+    <>
       <Hidden mdUp>
         <Drawer
           type="temporary"
@@ -126,7 +126,7 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
       </Hidden>
 
       <Settings />
-    </div>
+    </>
   );
 }
 

@@ -45,7 +45,7 @@ export default class MainAppBarMenu extends Component {
     const { open } = this.state;
 
     return (
-      <div>
+      <>
         <IconButton
           color="contrast"
           className={classes.button}
@@ -77,7 +77,7 @@ export default class MainAppBarMenu extends Component {
               ))}
           </Menu>
         )}
-      </div>
+      </>
     );
   }
 }

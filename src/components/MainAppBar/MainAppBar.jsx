@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -65,7 +65,7 @@ function MainAppBar({ openNav, title, buttons, menuItems, classes }) {
 
         {buttons &&
           // eslint-disable-next-line react/no-array-index-key
-          buttons.map((button, i) => <div key={i}>{button}</div>)}
+          buttons.map((button, i) => <Fragment key={i}>{button}</Fragment>)}
 
         {menuItems && (
           <MainAppBarMenu

@@ -68,7 +68,7 @@ function Explore({ loading, quizzes, fetchMore, onRefresh, classes }) {
   return (
     <Page appBarProps={appBarProps}>
       {hasQuizzes ? (
-        <div>
+        <>
           <List className={classes.list}>
             {quizzes.map(
               quiz => quiz && <ExploreListItem key={quiz.id} quiz={quiz} />
@@ -83,7 +83,7 @@ function Explore({ loading, quizzes, fetchMore, onRefresh, classes }) {
             More...
             {loading && renderProgress(36)}
           </Button>
-        </div>
+        </>
       ) : (
         loading && renderProgress(48)
       )}
