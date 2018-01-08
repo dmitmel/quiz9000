@@ -17,7 +17,7 @@ export default function Settings(state = {}, action) {
         ...state,
         [action.id]: {
           loading: false,
-          data: action.data,
+          data: action.quiz,
           error: false
         }
       };
@@ -31,6 +31,18 @@ export default function Settings(state = {}, action) {
           error: true
         }
       };
+    }
+    case actions.EXPLORE_QUIZZES_OK: {
+      const newQuizzes = {};
+      action.quizzes.forEach(
+        quiz =>
+          (newQuizzes[quiz.id] = {
+            loading: false,
+            data: quiz,
+            error: false
+          })
+      );
+      return { ...state, ...newQuizzes };
     }
     default: {
       return state;

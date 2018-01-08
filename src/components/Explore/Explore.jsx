@@ -1,108 +1,62 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
 import Page from '../Page';
 import ExploreListItem from './ExploreListItem';
-import { quizzes as quizzesDB } from '../../db';
-import setState from '../../utils/setState';
 
 const styles = theme => ({
   list: {
     background: theme.palette.background.paper
   },
-  loading: {
+  progress: {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)'
   },
-  loadingList: {
+  moreBtn: {
     display: 'block',
     margin: '0 auto',
-    marginTop: theme.spacing.unit * 2.75
+    marginTop: theme.spacing.unit * 2,
+    position: 'relative'
   }
 });
 
 const quizzesPerPage = 10;
-const scrollThreshold = 25;
-
-const LoadingState = {
-  noLoading: 0,
-  fetchingMore: 1,
-  refreshing: 2
-};
 
 @withStyles(styles)
 export default class Explore extends Component {
   static propTypes = {
+    loading: PropTypes.bool.isRequired,
+    quizzes: PropTypes.array.isRequired,
+    fetchMore: PropTypes.func.isRequired,
+    onRefresh: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
   };
 
-  state = {
-    quizzes: null,
-    loadingState: LoadingState.noLoading
-  };
-
   componentDidMount() {
-    this._quizzesGen = quizzesDB.quizzesToPages();
-
-    // get length of the list without downloading it
-    quizzesDB.lengthRef.once('value', snapshot => {
-      this._quizzesLength = snapshot.val();
-      this._fetchMore();
-    });
+    this._fetchMore();
   }
 
-  _quizzesLength = 0;
+  _fetchingMore = false;
 
   _fetchMore = () => {
-    if (this.state.loadingState !== LoadingState.noLoading) return null;
+    if (this._fetchingMore) return;
+    this._fetchingMore = true;
 
-    const currentQuizzes = this.state.quizzes || [];
-    if (currentQuizzes.length >= this._quizzesLength) return null;
-
-    const { scrollTop, scrollHeight, clientHeight } = this.content;
-    if (scrollTop + clientHeight < scrollHeight - scrollThreshold) return null;
-
-    return (
-      setState(this, { loadingState: LoadingState.fetchingMore })
-        // start loading
-        .then(() => this._quizzesGen.fetchMore(quizzesPerPage))
-        // update state
-        .then(fetchedQuizzes =>
-          setState(this, ({ quizzes }) => ({
-            quizzes: (quizzes || []).concat(fetchedQuizzes),
-            loadingState: LoadingState.noLoading
-          }))
-        )
-        // try again
-        .then(this._fetchMore)
-    );
-  };
-
-  _refresh = () => {
-    if (this.state.loadingState !== LoadingState.noLoading) return null;
-
-    return setState(this, {
-      quizzes: null,
-      loadingState: LoadingState.refreshing
-    })
-      .then(this._quizzesGen.refresh)
-      .then(fetchedQuizzes =>
-        setState(this, {
-          quizzes: fetchedQuizzes,
-          loadingState: LoadingState.noLoading
-        })
-      );
+    const { fetchMore } = this.props;
+    fetchMore(quizzesPerPage).then(() => (this._fetchingMore = false));
   };
 
   render() {
-    const { classes } = this.props;
-    const { quizzes, loadingState } = this.state;
+    const { loading, quizzes, onRefresh, classes } = this.props;
+
+    const hasQuizzes = Boolean(quizzes && quizzes.length);
 
     const appBarProps = {
       title: 'Explore',
@@ -117,29 +71,37 @@ export default class Explore extends Component {
         },
         {
           name: 'Refresh',
-          disabled: loadingState !== LoadingState.noLoading,
-          onClick: this._refresh
+          disabled: !hasQuizzes || loading,
+          onClick: onRefresh
         }
       ]
     };
 
-    return (
-      <Page
-        appBarProps={appBarProps}
-        contentProps={{
-          onScroll: this._fetchMore,
-          ref: content => (this.content = content)
-        }}>
-        {quizzes && (
-          <List className={classes.list}>
-            {quizzes.map(quiz => <ExploreListItem key={quiz.id} quiz={quiz} />)}
-          </List>
-        )}
+    const renderProgress = size => (
+      <CircularProgress size={size} className={classes.progress} />
+    );
 
-        {loadingState !== LoadingState.noLoading && (
-          <CircularProgress
-            className={quizzes ? classes.loadingList : classes.loading}
-          />
+    return (
+      <Page appBarProps={appBarProps}>
+        {hasQuizzes ? (
+          <div>
+            <List className={classes.list}>
+              {quizzes.map(
+                quiz => quiz && <ExploreListItem key={quiz.id} quiz={quiz} />
+              )}
+            </List>
+            <Button
+              raised
+              color="accent"
+              className={classes.moreBtn}
+              disabled={loading}
+              onClick={this._fetchMore}>
+              More...
+              {loading && renderProgress(36)}
+            </Button>
+          </div>
+        ) : (
+          loading && renderProgress(64)
         )}
       </Page>
     );

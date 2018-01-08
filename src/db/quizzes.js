@@ -1,7 +1,8 @@
 import { database } from './firebase';
 
-export const listRef = database.ref('/quizzes/list');
-export const lengthRef = database.ref('/quizzes/length');
+export const rootRef = database.ref('/quizzes');
+export const listRef = rootRef.child('list');
+export const lengthRef = rootRef.child('length');
 
 export function findQuizBy(prop, val) {
   return listRef
@@ -12,33 +13,16 @@ export function findQuizBy(prop, val) {
     .then(snapshot => snapshot.val());
 }
 
-const listRefByKeys = listRef.orderByKey();
-export function quizzesToPages() {
-  let fetchedCount = 0;
-
-  function getFetchedQuizzes(snapshot) {
-    const fetchedQuizzes = [];
-    snapshot.forEach(quizRef => {
-      fetchedQuizzes.push(quizRef.val());
+export function fetchQuizzes(offset, limit) {
+  return listRef
+    .startAt(null, String(offset))
+    .limitToFirst(limit)
+    .once('value')
+    .then(snapshot => {
+      const quizzes = [];
+      snapshot.forEach(quizSnapshot => {
+        quizzes.push(quizSnapshot.val());
+      });
+      return quizzes;
     });
-    return fetchedQuizzes;
-  }
-
-  return {
-    fetchMore: count =>
-      listRefByKeys
-        .startAt(String(fetchedCount))
-        .limitToFirst(count)
-        .once('value')
-        .then(snapshot => {
-          const fetchedQuizzes = getFetchedQuizzes(snapshot);
-          fetchedCount += fetchedQuizzes.length;
-          return fetchedQuizzes;
-        }),
-    refresh: () =>
-      listRefByKeys
-        .limitToFirst(fetchedCount)
-        .once('value')
-        .then(getFetchedQuizzes)
-  };
 }

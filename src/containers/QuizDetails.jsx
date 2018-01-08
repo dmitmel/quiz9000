@@ -26,8 +26,7 @@ export default class QuizDetailsContainer extends Component {
   }
 
   componentWillReceiveProps({ id: nextId }) {
-    const { id } = this.props;
-    if (nextId !== id) this._fetchQuiz(nextId);
+    this._fetchQuiz(nextId);
   }
 
   _fetchQuiz(id, force) {

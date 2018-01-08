@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import routerHistory from '../../utils/routerHistory';
 import Library from '../Library';
-import Explore from '../Explore';
+import Explore from '../../containers/Explore';
 import QuizDetails from '../../containers/QuizDetails';
 
 function App() {
