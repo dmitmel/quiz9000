@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import NavDrawer from '../../containers/NavDrawer';
 import MainAppBar from '../MainAppBar';
-import * as actions from '../../actions';
 
 const styles = theme => ({
   root: {
@@ -59,9 +56,4 @@ function Page({ appBarProps, contentProps, openNav, classes, children }) {
   );
 }
 
-export default compose(
-  connect(null, dispatch => ({
-    openNav: () => dispatch(actions.openNav())
-  })),
-  withStyles(styles)
-)(Page);
+export default withStyles(styles)(Page);

@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
-import Page from '../Page';
+import Page from '../../containers/Page';
 import ExploreListItem from './ExploreListItem';
 
 const styles = theme => ({

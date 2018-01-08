@@ -7,7 +7,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import Page from '../Page';
+import Page from '../../containers/Page';
 
 const styles = theme => ({
   loading: {
