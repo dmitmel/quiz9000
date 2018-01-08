@@ -26,6 +26,11 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2,
     justifyContent: 'flex-end'
   },
+  button: {
+    '&:not(:last-child)': {
+      marginRight: theme.spacing.unit * 1.5
+    }
+  },
   img: {
     width: 72,
     height: 72,
@@ -40,11 +45,22 @@ const styles = theme => ({
 QuizDetails.propTypes = {
   loading: PropTypes.bool.isRequired,
   data: PropTypes.object,
+  isSaved: PropTypes.bool.isRequired,
   onRefresh: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
 
-function QuizDetails({ loading, data, onRefresh, classes }) {
+function QuizDetails({
+  loading,
+  data,
+  isSaved,
+  onRefresh,
+  onSave,
+  onRemove,
+  classes
+}) {
   const appBarProps = {
     title: 'Quiz',
     buttons: [
@@ -78,9 +94,33 @@ function QuizDetails({ loading, data, onRefresh, classes }) {
           </div>
 
           <div className={classes.buttons}>
-            <Button raised color="accent" className={classes.saveBtn}>
-              Save
-            </Button>
+            {isSaved ? (
+              <>
+                <Button
+                  key="remove"
+                  raised
+                  className={classes.button}
+                  onClick={onRemove}>
+                  Remove
+                </Button>
+                <Button
+                  key="open"
+                  raised
+                  color="accent"
+                  className={classes.button}>
+                  Open
+                </Button>
+              </>
+            ) : (
+              <Button
+                key="save"
+                raised
+                color="accent"
+                className={classes.button}
+                onClick={onSave}>
+                Save
+              </Button>
+            )}
           </div>
 
           <Divider />

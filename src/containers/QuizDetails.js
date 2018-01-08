@@ -8,8 +8,15 @@ import QuizDetails from '../components/QuizDetails';
 
 export default compose(
   connect(
-    ({ quizzes }) => ({ quizzes }),
-    dispatch => ({ fetchQuiz: id => dispatch(actions.fetchQuiz(id)) })
+    (state, { id }) => ({
+      quizzes: state.quizzes,
+      isSaved: state.Library.savedQuizzes.indexOf(id) >= 0
+    }),
+    dispatch => ({
+      fetchQuiz: id => dispatch(actions.fetchQuiz(id)),
+      onSave: id => dispatch(actions.saveQuiz(id)),
+      onRemove: id => dispatch(actions.removeQuiz(id))
+    })
   ),
   withHandlers({
     getQuiz: ({ quizzes }) => id =>
@@ -23,7 +30,9 @@ export default compose(
     onRefresh: ({ id, getQuiz, fetchQuiz }) => () => {
       const { loading } = getQuiz(id);
       if (!loading) fetchQuiz(id);
-    }
+    },
+    onSave: ({ id, onSave }) => () => onSave(id),
+    onRemove: ({ id, onRemove }) => () => onRemove(id)
   }),
   lifecycle({
     componentDidMount() {
