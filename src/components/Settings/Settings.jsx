@@ -22,7 +22,7 @@ export default function Settings({ open, onClose }) {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={onClose} color="primary" autoFocus>
+        <Button color="primary" autoFocus onClick={onClose}>
           Save
         </Button>
       </DialogActions>

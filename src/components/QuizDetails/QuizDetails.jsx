@@ -7,6 +7,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
+import Button from 'material-ui/Button';
 import Page from '../../containers/Page';
 
 const styles = theme => ({
@@ -19,6 +20,11 @@ const styles = theme => ({
   header: {
     display: 'flex',
     marginBottom: theme.spacing.unit * 2
+  },
+  buttons: {
+    display: 'flex',
+    marginBottom: theme.spacing.unit * 2,
+    justifyContent: 'flex-end'
   },
   img: {
     width: 72,
@@ -70,6 +76,13 @@ function QuizDetails({ loading, data, onRefresh, classes }) {
               </Typography>
             </div>
           </div>
+
+          <div className={classes.buttons}>
+            <Button raised color="accent" className={classes.saveBtn}>
+              Save
+            </Button>
+          </div>
+
           <Divider />
           <Typography type="subheading" className={classes.description}>
             {data.description}
