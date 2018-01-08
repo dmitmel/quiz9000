@@ -56,8 +56,8 @@ module.exports = {
     path: paths.appBuild,
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-    // this is where the app is served from (`/` in the development)
-    publicPath: paths.servedPath,
+    // this is where the app is served from
+    publicPath: paths.ensureSlash(paths.servedPath, true),
     // format paths in source maps as URLs on Windows
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')

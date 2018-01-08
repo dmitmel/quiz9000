@@ -13,9 +13,11 @@ const appPackageJson = resolveFile('package.json');
 const publicUrl =
   process.env.PUBLIC_URL || require(appPackageJson).homepage || '/';
 
-function removeSlash(filePath) {
+function ensureSlash(filePath, needsSlash) {
   const hasSlash = filePath.endsWith('/');
-  return hasSlash ? filePath.slice(0, -1) : filePath;
+  return hasSlash && !needsSlash
+    ? filePath.slice(0, -1)
+    : !hasSlash && needsSlash ? `${filePath}/` : filePath;
 }
 
 module.exports = {
@@ -31,5 +33,6 @@ module.exports = {
   appNodeModules: resolveFile('node_modules'),
   publicUrl,
   // `servedPath` is where the app is served from
-  servedPath: removeSlash(url.parse(publicUrl).pathname)
+  servedPath: ensureSlash(url.parse(publicUrl).pathname, false),
+  ensureSlash
 };
