@@ -34,8 +34,5 @@ export default compose(
       fetchQuiz(id);
     }
   }),
-  withProps(({ getQuiz, id }) => {
-    const { loading, data } = getQuiz(id);
-    return { loading, data };
-  })
+  withProps(({ getQuiz, id }) => getQuiz(id))
 )(QuizDetails);

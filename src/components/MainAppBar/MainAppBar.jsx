@@ -34,9 +34,9 @@ const styles = theme => ({
 });
 
 MainAppBar.propTypes = {
-  openNav: PropTypes.func,
-  title: PropTypes.string,
-  buttons: PropTypes.arrayOf(PropTypes.element),
+  openNav: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  buttons: PropTypes.arrayOf(PropTypes.element.isRequired),
   menuItems: PropTypes.array,
   classes: PropTypes.object.isRequired
 };

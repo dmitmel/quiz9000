@@ -34,7 +34,7 @@ const styles = theme => ({
 QuizDetails.propTypes = {
   loading: PropTypes.bool.isRequired,
   data: PropTypes.object,
-  onRefresh: PropTypes.func,
+  onRefresh: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
 

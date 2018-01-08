@@ -42,7 +42,7 @@ const styles = theme => ({
 NavDrawer.width = 280;
 
 NavDrawer.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   openSettings: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
