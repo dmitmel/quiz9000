@@ -29,12 +29,11 @@ export default class MainAppBarMenu extends Component {
   };
 
   state = {
-    open: false,
-    button: null
+    open: false
   };
 
-  _open = e => {
-    this.setState({ open: true, button: e.currentTarget });
+  _open = () => {
+    this.setState({ open: true });
   };
 
   _close = () => {
@@ -43,7 +42,7 @@ export default class MainAppBarMenu extends Component {
 
   render() {
     const { items, classes } = this.props;
-    const { open, button } = this.state;
+    const { open } = this.state;
 
     return (
       <div>
@@ -51,6 +50,7 @@ export default class MainAppBarMenu extends Component {
           color="contrast"
           className={classes.button}
           onClick={this._open}
+          buttonRef={button => (this.button = button)}
           aria-label="Open menu"
           aria-owns={open ? classes.root : null}
           aria-haspopup="true">
@@ -60,7 +60,7 @@ export default class MainAppBarMenu extends Component {
         {items && (
           <Menu
             id={classes.root}
-            anchorEl={button}
+            anchorEl={this.button}
             open={open}
             onClose={this._close}>
             {items &&
