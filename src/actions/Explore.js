@@ -1,20 +1,33 @@
 import * as quizzesDB from '../db/quizzes';
 
-export const EXPLORE_QUIZZES = '@@Explore/EXPLORE_QUIZZES';
-export const EXPLORE_QUIZZES_OK = '@@Explore/EXPLORE_QUIZZES_OK';
-export const EXPLORE_QUIZZES_ERROR = '@@Explore/EXPLORE_QUIZZES_ERROR';
+export const EXPLORE_MORE_QUIZZES = '@@Explore/EXPLORE_MORE_QUIZZES';
+export const EXPLORE_MORE_QUIZZES_OK = '@@Explore/EXPLORE_MORE_QUIZZES_OK';
+export const EXPLORE_MORE_QUIZZES_ERROR =
+  '@@Explore/EXPLORE_MORE_QUIZZES_ERROR';
 
-export function exploreQuizzes(offset, limit) {
-  return dispatch => {
-    dispatch({ type: EXPLORE_QUIZZES });
+function createExploreAction(refresh, count) {
+  return (dispatch, getState) => {
+    const { ids } = getState().Explore;
+
+    dispatch({ type: EXPLORE_MORE_QUIZZES, refresh });
+    const offset = refresh ? 0 : ids.length;
+    const limit = refresh ? ids.length : count;
     return quizzesDB.fetchQuizzes(offset, limit).then(
       quizzes => {
-        dispatch({ type: EXPLORE_QUIZZES_OK, offset, quizzes });
+        dispatch({ type: EXPLORE_MORE_QUIZZES_OK, refresh, quizzes });
         return quizzes;
       },
       () => {
-        dispatch({ type: EXPLORE_QUIZZES_ERROR });
+        dispatch({ type: EXPLORE_MORE_QUIZZES_ERROR });
       }
     );
   };
+}
+
+export function exploreMoreQuizzes(count) {
+  return createExploreAction(false, count);
+}
+
+export function refreshExploredQuizzes() {
+  return createExploreAction(true);
 }

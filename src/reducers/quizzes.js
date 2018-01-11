@@ -32,7 +32,7 @@ export default function Settings(state = {}, action) {
         }
       };
     }
-    case actions.EXPLORE_QUIZZES_OK: {
+    case actions.EXPLORE_MORE_QUIZZES_OK: {
       const newQuizzes = {};
       action.quizzes.forEach(
         quiz =>

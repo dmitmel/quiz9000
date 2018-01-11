@@ -3,33 +3,30 @@ import * as actions from '../actions';
 export default function Explore(
   state = {
     loading: false,
-    ids: {},
+    ids: [],
     error: false
   },
   action
 ) {
   switch (action.type) {
-    case actions.EXPLORE_QUIZZES: {
+    case actions.EXPLORE_MORE_QUIZZES: {
       return {
         ...state,
+        ids: action.refresh ? [] : state.ids,
         loading: true,
         error: false
       };
     }
-    case actions.EXPLORE_QUIZZES_OK: {
-      const newIds = {};
-      action.quizzes.forEach(
-        (quiz, i) => (newIds[action.offset + i] = quiz.id)
-      );
-
+    case actions.EXPLORE_MORE_QUIZZES_OK: {
+      const newIds = action.quizzes.map(({ id }) => id);
       return {
         ...state,
         loading: false,
-        ids: { ...state.ids, ...newIds },
+        ids: action.refresh ? newIds : [...state.ids, ...newIds],
         error: false
       };
     }
-    case actions.EXPLORE_QUIZZES_ERROR: {
+    case actions.EXPLORE_MORE_QUIZZES_ERROR: {
       return {
         ...state,
         loading: false,
