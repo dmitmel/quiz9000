@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
+import lifecycle from 'recompose/lifecycle';
 import * as actions from '../actions';
 import Explore from '../components/Explore';
+
+const quizzesPerPage = 10;
 
 export default compose(
   connect(
@@ -26,9 +29,15 @@ export default compose(
     })
   ),
   withHandlers({
-    fetchMore: ({ quizzes, fetchQuizzes }) => count =>
-      fetchQuizzes(quizzes.length, count),
+    fetchMore: ({ quizzes, fetchQuizzes }) => () =>
+      fetchQuizzes(quizzes.length, quizzesPerPage),
     onRefresh: ({ quizzes, fetchQuizzes }) => () =>
       fetchQuizzes(0, quizzes.length)
+  }),
+  lifecycle({
+    componentDidMount() {
+      const { fetchMore } = this.props;
+      fetchMore(quizzesPerPage);
+    }
   })
 )(Explore);
