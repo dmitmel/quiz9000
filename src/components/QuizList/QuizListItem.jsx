@@ -2,15 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import { ListItem, ListItemText } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import Icon from 'material-ui/Icon';
+import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import ButtonBase from 'material-ui/ButtonBase';
+import Typography from 'material-ui/Typography';
 
-const styles = {
+const styles = theme => ({
+  root: {
+    margin: theme.spacing.unit,
+    flexGrow: 1
+  },
+  button: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    padding: theme.spacing.unit * 2,
+    transition: theme.transitions.create('background-color', {
+      duration: theme.transitions.duration.shortest
+    }),
+    '&:hover': {
+      '@media (hover: hover)': {
+        backgroundColor: theme.palette.text.divider
+      }
+    }
+  },
   image: {
-    borderRadius: 0
+    width: 56,
+    height: 56,
+    marginRight: theme.spacing.unit * 2
+  },
+  text: {
+    padding: 0,
+    alignSelf: 'flex-start'
   }
-};
+});
 
 ExploreListItem.propTypes = {
   id: PropTypes.any.isRequired,
@@ -22,16 +45,25 @@ ExploreListItem.propTypes = {
 
 function ExploreListItem({ id, image, name, description, classes }) {
   return (
-    <ListItem button component={Link} to={`/quiz/${id}`}>
-      {image ? (
-        <Avatar src={image} alt="icon" className={classes.image} />
-      ) : (
-        <Avatar>
-          <Icon>book</Icon>
-        </Avatar>
-      )}
-      <ListItemText primary={name} secondary={description} />
-    </ListItem>
+    <Card className={classes.root}>
+      <ButtonBase
+        className={classes.button}
+        component={Link}
+        to={`/quiz/${id}`}>
+        <CardMedia
+          component="img"
+          image={image}
+          alt="icon"
+          className={classes.image}
+        />
+        <CardContent className={classes.text}>
+          <Typography type="headline">{name}</Typography>
+          <Typography type="subheading" color="secondary">
+            {description}
+          </Typography>
+        </CardContent>
+      </ButtonBase>
+    </Card>
   );
 }
 

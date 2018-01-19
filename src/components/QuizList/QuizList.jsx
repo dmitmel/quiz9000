@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress';
 import QuizListItem from './QuizListItem';
 
 const styles = theme => ({
   list: {
-    background: theme.palette.background.paper
+    display: 'flex',
+    // compensate margins of `QuizListItem`s
+    margin: -theme.spacing.unit,
+    flexWrap: 'wrap'
   },
   progress: {
     position: 'absolute',
@@ -40,9 +42,9 @@ function QuizList({ loading, quizzes, fetchMore, classes }) {
 
   return hasQuizzes ? (
     <>
-      <List className={classes.list}>
+      <div className={classes.list}>
         {quizzes.map(quiz => quiz && <QuizListItem key={quiz.id} {...quiz} />)}
-      </List>
+      </div>
       <Button
         raised
         color="accent"
