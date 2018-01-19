@@ -27,8 +27,8 @@ export default compose(
   ),
   lifecycle({
     componentDidMount() {
-      const { fetchMore } = this.props;
-      fetchMore(quizzesPerPage);
+      const { quizzes, fetchMore } = this.props;
+      if (!quizzes.length) fetchMore(quizzesPerPage);
     }
   })
 )(Explore);
