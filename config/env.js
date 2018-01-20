@@ -54,7 +54,7 @@ function addEnvVar(key, value) {
 addEnvVar('NODE_ENV', NODE_ENV);
 addEnvVar('PUBLIC_URL', paths.servedPath);
 
-// add GAME_* env variables
+// add REACT_APP_* env variables
 Object.keys(process.env)
   .filter(key => /^REACT_APP_/i.test(key))
   .forEach(key => addEnvVar(key, process.env[key]));
