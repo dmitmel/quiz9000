@@ -1065,7 +1065,7 @@ babel-jest@^22.0.4, babel-jest@^22.0.6:
     babel-plugin-istanbul "^4.1.5"
     babel-preset-jest "^22.0.6"
 
-babel-loader@8.0.0-beta.0:
+babel-loader@^8.0.0-beta.0:
   version "8.0.0-beta.0"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.0-beta.0.tgz#b85c3b52d1095949125c72c7ec1fa0fbb47a11ff"
   dependencies:
@@ -8093,6 +8093,12 @@ webpack-manifest-plugin@^1.2.1:
   dependencies:
     fs-extra "^0.30.0"
     lodash ">=3.5 <5"
+
+webpack-merge@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-4.1.1.tgz#f1197a0a973e69c6fbeeb6d658219aa8c0c13555"
+  dependencies:
+    lodash "^4.17.4"
 
 webpack-sources@^1.0.1:
   version "1.1.0"

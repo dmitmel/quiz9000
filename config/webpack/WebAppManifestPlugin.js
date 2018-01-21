@@ -1,5 +1,5 @@
-const env = require('./env');
-const { servedPath } = require('./paths');
+const env = require('../env');
+const { servedPath } = require('../paths');
 
 // generate manifest.json
 const manifestJson = JSON.stringify({
@@ -23,7 +23,7 @@ const browserConfigXml =
   '<browserconfig>' +
     '<msapplication>' +
       '<tile>' +
-        '<square150x150logo src="/mstile-150x150.png"/>' +
+        `<square150x150logo src="${servedPath}/mstile-150x150.png"/>` +
         `<TileColor>${env.REACT_APP_THEME_COLOR}</TileColor>` +
       '</tile>' +
     '</msapplication>' +
