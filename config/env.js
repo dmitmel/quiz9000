@@ -61,5 +61,13 @@ Object.keys(process.env)
 
 module.exports = {
   raw,
-  stringified
+  stringified,
+  type: NODE_ENV,
+  assertEnvType(requiredEnv) {
+    if (NODE_ENV !== requiredEnv) {
+      throw new Error(
+        `The NODE_ENV environment variable should be '${requiredEnv}'`
+      );
+    }
+  }
 };

@@ -16,8 +16,7 @@ module.exports = {
     strictExportPresence: true
   },
   plugins: [
-    // Makes some environment variables available to the JS code, for example:
-    // if (process.env.NODE_ENV === 'development') { ... }
+    // makes some environment variables available to the JS code
     new webpack.DefinePlugin({ 'process.env': env.stringified })
   ]
 };

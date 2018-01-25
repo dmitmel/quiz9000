@@ -1,7 +1,7 @@
 const merge = require('webpack-merge');
 const env = require('../env');
 
-env.assertEnvType('development');
+env.assertEnvType('production');
 
 // this config is focused on the developer experience and fast rebuilds
 module.exports = merge(
@@ -12,10 +12,11 @@ module.exports = merge(
   require('./images'),
   require('./static-files'),
   require('./polyfills'),
-  require('./hmr'),
   require('./app'),
   require('./vendor'),
+  require('./uglify'),
   require('./html'),
   require('./output'),
-  require('./source-maps')
+  require('./source-maps'),
+  require('./precache')
 );

@@ -1,11 +1,12 @@
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const paths = require('../paths');
+const env = require('../env');
 
 module.exports = {
   output: {
     // add /* filename */ comments to require()s in the generated output
-    pathinfo: true
+    pathinfo: env.type === 'development'
   },
   resolve: {
     modules: ['node_modules', paths.appNodeModules],

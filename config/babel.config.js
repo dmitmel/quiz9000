@@ -1,4 +1,6 @@
-const env = process.env.BABEL_ENV || process.env.NODE_ENV;
+const env = require('./env');
+
+const envType = process.env.BABEL_ENV || env.type;
 
 module.exports = (api, options) => ({
   presets: getPresets(options),
@@ -15,7 +17,7 @@ function getPresets({ react }) {
 
   addTo(presets, '@babel/preset-env', {
     targets:
-      env === 'test'
+      envType === 'test'
         ? {
             // enable ECMAScript features necessary for user's Node version
             node: 'current'
@@ -25,9 +27,9 @@ function getPresets({ react }) {
             ie: 9,
             // transform everything in production because UglifyJS doesn't
             // support ES6 and later
-            forceAllTransforms: env === 'production'
+            forceAllTransforms: envType === 'production'
           },
-    modules: env === 'test' && 'commonjs'
+    modules: envType === 'test' && 'commonjs'
   });
 
   if (react) {
@@ -37,7 +39,7 @@ function getPresets({ react }) {
       // the `development` option adds two things:
       // 1. component stack to warning messages
       // 2. `__self` attribute to JSX which React uses for some warnings
-      development: env === 'development' || env === 'test'
+      development: envType === 'development' || envType === 'test'
     });
   }
 
@@ -62,9 +64,10 @@ function getPlugins({ react }) {
 
   // add syntax support for `import()`
   addTo(plugins, '@babel/plugin-syntax-dynamic-import');
-  if (env === 'test') addTo(plugins, 'babel-plugin-dynamic-import-node');
+  if (envType === 'test') addTo(plugins, 'babel-plugin-dynamic-import-node');
 
-  if (react && env === 'development') addTo(plugins, 'react-hot-loader/babel');
+  if (react && envType === 'development')
+    addTo(plugins, 'react-hot-loader/babel');
 
   return plugins;
 }

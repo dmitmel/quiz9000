@@ -10,7 +10,19 @@ module.exports = {
     // injects <script> tags into `index.html`
     new HtmlWebpackPlugin({
       inject: 'body',
-      template: paths.appHtml
+      template: paths.appHtml,
+      minify: env.type === 'production' && {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
     })
   ]
 };
