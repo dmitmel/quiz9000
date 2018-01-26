@@ -6,8 +6,8 @@ const paths = require('../../paths');
 module.exports = {
   entry: {
     app: [
-      // the app code is included last so it won't crash the WebpackDevServer
-      // client if there is an error during the initialization
+      // the app code must be included last so it won't crash the
+      // WebpackDevServer client if there is an error during the initialization
       paths.appIndexJs
     ]
   },
