@@ -2,7 +2,7 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /\.(jsx?|json|css|html)$/,
+        exclude: /\.(jsx?|json|bmp|gif|jpe?g|png|css|html)$/,
         // When you `import` a static asset, `file` loader returns asset's
         // public URL. This loader will catch all modules that fall through
         // the other loaders
