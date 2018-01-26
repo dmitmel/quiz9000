@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-const paths = require('../paths');
+const paths = require('../../paths');
 
 module.exports = {
   entry: {

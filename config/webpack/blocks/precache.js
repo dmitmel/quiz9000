@@ -1,6 +1,6 @@
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const paths = require('../paths');
+const paths = require('../../paths');
 
 module.exports = {
   plugins: [

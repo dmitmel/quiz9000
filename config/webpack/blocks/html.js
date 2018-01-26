@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const env = require('../env');
-const paths = require('../paths');
+const env = require('../../env');
+const paths = require('../../paths');
 
 module.exports = {
   plugins: [

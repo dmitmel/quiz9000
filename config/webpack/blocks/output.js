@@ -1,7 +1,7 @@
 const webpack = require('webpack');
-const paths = require('../paths');
-const env = require('../env');
-const WebAppManifestPlugin = require('./WebAppManifestPlugin');
+const paths = require('../../paths');
+const env = require('../../env');
+const WebAppManifestPlugin = require('../WebAppManifestPlugin');
 
 module.exports = {
   bail: env.type === 'production',

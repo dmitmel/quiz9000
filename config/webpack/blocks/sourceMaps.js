@@ -1,5 +1,5 @@
 const path = require('path');
-const env = require('../env');
+const env = require('../../env');
 
 // source maps are resource heavy and can cause out of memory issue for large
 // source files

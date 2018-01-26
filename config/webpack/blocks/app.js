@@ -1,6 +1,6 @@
 const webpack = require('webpack');
-const env = require('../env');
-const paths = require('../paths');
+const env = require('../../env');
+const paths = require('../../paths');
 
 // this config is focused on the developer experience and fast rebuilds
 module.exports = {

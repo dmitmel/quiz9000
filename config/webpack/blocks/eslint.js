@@ -1,5 +1,5 @@
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
-const paths = require('../paths');
+const paths = require('../../paths');
 
 module.exports = {
   module: {

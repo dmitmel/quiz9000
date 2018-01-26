@@ -1,7 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const flexBugsFixes = require('postcss-flexbugs-fixes');
 const autoprefixer = require('autoprefixer');
-const env = require('../env');
+const env = require('../../env');
 
 module.exports = {
   module: {
