@@ -1,5 +1,9 @@
 const webpack = require('webpack');
 
+// source maps are resource heavy and can cause out of memory issue for large
+// source files
+const shouldUseSourceMap = process.env.GENERATE_SOURCE_MAP !== 'false';
+
 module.exports = {
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
@@ -17,7 +21,7 @@ module.exports = {
         // https://github.com/facebookincubator/create-react-app/issues/2488
         ascii_only: true
       },
-      sourceMap: true
+      sourceMap: shouldUseSourceMap
     })
   ]
 };

@@ -3,6 +3,10 @@ const flexBugsFixes = require('postcss-flexbugs-fixes');
 const autoprefixer = require('autoprefixer');
 const env = require('../../env');
 
+// source maps are resource heavy and can cause out of memory issue for large
+// source files
+const shouldUseSourceMap = process.env.GENERATE_SOURCE_MAP !== 'false';
+
 module.exports = {
   module: {
     rules: [
@@ -20,7 +24,7 @@ module.exports = {
               options: {
                 importLoaders: true,
                 minimize: env.type === 'production',
-                sourceMap: true
+                sourceMap: shouldUseSourceMap
               }
             },
             {
@@ -30,7 +34,7 @@ module.exports = {
                 // `ident` is necessary for external CSS imports to work
                 // https://github.com/facebookincubator/create-react-app/issues/2677
                 ident: 'postcss',
-                sourceMap: true,
+                sourceMap: shouldUseSourceMap,
                 plugins: [
                   flexBugsFixes,
                   autoprefixer({
