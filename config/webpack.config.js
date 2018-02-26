@@ -3,6 +3,7 @@ const wbCore = require('@webpack-blocks/webpack');
 const wbBabel = require('@webpack-blocks/babel');
 const wbExtractText = require('@webpack-blocks/extract-text');
 const wbAssets = require('@webpack-blocks/assets');
+const wbUglify = require('@webpack-blocks/uglify');
 
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -195,7 +196,7 @@ module.exports = wbCore.createConfig([
         }
       })
     ]),
-    wb.uglify({
+    wbUglify({
       uglifyOptions: {
         compress: {
           warnings: false,
