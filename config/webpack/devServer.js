@@ -1,6 +1,6 @@
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
-const config = require('./development');
+const config = require('../webpack.config');
 const paths = require('../paths');
 
 const https = process.env.HTTPS === 'true';

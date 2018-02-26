@@ -1,5 +1,5 @@
-const env = require('../env');
-const { servedPath } = require('../paths');
+const env = require('./env');
+const { servedPath } = require('./paths');
 
 // generate manifest.json
 const manifestJson = JSON.stringify({

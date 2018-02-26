@@ -2,13 +2,7 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 const paths = require('./paths');
 
-const { NODE_ENV } = process.env;
-
-if (!NODE_ENV) {
-  throw new Error(
-    'The NODE_ENV environment variable is required but was not specified.'
-  );
-}
+const envType = process.env.NODE_ENV || 'development';
 
 // Loads env file with given name suffix. Won't overwrite any previously
 // declared settings.
@@ -32,12 +26,12 @@ function loadEnvFile(fileSuffix) {
 
 // don't include local overrides for the `test` env because tests must produce
 // the same results for everyone
-if (NODE_ENV !== 'test') {
-  loadEnvFile(`.${NODE_ENV}.local`);
+if (envType !== 'test') {
+  loadEnvFile(`.${envType}.local`);
   loadEnvFile('.local');
 }
 
-if (NODE_ENV) loadEnvFile(`.${NODE_ENV}`);
+if (envType) loadEnvFile(`.${envType}`);
 loadEnvFile();
 
 // raw env variables
@@ -51,7 +45,7 @@ function addEnvVar(key, value) {
 }
 
 // add general env variables
-addEnvVar('NODE_ENV', NODE_ENV);
+addEnvVar('NODE_ENV', envType);
 addEnvVar('PUBLIC_URL', paths.servedPath);
 
 // add REACT_APP_* env variables
@@ -62,9 +56,9 @@ Object.keys(process.env)
 module.exports = {
   raw,
   stringified,
-  type: NODE_ENV,
+  type: envType,
   assertEnvType(requiredEnv) {
-    if (NODE_ENV !== requiredEnv) {
+    if (envType !== requiredEnv) {
       throw new Error(
         `The NODE_ENV environment variable should be '${requiredEnv}'`
       );
