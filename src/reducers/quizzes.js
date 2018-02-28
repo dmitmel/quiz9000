@@ -34,14 +34,13 @@ export default function Settings(state = {}, action) {
     }
     case actions.EXPLORE_MORE_QUIZZES_OK: {
       const newQuizzes = {};
-      action.quizzes.forEach(
-        quiz =>
-          (newQuizzes[quiz.id] = {
-            loading: false,
-            data: quiz,
-            error: false
-          })
-      );
+      action.quizzes.forEach(quiz => {
+        newQuizzes[quiz.id] = {
+          loading: false,
+          data: quiz,
+          error: false
+        };
+      });
       return { ...state, ...newQuizzes };
     }
     default: {
