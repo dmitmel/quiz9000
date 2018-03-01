@@ -11,6 +11,7 @@ function resolveFile(relativePath) {
 
 const appPackageJson = resolveFile('package.json');
 const publicUrl =
+  // eslint-disable-next-line import/no-dynamic-require
   process.env.PUBLIC_URL || require(appPackageJson).homepage || '/';
 
 function ensureSlash(filePath, needsSlash) {

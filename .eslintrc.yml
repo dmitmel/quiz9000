@@ -1,51 +1,14 @@
-extends:
-  - airbnb
-  - plugin:prettier/recommended
-  - prettier/react
-parser: babel-eslint
-parserOptions:
-  ecmaFeatures:
-    generators: true
+extends: eslint-config-dmitmel
 env:
   browser: true
-  commonjs: true
   jest: true
 rules:
-  curly:
-    - error
-    - multi-or-nest
-    - consistent
-  func-names: off
-  global-require: off
-  no-param-reassign: off
-  no-console: off
-  no-nested-ternary: off
-  no-plusplus: off
-  no-use-before-define: off
-  prefer-destructuring:
-    - error
-    - VariableDeclarator:
-        array: false
-        object: true
-      AssignmentExpression:
-        array: false
-        object: false
-    - enforceForRenamedProperties: false
-  import/no-dynamic-require: off
   import/no-extraneous-dependencies:
-    - error
-    - devDependencies:
-        - scripts/*.js
-        - config/**/*.js
-        - src/**/*.test.{js,jsx}
-  react/forbid-prop-types: off
-  react/prop-types:
-    - error
-    - ignore:
-        - children
-      customValidators: []
-      skipUndeclared: false
-  react/require-default-props: off
+  - error
+  - devDependencies:
+    - scripts/*.js
+    - config/**/*.js
+    - src/**/*.test.{js,jsx}
 settings:
   react:
     version: 16.2.0

@@ -77,6 +77,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
       );
       console.log();
 
+      // eslint-disable-next-line import/no-dynamic-require
       const appPackage = require(paths.appPackageJson);
       const { publicUrl } = paths;
       const { publicPath } = config.output;
