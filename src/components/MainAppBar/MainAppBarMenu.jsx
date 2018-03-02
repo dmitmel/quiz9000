@@ -42,7 +42,9 @@ class MainAppBarMenu extends Component {
           color="contrast"
           className={classes.button}
           onClick={onOpen}
-          buttonRef={button => (this.button = button)}
+          buttonRef={button => {
+            this.button = button;
+          }}
           aria-label="Open menu"
           aria-owns={open ? classes.root : null}
           aria-haspopup="true">
@@ -62,7 +64,7 @@ class MainAppBarMenu extends Component {
                   disabled={disabled}
                   onClick={() => {
                     onClose();
-                    onClick && onClick();
+                    if (onClick) onClick();
                   }}>
                   {name}
                 </MenuItem>
