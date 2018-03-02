@@ -4,6 +4,7 @@ const wbBabel = require('@webpack-blocks/babel');
 const wbExtractText = require('@webpack-blocks/extract-text');
 const wbAssets = require('@webpack-blocks/assets');
 const wbUglify = require('@webpack-blocks/uglify');
+const wbPostcss = require('@webpack-blocks/postcss');
 
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -24,26 +25,6 @@ const eslint = (options = {}) => (context, { addLoader }) =>
     // run ESLint before Babel
     enforce: 'pre',
     use: [{ loader: 'eslint-loader', options }],
-    ...context.match
-  });
-
-const postcss = ({ minimize, sourceMap, ...postcssOptions } = {}) => (
-  context,
-  { addLoader }
-) =>
-  addLoader({
-    test: /\.css$/,
-    use: [
-      { loader: 'style-loader' },
-      {
-        loader: 'css-loader',
-        options: { importLoaders: 1, sourceMap, minimize }
-      },
-      {
-        loader: 'postcss-loader',
-        options: { ident: 'postcss', sourceMap, ...postcssOptions }
-      }
-    ],
     ...context.match
   });
 
@@ -73,9 +54,13 @@ module.exports = wbCore.createConfig([
     wbBabel()
   ]),
   wbCore.match(/\.css/, [
-    postcss({
-      sourceMap: true,
+    wbAssets.css({
+      importLoaders: 1,
       minimize: env.type === 'production',
+      sourceMap: true
+    }),
+    wbPostcss({
+      sourceMap: true,
       plugins: [
         postcssFlexBugsFixes,
         autoprefixer({

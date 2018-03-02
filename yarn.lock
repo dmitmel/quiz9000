@@ -740,6 +740,13 @@
   dependencies:
     extract-text-webpack-plugin "^3.0.0"
 
+"@webpack-blocks/postcss@^1.0.0-rc":
+  version "1.0.0-rc"
+  resolved "https://registry.yarnpkg.com/@webpack-blocks/postcss/-/postcss-1.0.0-rc.tgz#aeba5a45fe5a44c16c09787a72e217bb5889183b"
+  dependencies:
+    lodash "^4.17.4"
+    postcss-loader "^1.3.3"
+
 "@webpack-blocks/uglify@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@webpack-blocks/uglify/-/uglify-1.1.0.tgz#481461489a32cc9eb2269094599a8a65f1b22075"
@@ -6309,6 +6316,15 @@ postcss-load-plugins@^2.3.0:
     cosmiconfig "^2.1.1"
     object-assign "^4.1.0"
 
+postcss-loader@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/postcss-loader/-/postcss-loader-1.3.3.tgz#a621ea1fa29062a83972a46f54486771301916eb"
+  dependencies:
+    loader-utils "^1.0.2"
+    object-assign "^4.1.1"
+    postcss "^5.2.15"
+    postcss-load-config "^1.2.0"
+
 postcss-loader@^2.0.6:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/postcss-loader/-/postcss-loader-2.0.10.tgz#090db0540140bd56a7a7f717c41bc29aeef4c674"
@@ -6486,7 +6502,7 @@ postcss-zindex@^2.0.1:
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
-postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.2.16:
+postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.2.15, postcss@^5.2.16:
   version "5.2.18"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.18.tgz#badfa1497d46244f6390f58b319830d9107853c5"
   dependencies:
