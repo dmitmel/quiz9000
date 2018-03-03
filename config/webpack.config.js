@@ -12,6 +12,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const postcssFlexBugsFixes = require('postcss-flexbugs-fixes');
 const autoprefixer = require('autoprefixer');
 const WebAppManifestPlugin = require('./WebAppManifestPlugin');
@@ -97,6 +98,11 @@ module.exports = wbCore.createConfig([
   wbCore.setDevTool(
     env.type === 'development' ? 'cheap-module-source-map' : 'source-map'
   ),
+  wbCore.addPlugins([
+    new SimpleProgressWebpackPlugin({
+      format: process.stdout.isTTY ? 'minimal' : 'verbose'
+    })
+  ]),
   wbCore.env('development', [
     wbCore.addPlugins([new webpack.HotModuleReplacementPlugin()])
   ]),
