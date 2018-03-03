@@ -4,7 +4,8 @@ const wbBabel = require('@webpack-blocks/babel');
 const wbExtractText = require('@webpack-blocks/extract-text');
 const wbAssets = require('@webpack-blocks/assets');
 const wbUglify = require('@webpack-blocks/uglify');
-const wbPostcss = require('@webpack-blocks/postcss');
+const wbPostCSS = require('@webpack-blocks/postcss');
+const wbESLint = require('@webpack-blocks/eslint');
 
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -16,17 +17,6 @@ const autoprefixer = require('autoprefixer');
 const WebAppManifestPlugin = require('./WebAppManifestPlugin');
 const paths = require('./paths');
 const env = require('./env');
-
-// waiting for https://github.com/andywer/webpack-blocks/pull/254
-const eslint = (options = {}) => (context, { addLoader }) =>
-  addLoader({
-    test: /\.(js|jsx)$/,
-    exclude: /node_modules/,
-    // run ESLint before Babel
-    enforce: 'pre',
-    use: [{ loader: 'eslint-loader', options }],
-    ...context.match
-  });
 
 const commonsChunk = (options = {}) =>
   wbCore.addPlugins([new webpack.optimize.CommonsChunkPlugin(options)]);
@@ -50,7 +40,7 @@ module.exports = wbCore.createConfig([
 
   // loaders
   wbCore.match(/\.jsx?/, { include: paths.appSrc }, [
-    eslint({ formatter: eslintFormatter }),
+    wbESLint({ formatter: eslintFormatter }),
     wbBabel()
   ]),
   wbCore.match(/\.css/, [
@@ -59,7 +49,7 @@ module.exports = wbCore.createConfig([
       minimize: env.type === 'production',
       sourceMap: true
     }),
-    wbPostcss({
+    wbPostCSS({
       sourceMap: true,
       plugins: [
         postcssFlexBugsFixes,

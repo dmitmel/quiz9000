@@ -38,6 +38,7 @@
     "@babel/runtime": "^7.0.0-beta.5",
     "@webpack-blocks/assets": "^1.0.0-rc",
     "@webpack-blocks/babel": "^1.0.0-rc",
+    "@webpack-blocks/eslint": "^1.0.0-rc",
     "@webpack-blocks/extract-text": "^1.0.0-rc",
     "@webpack-blocks/postcss": "^1.0.0-rc",
     "@webpack-blocks/uglify": "^1.1.0",

@@ -734,6 +734,12 @@
     lodash "^4.17.4"
     webpack-merge "^2.6.1"
 
+"@webpack-blocks/eslint@^1.0.0-rc":
+  version "1.0.0-rc"
+  resolved "https://registry.yarnpkg.com/@webpack-blocks/eslint/-/eslint-1.0.0-rc.tgz#e4e3dd1936d5770180289a43592cab0cec21b86d"
+  dependencies:
+    eslint-loader "^1.9.0"
+
 "@webpack-blocks/extract-text@^1.0.0-rc":
   version "1.0.0-rc"
   resolved "https://registry.yarnpkg.com/@webpack-blocks/extract-text/-/extract-text-1.0.0-rc.tgz#7cfe4c37f82fd6e1ad43f48e118c694a47dee8a5"
