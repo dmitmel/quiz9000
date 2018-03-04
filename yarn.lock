@@ -2938,18 +2938,19 @@ eslint-config-airbnb@^16.1.0:
   dependencies:
     eslint-config-airbnb-base "^12.1.0"
 
-eslint-config-dmitmel@dmitmel/eslint-config-dmitmel:
-  version "0.1.0"
-  resolved "https://codeload.github.com/dmitmel/eslint-config-dmitmel/tar.gz/ec1b472bccef6852ade566a6eaccd10aad0224d8"
+eslint-config-dmitmel@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-dmitmel/-/eslint-config-dmitmel-1.0.0.tgz#f5b370dd06ad0279707d149d253ae7fd8dfdf82c"
   dependencies:
     eslint-config-airbnb "^16.1.0"
     eslint-config-airbnb-base "^12.1.0"
-  optionalDependencies:
-    babel-eslint "^8.2.2"
     eslint-config-prettier "^2.9.0"
     eslint-plugin-import "^2.9.0"
+    eslint-plugin-prettier "^2.6.0"
+    prettier "^1.11.1"
+  optionalDependencies:
+    babel-eslint "^8.2.2"
     eslint-plugin-jsx-a11y "^6.0.3"
-    eslint-plugin-prettier "^2.5.0"
     eslint-plugin-react "^7.7.0"
 
 eslint-config-prettier@^2.9.0:
@@ -7994,7 +7995,7 @@ supports-color@^5.1.0:
   dependencies:
     has-flag "^2.0.0"
 
-supports-color@^5.3.0:
+supports-color@^5.2.0, supports-color@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.3.0.tgz#5b24ac15db80fa927cf5227a4a33fd3c4c7676c0"
   dependencies:
