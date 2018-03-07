@@ -8,8 +8,8 @@ module.exports = (api, options) => ({
 });
 
 function addTo(list, path, opts) {
-  path = require.resolve(path);
-  list.push(opts ? [path, opts] : path);
+  const resolvedPath = require.resolve(path);
+  list.push(opts ? [resolvedPath, opts] : resolvedPath);
 }
 
 function getPresets({ react }) {
