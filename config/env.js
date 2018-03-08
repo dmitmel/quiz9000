@@ -34,13 +34,10 @@ if (envType !== 'test') {
 if (envType) loadEnvFile(`.${envType}`);
 loadEnvFile();
 
-// raw env variables
-const raw = {};
 // env variables for the DefinePlugin
 const stringified = {};
 
 function addEnvVar(key, value) {
-  raw[key] = value;
   stringified[key] = JSON.stringify(value);
 }
 
@@ -54,7 +51,6 @@ Object.keys(process.env)
   .forEach(key => addEnvVar(key, process.env[key]));
 
 module.exports = {
-  raw,
   stringified,
   type: envType,
   assertEnvType(requiredEnv) {

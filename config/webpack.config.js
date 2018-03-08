@@ -8,7 +8,6 @@ const wbPostCSS = require('@webpack-blocks/postcss');
 const wbESLint = require('@webpack-blocks/eslint');
 
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
@@ -83,8 +82,7 @@ module.exports = wbCore.createConfig([
 
   // env variables
   wbCore.addPlugins([
-    new webpack.DefinePlugin({ 'process.env': env.stringified }),
-    new InterpolateHtmlPlugin(env.raw)
+    new webpack.DefinePlugin({ 'process.env': env.stringified })
   ]),
 
   // code splitting
