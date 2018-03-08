@@ -1,4 +1,6 @@
-import firebase from 'firebase';
+import '@firebase/polyfill';
+import firebase from '@firebase/app';
+import '@firebase/database';
 
 const config = {
   apiKey: 'AIzaSyBJE8KocVC4jDAoSb6AeUYaD3Z6qL2kMEc',
