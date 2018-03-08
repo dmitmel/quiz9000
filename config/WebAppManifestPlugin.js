@@ -1,10 +1,10 @@
-const env = require('./env');
 const { servedPath } = require('./paths');
+const { APP_TITLE, APP_THEME_COLOR } = require('./app.config');
 
 // generate manifest.json
 const manifestJson = JSON.stringify({
-  short_name: env.REACT_APP_NAME,
-  name: env.REACT_APP_NAME,
+  short_name: APP_TITLE,
+  name: APP_TITLE,
   icons: [192, 512].map(size => ({
     src: `${servedPath}/android-chrome-${size}x${size}.png`,
     sizes: `${size}x${size}`,
@@ -12,8 +12,8 @@ const manifestJson = JSON.stringify({
   })),
   start_url: `${servedPath}/`,
   display: 'standalone',
-  theme_color: env.REACT_APP_THEME_COLOR,
-  background_color: env.REACT_APP_THEME_COLOR
+  theme_color: APP_THEME_COLOR,
+  background_color: APP_THEME_COLOR
 });
 
 // generate browserconfig.xml
@@ -24,7 +24,7 @@ const browserConfigXml =
     '<msapplication>' +
       '<tile>' +
         `<square150x150logo src="${servedPath}/mstile-150x150.png"/>` +
-        `<TileColor>${env.REACT_APP_THEME_COLOR}</TileColor>` +
+        `<TileColor>${APP_THEME_COLOR}</TileColor>` +
       '</tile>' +
     '</msapplication>' +
   '</browserconfig>';

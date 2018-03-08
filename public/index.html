@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 
+<!--<%
+  const { PUBLIC_URL, APP_TITLE, APP_THEME_COLOR } = process.env;
+%>-->
+
 <html lang="en">
 
   <head>
-    <!--<%
-      const {
-        PUBLIC_URL: publicUrl,
-        REACT_APP_THEME_COLOR: themeColor,
-        REACT_APP_NAME: title
-      } = process.env;
-    %>-->
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="theme-color" content="<%=themeColor%>">
-    <link rel="manifest" href="<%=publicUrl%>/manifest.json">
+    <meta name="theme-color" content="<%= APP_THEME_COLOR %>">
+    <link rel="manifest" href="<%=PUBLIC_URL%>/manifest.json">
 
-    <link rel="shortcut icon" href="<%=publicUrl%>/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="<%=publicUrl%>/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<%=publicUrl%>/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<%=publicUrl%>/favicon-16x16.png">
-    <link rel="mask-icon" href="<%=publicUrl%>/safari-pinned-tab.svg" color="<%=themeColor%>">
-    <meta name="apple-mobile-web-app-title" content="<%=title%>">
-    <meta name="application-name" content="<%=title%>">
+    <link rel="shortcut icon" href="<%=PUBLIC_URL%>/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%=PUBLIC_URL%>/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%=PUBLIC_URL%>/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=PUBLIC_URL%>/favicon-16x16.png">
+    <link rel="mask-icon" href="<%=PUBLIC_URL%>/safari-pinned-tab.svg" color="<%= APP_THEME_COLOR %>">
 
+    <meta name="apple-mobile-web-app-title" content="<%= APP_TITLE %>">
+    <meta name="application-name" content="<%= APP_TITLE %>">
     <title>
-      <%=title%>
+      <%= APP_TITLE %>
     </title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons">

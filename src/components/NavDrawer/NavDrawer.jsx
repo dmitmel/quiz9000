@@ -57,7 +57,7 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
       <Toolbar>
         <img alt="logo" src={logoPath} className={classes.logo} />
         <Typography type="title" noWrap>
-          {process.env.REACT_APP_NAME}
+          {process.env.APP_TITLE}
         </Typography>
       </Toolbar>
       <Divider />
@@ -92,14 +92,14 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
           icon="code"
           text="Source code"
           component="a"
-          href={process.env.REACT_APP_REPO}
+          href={process.env.APP_REPOSITORY}
           onClick={onClose}
         />
         <NavItem
           icon="bug_report"
           text="Report a bug"
           component="a"
-          href={process.env.REACT_APP_BUGS}
+          href={process.env.APP_BUGS}
           onClick={onClose}
         />
       </List>
