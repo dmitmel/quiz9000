@@ -119,7 +119,7 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
           {navItems}
         </Drawer>
       </Hidden>
-      <Hidden mdDown implementation="css">
+      <Hidden smDown implementation="css">
         <Drawer type="permanent" open classes={{ paper: classes.drawerPaper }}>
           {navItems}
         </Drawer>
