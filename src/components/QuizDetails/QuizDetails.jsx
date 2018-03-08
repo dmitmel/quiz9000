@@ -64,7 +64,7 @@ function QuizDetails({
   const appBarProps = {
     title: 'Quiz',
     buttons: [
-      <IconButton color="contrast" aria-label="Search">
+      <IconButton color="inherit" aria-label="Search">
         <Icon>search</Icon>
       </IconButton>
     ],
@@ -86,8 +86,8 @@ function QuizDetails({
           <div className={classes.header}>
             <Avatar src={data.image} alt={data.name} className={classes.img} />
             <div className={classes.headerRight}>
-              <Typography type="title">{data.name}</Typography>
-              <Typography type="subheading">
+              <Typography variant="title">{data.name}</Typography>
+              <Typography variant="subheading">
                 By {data.author ? data.author.name : 'Unknown author'}
               </Typography>
             </div>
@@ -98,15 +98,15 @@ function QuizDetails({
               <>
                 <Button
                   key="remove"
-                  raised
+                  variant="raised"
                   className={classes.button}
                   onClick={onRemove}>
                   Remove
                 </Button>
                 <Button
                   key="open"
-                  raised
-                  color="accent"
+                  variant="raised"
+                  color="secondary"
                   className={classes.button}>
                   Open
                 </Button>
@@ -114,8 +114,8 @@ function QuizDetails({
             ) : (
               <Button
                 key="save"
-                raised
-                color="accent"
+                variant="raised"
+                color="secondary"
                 className={classes.button}
                 onClick={onSave}>
                 Save
@@ -124,7 +124,7 @@ function QuizDetails({
           </div>
 
           <Divider />
-          <Typography type="subheading" className={classes.description}>
+          <Typography variant="subheading" className={classes.description}>
             {data.description}
           </Typography>
         </>

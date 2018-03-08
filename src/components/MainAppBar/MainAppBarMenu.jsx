@@ -39,7 +39,7 @@ class MainAppBarMenu extends Component {
     return (
       <>
         <IconButton
-          color="contrast"
+          color="inherit"
           className={classes.button}
           onClick={onOpen}
           buttonRef={button => {

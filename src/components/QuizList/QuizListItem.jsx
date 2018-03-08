@@ -57,8 +57,8 @@ function ExploreListItem({ id, image, name, description, classes }) {
           className={classes.image}
         />
         <CardContent className={classes.text}>
-          <Typography type="headline">{name}</Typography>
-          <Typography type="subheading" color="secondary">
+          <Typography variant="headline">{name}</Typography>
+          <Typography variant="subheading" color="textSecondary">
             {description}
           </Typography>
         </CardContent>

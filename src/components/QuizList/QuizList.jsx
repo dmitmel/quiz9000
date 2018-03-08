@@ -46,8 +46,8 @@ function QuizList({ loading, quizzes, fetchMore, classes }) {
         {quizzes.map(quiz => quiz && <QuizListItem key={quiz.id} {...quiz} />)}
       </div>
       <Button
-        raised
-        color="accent"
+        variant="raised"
+        color="secondary"
         className={classes.moreBtn}
         disabled={loading}
         onClick={fetchMore}>

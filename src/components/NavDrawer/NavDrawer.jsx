@@ -56,7 +56,7 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
     <div>
       <Toolbar>
         <img alt="logo" src={logoPath} className={classes.logo} />
-        <Typography type="title" noWrap>
+        <Typography variant="title" noWrap>
           {process.env.APP_TITLE}
         </Typography>
       </Toolbar>
@@ -110,7 +110,7 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
     <>
       <Hidden mdUp>
         <Drawer
-          type="temporary"
+          variant="temporary"
           anchor="left"
           open={open}
           onClose={onClose}
@@ -120,7 +120,10 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
-        <Drawer type="permanent" open classes={{ paper: classes.drawerPaper }}>
+        <Drawer
+          variant="permanent"
+          open
+          classes={{ paper: classes.drawerPaper }}>
           {navItems}
         </Drawer>
       </Hidden>

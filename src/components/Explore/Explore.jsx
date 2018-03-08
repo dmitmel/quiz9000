@@ -18,7 +18,7 @@ export default function Explore({ loading, quizzes, fetchMore, onRefresh }) {
   const appBarProps = {
     title: 'Explore',
     buttons: [
-      <IconButton color="contrast" aria-label="Search">
+      <IconButton color="inherit" aria-label="Search">
         <Icon>search</Icon>
       </IconButton>
     ],

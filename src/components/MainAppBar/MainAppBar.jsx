@@ -46,7 +46,7 @@ function MainAppBar({ openNav, title, buttons, menuItems, classes }) {
     <AppBar position="absolute" className={classes.root}>
       <Toolbar>
         <IconButton
-          color="contrast"
+          color="inherit"
           className={classes.navButton}
           onClick={openNav}
           aria-label="Open nav">
@@ -55,7 +55,7 @@ function MainAppBar({ openNav, title, buttons, menuItems, classes }) {
 
         {title && (
           <Typography
-            type="title"
+            variant="title"
             color="inherit"
             noWrap
             className={classes.title}>
