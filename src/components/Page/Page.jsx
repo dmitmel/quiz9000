@@ -32,25 +32,21 @@ const styles = theme => ({
 
 Page.propTypes = {
   appBarProps: PropTypes.object,
-  contentProps: PropTypes.object,
   openNav: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
 
 Page.defaultProps = {
-  appBarProps: {},
-  contentProps: {}
+  appBarProps: {}
 };
 
-function Page({ appBarProps, contentProps, openNav, classes, children }) {
+function Page({ appBarProps, openNav, classes, children }) {
   return (
     <div className={classes.root}>
       <NavDrawer />
       <MainAppBar openNav={openNav} {...appBarProps} />
       <div className={classes.contentWrapper}>
-        <main className={classes.content} {...contentProps}>
-          {children}
-        </main>
+        <main className={classes.content}>{children}</main>
       </div>
     </div>
   );
