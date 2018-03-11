@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import { CircularProgress } from 'material-ui/Progress';
+import withStyles from 'material-ui/styles/withStyles';
+import Button from 'material-ui/Button/Button';
+import CircularProgress from 'material-ui/Progress/CircularProgress';
 import QuizListItem from './QuizListItem';
 
 const styles = theme => ({

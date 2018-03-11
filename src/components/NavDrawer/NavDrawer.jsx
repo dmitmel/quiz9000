@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Drawer from 'material-ui/Drawer';
-import List from 'material-ui/List';
-import Hidden from 'material-ui/Hidden';
-import Divider from 'material-ui/Divider';
+import withStyles from 'material-ui/styles/withStyles';
+import Toolbar from 'material-ui/Toolbar/Toolbar';
+import Typography from 'material-ui/Typography/Typography';
+import Drawer from 'material-ui/Drawer/Drawer';
+import List from 'material-ui/List/List';
+import Hidden from 'material-ui/Hidden/Hidden';
+import Divider from 'material-ui/Divider/Divider';
 import NavItem from './NavItem';
 import Settings from '../../containers/Settings';
 

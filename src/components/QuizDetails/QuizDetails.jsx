@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import IconButton from 'material-ui/IconButton';
-import Icon from 'material-ui/Icon';
-import { CircularProgress } from 'material-ui/Progress';
-import Avatar from 'material-ui/Avatar';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import withStyles from 'material-ui/styles/withStyles';
+import IconButton from 'material-ui/IconButton/IconButton';
+import Icon from 'material-ui/Icon/Icon';
+import CircularProgress from 'material-ui/Progress/CircularProgress';
+import Avatar from 'material-ui/Avatar/Avatar';
+import Typography from 'material-ui/Typography/Typography';
+import Divider from 'material-ui/Divider/Divider';
+import Button from 'material-ui/Button/Button';
 import Page, { PageContent } from '../Page';
 import MainAppBar from '../../containers/MainAppBar';
 

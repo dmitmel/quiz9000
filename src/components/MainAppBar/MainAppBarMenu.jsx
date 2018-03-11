@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withHandlers from 'recompose/withHandlers';
-import { withStyles } from 'material-ui/styles';
-import IconButton from 'material-ui/IconButton';
-import Icon from 'material-ui/Icon';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import withStyles from 'material-ui/styles/withStyles';
+import IconButton from 'material-ui/IconButton/IconButton';
+import Icon from 'material-ui/Icon/Icon';
+import Menu from 'material-ui/Menu/Menu';
+import MenuItem from 'material-ui/Menu/MenuItem';
 
 const styles = {
   root: {},

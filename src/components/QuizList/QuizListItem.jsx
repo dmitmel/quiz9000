@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
-import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import withStyles from 'material-ui/styles/withStyles';
+import Card from 'material-ui/Card/Card';
+import CardContent from 'material-ui/Card/CardContent';
+import CardMedia from 'material-ui/Card/CardMedia';
 import ButtonBase from 'material-ui/ButtonBase';
 import Typography from 'material-ui/Typography';
 

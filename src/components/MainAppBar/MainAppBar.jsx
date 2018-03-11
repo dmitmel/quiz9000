@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import Icon from 'material-ui/Icon';
+import withStyles from 'material-ui/styles/withStyles';
+import AppBar from 'material-ui/AppBar/AppBar';
+import Toolbar from 'material-ui/Toolbar/Toolbar';
+import Typography from 'material-ui/Typography/Typography';
+import IconButton from 'material-ui/IconButton/IconButton';
+import Icon from 'material-ui/Icon/Icon';
 import NavDrawer from '../NavDrawer';
 import MainAppBarMenu from './MainAppBarMenu';
 

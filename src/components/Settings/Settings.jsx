@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from 'material-ui/Dialog';
+import Button from 'material-ui/Button/Button';
+import Dialog from 'material-ui/Dialog/Dialog';
+import DialogTitle from 'material-ui/Dialog/DialogTitle';
+import DialogContent from 'material-ui/Dialog/DialogContent';
+import DialogContentText from 'material-ui/Dialog/DialogContentText';
+import DialogActions from 'material-ui/Dialog/DialogActions';
 
 Settings.propTypes = {
   open: PropTypes.bool.isRequired,

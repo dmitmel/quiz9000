@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as ReduxStoreProvider } from 'react-redux';
-import { MuiThemeProvider } from 'material-ui/styles';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'normalize.css';
 import registerServiceWorker from './registerServiceWorker';
 import './resets.css';
