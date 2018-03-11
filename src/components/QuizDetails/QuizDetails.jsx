@@ -8,7 +8,8 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import Page from '../Page';
+import Page, { PageContent } from '../Page';
+import MainAppBar from '../../containers/MainAppBar';
 
 const styles = theme => ({
   loading: {
@@ -61,74 +62,80 @@ function QuizDetails({
   onRemove,
   classes
 }) {
-  const appBarProps = {
-    title: 'Quiz',
-    buttons: [
-      <IconButton color="inherit" aria-label="Search">
-        <Icon>search</Icon>
-      </IconButton>
-    ],
-    menuItems: [
-      {
-        name: 'Refresh',
-        disabled: loading,
-        onClick: onRefresh
-      }
-    ]
-  };
-
   return (
-    <Page appBarProps={appBarProps}>
-      {loading && <CircularProgress className={classes.loading} />}
+    <Page>
+      <MainAppBar
+        title="Quiz"
+        buttons={[
+          <IconButton color="inherit" aria-label="Search">
+            <Icon>search</Icon>
+          </IconButton>
+        ]}
+        menuItems={[
+          {
+            name: 'Refresh',
+            disabled: loading,
+            onClick: onRefresh
+          }
+        ]}
+      />
 
-      {data && (
-        <>
-          <div className={classes.header}>
-            <Avatar src={data.image} alt={data.name} className={classes.img} />
-            <div className={classes.headerRight}>
-              <Typography variant="title">{data.name}</Typography>
-              <Typography variant="subheading">
-                By {data.author ? data.author.name : 'Unknown author'}
-              </Typography>
+      <PageContent>
+        {loading && <CircularProgress className={classes.loading} />}
+
+        {data && (
+          <>
+            <div className={classes.header}>
+              <Avatar
+                src={data.image}
+                alt={data.name}
+                className={classes.img}
+              />
+              <div className={classes.headerRight}>
+                <Typography variant="title">{data.name}</Typography>
+                <Typography variant="subheading">
+                  By {data.author ? data.author.name : 'Unknown author'}
+                </Typography>
+              </div>
             </div>
-          </div>
 
-          <div className={classes.buttons}>
-            {isSaved ? (
-              <>
+            <div className={classes.buttons}>
+              {isSaved ? (
+                <>
+                  <Button
+                    key="remove"
+                    variant="raised"
+                    className={classes.button}
+                    onClick={onRemove}>
+                    Remove
+                  </Button>
+                  <Button
+                    key="open"
+                    variant="raised"
+                    color="secondary"
+                    className={classes.button}>
+                    Open
+                  </Button>
+                </>
+              ) : (
                 <Button
-                  key="remove"
-                  variant="raised"
-                  className={classes.button}
-                  onClick={onRemove}>
-                  Remove
-                </Button>
-                <Button
-                  key="open"
+                  key="save"
                   variant="raised"
                   color="secondary"
-                  className={classes.button}>
-                  Open
+                  className={classes.button}
+                  onClick={onSave}>
+                  Save
                 </Button>
-              </>
-            ) : (
-              <Button
-                key="save"
-                variant="raised"
-                color="secondary"
-                className={classes.button}
-                onClick={onSave}>
-                Save
-              </Button>
-            )}
-          </div>
+              )}
+            </div>
 
-          <Divider />
-          <Typography variant="subheading" className={classes.description}>
-            {data.description}
-          </Typography>
-        </>
-      )}
+            <Divider />
+            <Typography variant="subheading" className={classes.description}>
+              {data.description}
+            </Typography>
+          </>
+        )}
+      </PageContent>
     </Page>
   );
 }

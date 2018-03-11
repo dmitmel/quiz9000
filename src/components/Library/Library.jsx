@@ -1,6 +1,12 @@
 import React from 'react';
-import Page from '../Page';
+import Page, { PageContent } from '../Page';
+import MainAppBar from '../../containers/MainAppBar';
 
 export default function Library() {
-  return <Page appBarProps={{ title: 'Library' }} />;
+  return (
+    <Page>
+      <MainAppBar title="Library" />
+      <PageContent />
+    </Page>
+  );
 }
