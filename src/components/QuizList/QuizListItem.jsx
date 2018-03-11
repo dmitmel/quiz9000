@@ -20,7 +20,7 @@ const styles = theme => ({
     }),
     '&:hover': {
       '@media (hover: hover)': {
-        backgroundColor: theme.palette.text.divider
+        backgroundColor: theme.palette.action.hover
       }
     }
   },
