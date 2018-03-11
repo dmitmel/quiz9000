@@ -14,8 +14,6 @@ import Settings from '../../containers/Settings';
 import logoBlue from '../../img/logo/blue.svg';
 import logoWhite from '../../img/logo/white.svg';
 
-const logoSize = 2 / 3;
-
 const styles = theme => ({
   drawerPaper: {
     width: NavDrawer.width,
@@ -24,18 +22,9 @@ const styles = theme => ({
     }
   },
   logo: {
-    width: 56 * logoSize,
-    marginLeft: -4,
-    marginRight: theme.spacing.unit * 2.5,
-    '@media (orientation: landscape)': {
-      width: 48 * logoSize,
-      marginRight: theme.spacing.unit * 3
-    },
-    [theme.breakpoints.up('sm')]: {
-      width: 64 * logoSize,
-      marginLeft: -12,
-      marginRight: theme.spacing.unit * 2
-    }
+    width: 48,
+    marginLeft: -12,
+    marginRight: 20
   }
 });
 
