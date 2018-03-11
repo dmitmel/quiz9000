@@ -8,7 +8,7 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import Page from '../../containers/Page';
+import Page from '../Page';
 
 const styles = theme => ({
   loading: {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import NavDrawer from '../../containers/NavDrawer';
-import MainAppBar from '../MainAppBar';
+import MainAppBar from '../../containers/MainAppBar';
 
 const styles = theme => ({
   root: {
@@ -32,7 +32,6 @@ const styles = theme => ({
 
 Page.propTypes = {
   appBarProps: PropTypes.object,
-  openNav: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
 
@@ -40,11 +39,11 @@ Page.defaultProps = {
   appBarProps: {}
 };
 
-function Page({ appBarProps, openNav, classes, children }) {
+function Page({ appBarProps, classes, children }) {
   return (
     <div className={classes.root}>
       <NavDrawer />
-      <MainAppBar openNav={openNav} {...appBarProps} />
+      <MainAppBar {...appBarProps} />
       <div className={classes.contentWrapper}>
         <main className={classes.content}>{children}</main>
       </div>
