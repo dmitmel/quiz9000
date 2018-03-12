@@ -54,7 +54,7 @@ const NavDrawer = ({ open, onClose, openSettings, classes, theme }) => {
           onClick={onClose}
         />
         <NavItem
-          icon="apps"
+          icon="explore"
           text="Explore"
           component={Link}
           to="/explore"
