@@ -6,14 +6,7 @@ import Page, { PageContent } from '../Page';
 import MainAppBar from '../../containers/MainAppBar';
 import QuizList from '../QuizList';
 
-Explore.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  quizzes: PropTypes.array.isRequired,
-  fetchMore: PropTypes.func.isRequired,
-  onRefresh: PropTypes.func.isRequired
-};
-
-export default function Explore({ loading, quizzes, fetchMore, onRefresh }) {
+const Explore = ({ loading, quizzes, fetchMore, onRefresh }) => {
   const hasQuizzes = Boolean(quizzes && quizzes.length);
 
   return (
@@ -47,4 +40,13 @@ export default function Explore({ loading, quizzes, fetchMore, onRefresh }) {
       </PageContent>
     </Page>
   );
-}
+};
+
+Explore.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  quizzes: PropTypes.array.isRequired,
+  fetchMore: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired
+};
+
+export default Explore;

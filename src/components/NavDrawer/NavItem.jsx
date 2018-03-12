@@ -5,18 +5,18 @@ import ListItemIcon from 'material-ui/List/ListItemIcon';
 import ListItemText from 'material-ui/List/ListItemText';
 import Icon from 'material-ui/Icon';
 
+const NavLink = ({ icon, text, ...linkProps }) => (
+  <ListItem button {...linkProps}>
+    <ListItemIcon>
+      <Icon>{icon}</Icon>
+    </ListItemIcon>
+    <ListItemText primary={text} />
+  </ListItem>
+);
+
 NavLink.propTypes = {
   icon: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired
 };
 
-export default function NavLink({ icon, text, ...linkProps }) {
-  return (
-    <ListItem button {...linkProps}>
-      <ListItemIcon>
-        <Icon>{icon}</Icon>
-      </ListItemIcon>
-      <ListItemText primary={text} />
-    </ListItem>
-  );
-}
+export default NavLink;

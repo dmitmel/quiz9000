@@ -12,17 +12,15 @@ const styles = {
   }
 };
 
+const Page = ({ classes, children }) => (
+  <div className={classes.root}>
+    <NavDrawer />
+    {children}
+  </div>
+);
+
 Page.propTypes = {
   classes: PropTypes.object.isRequired
 };
-
-function Page({ classes, children }) {
-  return (
-    <div className={classes.root}>
-      <NavDrawer />
-      {children}
-    </div>
-  );
-}
 
 export default withStyles(styles)(Page);

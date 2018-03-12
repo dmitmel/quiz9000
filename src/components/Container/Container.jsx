@@ -14,9 +14,9 @@ const styles = ({ breakpoints }) => ({
   }
 });
 
-function Container({ children, classes }) {
-  return <div className={classes.container}>{children}</div>;
-}
+const Container = ({ children, classes }) => (
+  <div className={classes.container}>{children}</div>
+);
 
 Container.propTypes = {
   classes: PropTypes.object.isRequired

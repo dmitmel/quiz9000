@@ -37,7 +37,26 @@ const styles = theme => ({
   }
 });
 
-ExploreListItem.propTypes = {
+const QuizListItem = ({ id, image, name, description, classes }) => (
+  <Card className={classes.root}>
+    <ButtonBase className={classes.button} component={Link} to={`/quiz/${id}`}>
+      <CardMedia
+        component="img"
+        image={image}
+        alt="icon"
+        className={classes.image}
+      />
+      <CardContent className={classes.text}>
+        <Typography variant="headline">{name}</Typography>
+        <Typography variant="subheading" color="textSecondary">
+          {description}
+        </Typography>
+      </CardContent>
+    </ButtonBase>
+  </Card>
+);
+
+QuizListItem.propTypes = {
   id: PropTypes.any.isRequired,
   image: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -45,28 +64,4 @@ ExploreListItem.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-function ExploreListItem({ id, image, name, description, classes }) {
-  return (
-    <Card className={classes.root}>
-      <ButtonBase
-        className={classes.button}
-        component={Link}
-        to={`/quiz/${id}`}>
-        <CardMedia
-          component="img"
-          image={image}
-          alt="icon"
-          className={classes.image}
-        />
-        <CardContent className={classes.text}>
-          <Typography variant="headline">{name}</Typography>
-          <Typography variant="subheading" color="textSecondary">
-            {description}
-          </Typography>
-        </CardContent>
-      </ButtonBase>
-    </Card>
-  );
-}
-
-export default withStyles(styles)(ExploreListItem);
+export default withStyles(styles)(QuizListItem);

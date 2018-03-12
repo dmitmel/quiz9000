@@ -8,23 +8,21 @@ import Library from '../Library';
 import Explore from '../../containers/Explore';
 import QuizDetails from '../../containers/QuizDetails';
 
-function App() {
-  return (
-    <Router history={routerHistory}>
-      <Switch>
-        <Route exact path="/library" component={Library} />
-        <Route exact path="/explore" component={Explore} />
-        <Route
-          exact
-          path="/quiz/:id"
-          render={({ match }) => (
-            <QuizDetails id={parseInt(match.params.id, 10)} />
-          )}
-        />
-        <Redirect to="/library" />
-      </Switch>
-    </Router>
-  );
-}
+const App = () => (
+  <Router history={routerHistory}>
+    <Switch>
+      <Route exact path="/library" component={Library} />
+      <Route exact path="/explore" component={Explore} />
+      <Route
+        exact
+        path="/quiz/:id"
+        render={({ match }) => (
+          <QuizDetails id={parseInt(match.params.id, 10)} />
+        )}
+      />
+      <Redirect to="/library" />
+    </Switch>
+  </Router>
+);
 
 export default hot(module)(App);

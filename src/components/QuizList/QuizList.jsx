@@ -26,14 +26,7 @@ const styles = theme => ({
   }
 });
 
-QuizList.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  quizzes: PropTypes.array.isRequired,
-  fetchMore: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
-};
-
-function QuizList({ loading, quizzes, fetchMore, classes }) {
+const QuizList = ({ loading, quizzes, fetchMore, classes }) => {
   const hasQuizzes = Boolean(quizzes && quizzes.length);
 
   const renderProgress = size => (
@@ -58,6 +51,13 @@ function QuizList({ loading, quizzes, fetchMore, classes }) {
   ) : (
     loading && renderProgress(48)
   );
-}
+};
+
+QuizList.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  quizzes: PropTypes.array.isRequired,
+  fetchMore: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(QuizList);

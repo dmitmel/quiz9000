@@ -43,6 +43,87 @@ const styles = theme => ({
   }
 });
 
+const QuizDetails = ({
+  loading,
+  data,
+  isSaved,
+  onRefresh,
+  onSave,
+  onRemove,
+  classes
+}) => (
+  <Page>
+    <MainAppBar
+      title="Quiz"
+      buttons={[
+        <IconButton color="inherit" aria-label="Search">
+          <Icon>search</Icon>
+        </IconButton>
+      ]}
+      menuItems={[
+        {
+          name: 'Refresh',
+          disabled: loading,
+          onClick: onRefresh
+        }
+      ]}
+    />
+
+    <PageContent>
+      {loading && <CircularProgress className={classes.loading} />}
+
+      {data && (
+        <>
+          <div className={classes.header}>
+            <Avatar src={data.image} alt={data.name} className={classes.img} />
+            <div className={classes.headerRight}>
+              <Typography variant="title">{data.name}</Typography>
+              <Typography variant="subheading">
+                By {data.author ? data.author.name : 'Unknown author'}
+              </Typography>
+            </div>
+          </div>
+
+          <div className={classes.buttons}>
+            {isSaved ? (
+              <>
+                <Button
+                  key="remove"
+                  variant="raised"
+                  className={classes.button}
+                  onClick={onRemove}>
+                  Remove
+                </Button>
+                <Button
+                  key="open"
+                  variant="raised"
+                  color="secondary"
+                  className={classes.button}>
+                  Open
+                </Button>
+              </>
+            ) : (
+              <Button
+                key="save"
+                variant="raised"
+                color="secondary"
+                className={classes.button}
+                onClick={onSave}>
+                Save
+              </Button>
+            )}
+          </div>
+
+          <Divider />
+          <Typography variant="subheading" className={classes.description}>
+            {data.description}
+          </Typography>
+        </>
+      )}
+    </PageContent>
+  </Page>
+);
+
 QuizDetails.propTypes = {
   loading: PropTypes.bool.isRequired,
   data: PropTypes.object,
@@ -52,92 +133,5 @@ QuizDetails.propTypes = {
   onRemove: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
-
-function QuizDetails({
-  loading,
-  data,
-  isSaved,
-  onRefresh,
-  onSave,
-  onRemove,
-  classes
-}) {
-  return (
-    <Page>
-      <MainAppBar
-        title="Quiz"
-        buttons={[
-          <IconButton color="inherit" aria-label="Search">
-            <Icon>search</Icon>
-          </IconButton>
-        ]}
-        menuItems={[
-          {
-            name: 'Refresh',
-            disabled: loading,
-            onClick: onRefresh
-          }
-        ]}
-      />
-
-      <PageContent>
-        {loading && <CircularProgress className={classes.loading} />}
-
-        {data && (
-          <>
-            <div className={classes.header}>
-              <Avatar
-                src={data.image}
-                alt={data.name}
-                className={classes.img}
-              />
-              <div className={classes.headerRight}>
-                <Typography variant="title">{data.name}</Typography>
-                <Typography variant="subheading">
-                  By {data.author ? data.author.name : 'Unknown author'}
-                </Typography>
-              </div>
-            </div>
-
-            <div className={classes.buttons}>
-              {isSaved ? (
-                <>
-                  <Button
-                    key="remove"
-                    variant="raised"
-                    className={classes.button}
-                    onClick={onRemove}>
-                    Remove
-                  </Button>
-                  <Button
-                    key="open"
-                    variant="raised"
-                    color="secondary"
-                    className={classes.button}>
-                    Open
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  key="save"
-                  variant="raised"
-                  color="secondary"
-                  className={classes.button}
-                  onClick={onSave}>
-                  Save
-                </Button>
-              )}
-            </div>
-
-            <Divider />
-            <Typography variant="subheading" className={classes.description}>
-              {data.description}
-            </Typography>
-          </>
-        )}
-      </PageContent>
-    </Page>
-  );
-}
 
 export default withStyles(styles)(QuizDetails);

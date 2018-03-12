@@ -27,16 +27,14 @@ const styles = theme => ({
   }
 });
 
+const PageContent = ({ classes, children }) => (
+  <main className={classes.content}>
+    <Container classes={{ container: classes.padding }}>{children}</Container>
+  </main>
+);
+
 PageContent.propTypes = {
   classes: PropTypes.object.isRequired
 };
-
-function PageContent({ classes, children }) {
-  return (
-    <main className={classes.content}>
-      <Container classes={{ container: classes.padding }}>{children}</Container>
-    </main>
-  );
-}
 
 export default withStyles(styles)(PageContent);

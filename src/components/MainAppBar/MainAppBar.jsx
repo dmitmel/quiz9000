@@ -33,6 +33,41 @@ const styles = theme => ({
   }
 });
 
+const MainAppBar = ({ openNav, title, buttons, menuItems, classes }) => (
+  <AppBar position="absolute" className={classes.root}>
+    <Toolbar>
+      <IconButton
+        color="inherit"
+        className={classes.navButton}
+        onClick={openNav}
+        aria-label="Open nav">
+        <Icon>menu</Icon>
+      </IconButton>
+
+      {title && (
+        <Typography
+          variant="title"
+          color="inherit"
+          noWrap
+          className={classes.title}>
+          {title}
+        </Typography>
+      )}
+
+      {buttons &&
+        // eslint-disable-next-line react/no-array-index-key
+        buttons.map((button, i) => <Fragment key={i}>{button}</Fragment>)}
+
+      {menuItems && (
+        <MainAppBarMenu
+          items={menuItems}
+          classes={{ button: classes.menuButton }}
+        />
+      )}
+    </Toolbar>
+  </AppBar>
+);
+
 MainAppBar.propTypes = {
   openNav: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
@@ -40,42 +75,5 @@ MainAppBar.propTypes = {
   menuItems: PropTypes.array,
   classes: PropTypes.object.isRequired
 };
-
-function MainAppBar({ openNav, title, buttons, menuItems, classes }) {
-  return (
-    <AppBar position="absolute" className={classes.root}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          className={classes.navButton}
-          onClick={openNav}
-          aria-label="Open nav">
-          <Icon>menu</Icon>
-        </IconButton>
-
-        {title && (
-          <Typography
-            variant="title"
-            color="inherit"
-            noWrap
-            className={classes.title}>
-            {title}
-          </Typography>
-        )}
-
-        {buttons &&
-          // eslint-disable-next-line react/no-array-index-key
-          buttons.map((button, i) => <Fragment key={i}>{button}</Fragment>)}
-
-        {menuItems && (
-          <MainAppBarMenu
-            items={menuItems}
-            classes={{ button: classes.menuButton }}
-          />
-        )}
-      </Toolbar>
-    </AppBar>
-  );
-}
 
 export default withStyles(styles)(MainAppBar);

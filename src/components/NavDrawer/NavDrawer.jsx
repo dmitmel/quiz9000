@@ -28,23 +28,17 @@ const styles = theme => ({
   }
 });
 
-NavDrawer.width = 280;
+const width = 280;
 
-NavDrawer.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  openSettings: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
-};
-
-function NavDrawer({ open, onClose, openSettings, classes, theme }) {
-  const logoPath = theme.palette.type === 'dark' ? logoWhite : logoBlue;
-
+const NavDrawer = ({ open, onClose, openSettings, classes, theme }) => {
   const navItems = (
     <div>
       <Toolbar>
-        <img alt="logo" src={logoPath} className={classes.logo} />
+        <img
+          alt="logo"
+          src={theme.palette.type === 'dark' ? logoWhite : logoBlue}
+          className={classes.logo}
+        />
         <Typography variant="title" noWrap>
           {process.env.APP_TITLE}
         </Typography>
@@ -120,6 +114,16 @@ function NavDrawer({ open, onClose, openSettings, classes, theme }) {
       <Settings />
     </>
   );
-}
+};
+
+NavDrawer.width = width;
+
+NavDrawer.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  openSettings: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
+};
 
 export default withStyles(styles, { withTheme: true })(NavDrawer);
