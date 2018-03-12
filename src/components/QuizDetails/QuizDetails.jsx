@@ -55,11 +55,11 @@ const QuizDetails = ({
   <Page>
     <MainAppBar
       title="Quiz"
-      buttons={[
+      buttons={
         <IconButton color="inherit" aria-label="Search">
           <Icon>search</Icon>
         </IconButton>
-      ]}
+      }
       menuItems={[
         {
           name: 'Refresh',

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'material-ui/styles/withStyles';
 import AppBar from 'material-ui/AppBar/AppBar';
@@ -54,9 +54,7 @@ const MainAppBar = ({ openNav, title, buttons, menuItems, classes }) => (
         </Typography>
       )}
 
-      {buttons &&
-        // eslint-disable-next-line react/no-array-index-key
-        buttons.map((button, i) => <Fragment key={i}>{button}</Fragment>)}
+      {buttons}
 
       {menuItems && (
         <MainAppBarMenu
@@ -71,7 +69,7 @@ const MainAppBar = ({ openNav, title, buttons, menuItems, classes }) => (
 MainAppBar.propTypes = {
   openNav: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  buttons: PropTypes.arrayOf(PropTypes.element.isRequired),
+  buttons: PropTypes.any.isRequired,
   menuItems: PropTypes.array,
   classes: PropTypes.object.isRequired
 };

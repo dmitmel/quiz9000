@@ -13,11 +13,11 @@ const Explore = ({ loading, quizzes, fetchMore, onRefresh }) => {
     <Page>
       <MainAppBar
         title="Explore"
-        buttons={[
+        buttons={
           <IconButton color="inherit" aria-label="Search">
             <Icon>search</Icon>
           </IconButton>
-        ]}
+        }
         menuItems={[
           {
             name: 'Sort by'
