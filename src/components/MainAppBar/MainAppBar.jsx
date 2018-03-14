@@ -69,7 +69,7 @@ const MainAppBar = ({ openNav, title, buttons, menuItems, classes }) => (
 MainAppBar.propTypes = {
   openNav: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  buttons: PropTypes.any.isRequired,
+  buttons: PropTypes.any,
   menuItems: PropTypes.array,
   classes: PropTypes.object.isRequired
 };
