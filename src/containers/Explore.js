@@ -15,7 +15,7 @@ export default compose(
         loading,
         quizzes: Object.keys(ids).map(i => {
           const id = ids[i];
-          const quiz = state.quizzes[id];
+          const quiz = state.fetchedQuizzes[id];
           return quiz.data;
         })
       };

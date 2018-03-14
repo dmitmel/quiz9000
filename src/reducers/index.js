@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   Library,
   NavDrawer,
   Settings,
-  quizzes
+  fetchedQuizzes: quizzes
 });
 
 export default rootReducer;

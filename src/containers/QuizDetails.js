@@ -9,7 +9,7 @@ import QuizDetails from '../components/QuizDetails';
 export default compose(
   connect(
     (state, { id }) => ({
-      quizzes: state.quizzes,
+      quizzes: state.fetchedQuizzes,
       isSaved: state.Library.savedQuizzes.indexOf(id) >= 0
     }),
     dispatch => ({
