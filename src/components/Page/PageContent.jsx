@@ -11,7 +11,6 @@ const contentMarginTop = value => ({
 const styles = theme => ({
   content: {
     width: '100%',
-    position: 'relative',
     backgroundColor: theme.palette.background.default,
     overflow: 'auto',
 
@@ -20,6 +19,9 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: contentMarginTop(64)
   },
   padding: {
+    height: '100%',
+    position: 'relative',
+
     padding: theme.spacing.unit * 2,
     [theme.breakpoints.up('sm')]: {
       padding: theme.spacing.unit * 3
