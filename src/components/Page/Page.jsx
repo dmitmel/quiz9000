@@ -5,7 +5,8 @@ import NavDrawer from '../../containers/NavDrawer';
 
 const styles = {
   root: {
-    display: 'flex'
+    display: 'flex',
+    height: '100%'
   },
   contentWrapper: {
     width: '100%'

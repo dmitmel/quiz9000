@@ -4,7 +4,7 @@ import withStyles from 'material-ui/styles/withStyles';
 import Container from '../Container';
 
 const contentMarginTop = value => ({
-  height: `calc(100vh - ${value}px)`,
+  height: `calc(100% - ${value}px)`,
   marginTop: value
 });
 
