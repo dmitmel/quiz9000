@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/resets.css"],"names":[],"mappings":"AAAA,EACE,8BAAuB","file":"static/css/main.65d1b548.css","sourcesContent":["* {\n  box-sizing: border-box;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/resets.css"],"sourceRoot":""}
