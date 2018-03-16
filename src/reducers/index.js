@@ -3,14 +3,14 @@ import Explore from './Explore';
 import Library from './Library';
 import NavDrawer from './NavDrawer';
 import Settings from './Settings';
-import quizzes from './quizzes';
+import fetchedQuizzes from './fetchedQuizzes';
 
 const rootReducer = combineReducers({
   Explore,
   Library,
   NavDrawer,
   Settings,
-  fetchedQuizzes: quizzes
+  fetchedQuizzes
 });
 
 export default rootReducer;
