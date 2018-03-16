@@ -29,6 +29,7 @@ const readFile = file =>
 
 class UploadQuiz extends React.Component {
   static propTypes = {
+    addQuiz: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
   };
 
@@ -36,7 +37,8 @@ class UploadQuiz extends React.Component {
 
   onInputChange = ({ target }) => {
     const [file] = target.files;
-    readFile(file).then(console.log, console.error);
+    const { addQuiz } = this.props;
+    readFile(file).then(json => addQuiz(JSON.parse(json)), console.error);
   };
 
   render() {

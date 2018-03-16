@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import routerHistory from '../../utils/routerHistory';
-import Library from '../Library';
+import Library from '../../containers/Library';
 import Explore from '../../containers/Explore';
 import QuizDetails from '../../containers/QuizDetails';
 
