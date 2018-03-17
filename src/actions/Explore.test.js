@@ -10,7 +10,7 @@ describe('actions/Explore', () => {
       return require('./Explore');
     }
 
-    it('returns a function that returns a promise', () => {
+    it('returns a thunk', () => {
       // given:
       const { fetchQuizzes } = mockWithFetchQuizzes(promiseResolve);
       const mockDispatch = () => {};
@@ -22,78 +22,26 @@ describe('actions/Explore', () => {
       expect(typeof promise.then).toBe('function');
     });
 
-    it('calls fetchQuizzes', () => {
-      // given:
-      const mockFetchQuizzes = jest.fn(promiseResolve);
-      const { fetchQuizzes } = mockWithFetchQuizzes(mockFetchQuizzes);
-
-      const offset = 0;
-      const limit = 3;
-      const mockDispatch = () => {};
-      // when:
-      return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
-        // then:
-        expect(mockFetchQuizzes).toHaveBeenCalledTimes(1);
-        expect(mockFetchQuizzes).toHaveBeenCalledWith(offset, limit);
-      });
-    });
-
-    it('dispatches default action', () => {
-      // given:
-      const { fetchQuizzes, FETCH_QUIZZES } = mockWithFetchQuizzes(
-        promiseReject
-      );
-      const offset = 0;
-      const limit = 3;
-      const mockDispatch = jest.fn();
-      // when:
-      return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
-        const [action] = mockDispatch.mock.calls[0];
-        expect(action.type).toBe(FETCH_QUIZZES);
-        expect(action.limit).toBe(limit);
-        expect(action.offset).toBe(offset);
-      });
-    });
-
-    describe('> when fetchQuizzes returns quizzes list', () => {
-      it('returns quizzes list', () => {
-        const quizzes = ['foo', 'bar'];
-        const { fetchQuizzes } = mockWithFetchQuizzes(() =>
-          Promise.resolve(quizzes)
-        );
-        const mockDispatch = () => {};
-        // when:
-        return fetchQuizzes()(mockDispatch).then(result => {
-          // then:
-          expect(result).toBe(quizzes);
-        });
-      });
-
-      it('dispatches a success action', () => {
+    describe('returned thunk', () => {
+      it('calls fetchQuizzes', () => {
         // given:
-        const quizzes = ['foo', 'bar'];
-        const { fetchQuizzes, FETCH_QUIZZES_OK } = mockWithFetchQuizzes(() =>
-          Promise.resolve(quizzes)
-        );
+        const mockFetchQuizzes = jest.fn(promiseResolve);
+        const { fetchQuizzes } = mockWithFetchQuizzes(mockFetchQuizzes);
+
         const offset = 0;
         const limit = 3;
-        const mockDispatch = jest.fn();
+        const mockDispatch = () => {};
         // when:
         return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
           // then:
-          const [action] = mockDispatch.mock.calls[1];
-          expect(action.type).toBe(FETCH_QUIZZES_OK);
-          expect(action.offset).toBe(offset);
-          expect(action.limit).toBe(limit);
-          expect(action.quizzes).toBe(quizzes);
+          expect(mockFetchQuizzes).toHaveBeenCalledTimes(1);
+          expect(mockFetchQuizzes).toHaveBeenCalledWith(offset, limit);
         });
       });
-    });
 
-    describe('> when fetchQuizzes throws an error', () => {
-      it('dispatches an error action', () => {
+      it('dispatches default action', () => {
         // given:
-        const { fetchQuizzes, FETCH_QUIZZES_ERROR } = mockWithFetchQuizzes(
+        const { fetchQuizzes, FETCH_QUIZZES } = mockWithFetchQuizzes(
           promiseReject
         );
         const offset = 0;
@@ -101,11 +49,65 @@ describe('actions/Explore', () => {
         const mockDispatch = jest.fn();
         // when:
         return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
-          // then:
-          const [action] = mockDispatch.mock.calls[1];
-          expect(action.type).toBe(FETCH_QUIZZES_ERROR);
-          expect(action.offset).toBe(offset);
+          const [action] = mockDispatch.mock.calls[0];
+          expect(action.type).toBe(FETCH_QUIZZES);
           expect(action.limit).toBe(limit);
+          expect(action.offset).toBe(offset);
+        });
+      });
+
+      describe('> when fetchQuizzes returns a quizzes list', () => {
+        it('returns a quizzes list', () => {
+          const quizzes = ['foo', 'bar'];
+          const { fetchQuizzes } = mockWithFetchQuizzes(() =>
+            Promise.resolve(quizzes)
+          );
+          const mockDispatch = () => {};
+          // when:
+          return fetchQuizzes()(mockDispatch).then(result => {
+            // then:
+            expect(result).toBe(quizzes);
+          });
+        });
+
+        it('dispatches a success action', () => {
+          // given:
+          const quizzes = ['foo', 'bar'];
+          const { fetchQuizzes, FETCH_QUIZZES_OK } = mockWithFetchQuizzes(() =>
+            Promise.resolve(quizzes)
+          );
+          const offset = 0;
+          const limit = 3;
+          const mockDispatch = jest.fn();
+          // when:
+          return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
+            // then:
+            const [action] = mockDispatch.mock.calls[1];
+            expect(action.type).toBe(FETCH_QUIZZES_OK);
+            expect(action.offset).toBe(offset);
+            expect(action.limit).toBe(limit);
+            expect(action.quizzes).toBe(quizzes);
+          });
+        });
+      });
+
+      describe('> when fetchQuizzes throws an error', () => {
+        it('dispatches an error action', () => {
+          // given:
+          const { fetchQuizzes, FETCH_QUIZZES_ERROR } = mockWithFetchQuizzes(
+            promiseReject
+          );
+          const offset = 0;
+          const limit = 3;
+          const mockDispatch = jest.fn();
+          // when:
+          return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
+            // then:
+            const [action] = mockDispatch.mock.calls[1];
+            expect(action.type).toBe(FETCH_QUIZZES_ERROR);
+            expect(action.offset).toBe(offset);
+            expect(action.limit).toBe(limit);
+          });
         });
       });
     });
