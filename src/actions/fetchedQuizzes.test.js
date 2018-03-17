@@ -46,8 +46,7 @@ describe('actions/fetchedQuizzes', () => {
         // when:
         return fetchQuiz(id)(mockDispatch).then(() => {
           const [action] = mockDispatch.mock.calls[0];
-          expect(action.type).toBe(FETCH_QUIZ);
-          expect(action.id).toBe(id);
+          expect(action).toEqual({ type: FETCH_QUIZ, id });
         });
       });
 
@@ -75,9 +74,7 @@ describe('actions/fetchedQuizzes', () => {
           return fetchQuiz(id)(mockDispatch).then(() => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
-            expect(action.type).toBe(FETCH_QUIZ_OK);
-            expect(action.id).toBe(id);
-            expect(action.quiz).toBe(quiz);
+            expect(action).toEqual({ type: FETCH_QUIZ_OK, id, quiz });
           });
         });
       });
@@ -94,8 +91,7 @@ describe('actions/fetchedQuizzes', () => {
           return fetchQuiz(id)(mockDispatch).then(() => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
-            expect(action.type).toBe(FETCH_QUIZ_ERROR);
-            expect(action.id).toBe(id);
+            expect(action).toEqual({ type: FETCH_QUIZ_ERROR, id });
           });
         });
       });
