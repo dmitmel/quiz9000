@@ -1,6 +1,8 @@
 import fs from 'fs-extra';
 import * as index from './index';
 
+jest.mock('../db/quizzes', () => {});
+
 describe('actions', () => {
   describe('it re-exports everything from', () => {
     fs
