@@ -12,6 +12,7 @@
     "@firebase/app": "^0.1.10",
     "@firebase/database": "^0.2.0",
     "@firebase/polyfill": "^0.2.0",
+    "blueimp-md5": "^2.10.0",
     "connected-react-router": "^4.3.0",
     "es6-promise": "^4.2.4",
     "history": "^4.7.2",

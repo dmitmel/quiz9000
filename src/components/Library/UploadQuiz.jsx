@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import md5 from 'blueimp-md5';
 import withStyles from 'material-ui/styles/withStyles';
 import Button from 'material-ui/Button/Button';
 import Icon from 'material-ui/Icon';
@@ -38,7 +39,11 @@ class UploadQuiz extends React.Component {
   onInputChange = ({ target }) => {
     const [file] = target.files;
     const { addQuiz } = this.props;
-    readFile(file).then(json => addQuiz(JSON.parse(json)), console.error);
+    readFile(file).then(json => {
+      const data = JSON.parse(json);
+      const id = md5(json).slice(0, 8);
+      addQuiz(id, data);
+    }, console.error);
   };
 
   render() {
