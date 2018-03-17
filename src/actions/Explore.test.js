@@ -50,9 +50,11 @@ describe('actions/Explore', () => {
         // when:
         return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
           const [action] = mockDispatch.mock.calls[0];
-          expect(action.type).toBe(FETCH_QUIZZES);
-          expect(action.limit).toBe(limit);
-          expect(action.offset).toBe(offset);
+          expect(action).toEqual({
+            type: FETCH_QUIZZES,
+            limit,
+            offset
+          });
         });
       });
 
@@ -83,10 +85,12 @@ describe('actions/Explore', () => {
           return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
-            expect(action.type).toBe(FETCH_QUIZZES_OK);
-            expect(action.offset).toBe(offset);
-            expect(action.limit).toBe(limit);
-            expect(action.quizzes).toBe(quizzes);
+            expect(action).toEqual({
+              type: FETCH_QUIZZES_OK,
+              limit,
+              offset,
+              quizzes
+            });
           });
         });
       });
@@ -104,9 +108,11 @@ describe('actions/Explore', () => {
           return fetchQuizzes(offset, limit)(mockDispatch).then(() => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
-            expect(action.type).toBe(FETCH_QUIZZES_ERROR);
-            expect(action.offset).toBe(offset);
-            expect(action.limit).toBe(limit);
+            expect(action).toEqual({
+              type: FETCH_QUIZZES_ERROR,
+              limit,
+              offset
+            });
           });
         });
       });
