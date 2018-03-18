@@ -1,5 +1,3 @@
-import '@firebase/polyfill/dist/cjs/src/shims/Array';
-import '@firebase/polyfill/dist/cjs/src/shims/String';
 import firebase from '@firebase/app';
 import '@firebase/database';
 
