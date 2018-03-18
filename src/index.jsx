@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider as ReduxStoreProvider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'normalize.css';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './utils/registerServiceWorker';
 import './resets.css';
 import App from './components/App';
-import theme from './theme';
-import store from './store';
+import theme from './utils/theme';
+import store from './utils/store';
 
 registerServiceWorker();
 

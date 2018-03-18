@@ -2,7 +2,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
     '!src/index.js',
-    '!src/registerServiceWorker.js'
+    '!src/utils/**/*'
   ],
   setupFiles: [
     '<rootDir>/config/polyfills.js',
