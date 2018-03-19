@@ -1,6 +1,6 @@
 import * as actions from '../actions';
 
-export default function Settings(state = {}, action) {
+export default function fetchedQuizzes(state = {}, action) {
   switch (action.type) {
     case actions.FETCH_QUIZ: {
       return {
