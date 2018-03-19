@@ -1,6 +1,6 @@
 import * as actions from '../actions';
 
-export default function NavDrawer(
+export default function Library(
   state = {
     savedQuizzes: []
   },
