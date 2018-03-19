@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { database } from './firebase';
 
 export const rootRef = database.ref('/quizzes');
