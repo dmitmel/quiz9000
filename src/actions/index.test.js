@@ -8,10 +8,10 @@ describe('actions', () => {
     fs
       .readdirSync(__dirname)
       .filter(filename => !/(^index|\.test)\.js$/.test(filename))
-      .forEach(filename =>
-        test(filename, () => {
+      .forEach(fileName =>
+        test(fileName, () => {
           // eslint-disable-next-line import/no-dynamic-require
-          const module = require(`./${filename}`);
+          const module = require(`./${fileName}`);
           expect(index).toMatchObject(module);
         })
       );
