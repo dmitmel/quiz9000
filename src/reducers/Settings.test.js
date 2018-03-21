@@ -12,9 +12,19 @@ describe('reducers/Settings', () => {
   });
 
   describe('+ OPEN_SETTINGS', () => {
-    it('opens the nav if it is closed', () => {
+    it('opens the settings menu if it is closed', () => {
       // given:
       const state = { open: false };
+      const action = { type: actions.OPEN_SETTINGS };
+      // when:
+      const nextState = reducer(state, action);
+      // then:
+      expect(nextState).toEqual({ open: true });
+    });
+
+    it('does not do anything if the settings menu is opened', () => {
+      // given:
+      const state = { open: true };
       const action = { type: actions.OPEN_SETTINGS };
       // when:
       const nextState = reducer(state, action);
@@ -24,9 +34,19 @@ describe('reducers/Settings', () => {
   });
 
   describe('+ CLOSE_SETTINGS', () => {
-    it('closes the nav if it is opened', () => {
+    it('closes the settings menu if it is opened', () => {
       // given:
       const state = { open: true };
+      const action = { type: actions.CLOSE_SETTINGS };
+      // when:
+      const nextState = reducer(state, action);
+      // then:
+      expect(nextState).toEqual({ open: false });
+    });
+
+    it('does not do anything if the settings menu is closed', () => {
+      // given:
+      const state = { open: false };
       const action = { type: actions.CLOSE_SETTINGS };
       // when:
       const nextState = reducer(state, action);
