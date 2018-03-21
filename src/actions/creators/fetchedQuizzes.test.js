@@ -1,4 +1,4 @@
-import { FETCH_QUIZ, FETCH_QUIZ_OK, FETCH_QUIZ_ERROR } from '../types';
+import { FETCH_QUIZ } from '../types';
 
 const promiseResolve = () => Promise.resolve();
 const promiseReject = () => Promise.reject();
@@ -48,7 +48,11 @@ describe('actions/creators/fetchedQuizzes', () => {
         // when:
         return fetchQuiz(id)(mockDispatch).then(() => {
           const [action] = mockDispatch.mock.calls[0];
-          expect(action).toEqual({ type: FETCH_QUIZ, id });
+          expect(action).toEqual({
+            type: FETCH_QUIZ,
+            status: 'loading',
+            id
+          });
         });
       });
 
@@ -74,7 +78,12 @@ describe('actions/creators/fetchedQuizzes', () => {
           return fetchQuiz(id)(mockDispatch).then(() => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
-            expect(action).toEqual({ type: FETCH_QUIZ_OK, id, quiz });
+            expect(action).toEqual({
+              type: FETCH_QUIZ,
+              status: 'success',
+              id,
+              quiz
+            });
           });
         });
       });
@@ -89,7 +98,11 @@ describe('actions/creators/fetchedQuizzes', () => {
           return fetchQuiz(id)(mockDispatch).then(() => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
-            expect(action).toEqual({ type: FETCH_QUIZ_ERROR, id });
+            expect(action).toEqual({
+              type: FETCH_QUIZ,
+              status: 'error',
+              id
+            });
           });
         });
       });

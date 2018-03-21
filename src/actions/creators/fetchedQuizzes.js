@@ -1,16 +1,16 @@
-import { FETCH_QUIZ, FETCH_QUIZ_OK, FETCH_QUIZ_ERROR } from '../types';
+import { FETCH_QUIZ } from '../types';
 import { findQuizBy } from '../../db/quizzes';
 
 export function fetchQuiz(id) {
   return dispatch => {
-    dispatch({ type: FETCH_QUIZ, id });
+    dispatch({ type: FETCH_QUIZ, status: 'loading', id });
     return findQuizBy('id', id).then(
       quiz => {
-        dispatch({ type: FETCH_QUIZ_OK, id, quiz });
+        dispatch({ type: FETCH_QUIZ, status: 'success', id, quiz });
         return quiz;
       },
       () => {
-        dispatch({ type: FETCH_QUIZ_ERROR, id });
+        dispatch({ type: FETCH_QUIZ, status: 'error', id });
       }
     );
   };
