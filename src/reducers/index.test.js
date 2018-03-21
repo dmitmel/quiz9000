@@ -1,8 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-jest.mock('../db/quizzes', () => {});
-
 const mockCombineReducers = jest.fn();
 jest.mock('redux', () => ({ combineReducers: mockCombineReducers }));
 

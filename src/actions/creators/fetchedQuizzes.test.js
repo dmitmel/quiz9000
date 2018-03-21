@@ -1,12 +1,14 @@
+import { FETCH_QUIZ, FETCH_QUIZ_OK, FETCH_QUIZ_ERROR } from '../types';
+
 const promiseResolve = () => Promise.resolve();
 const promiseReject = () => Promise.reject();
 
-describe('actions/fetchedQuizzes', () => {
+describe('actions/creators/fetchedQuizzes', () => {
   describe('+ fetchQuiz()', () => {
     beforeEach(() => jest.resetModules());
 
     function mockWithFindQuizBy(mockFindQuizBy) {
-      jest.doMock('../db/quizzes', () => ({ findQuizBy: mockFindQuizBy }));
+      jest.doMock('../../db/quizzes', () => ({ findQuizBy: mockFindQuizBy }));
       return require('./fetchedQuizzes');
     }
 
@@ -40,7 +42,7 @@ describe('actions/fetchedQuizzes', () => {
 
       it('dispatches default action', () => {
         // given:
-        const { fetchQuiz, FETCH_QUIZ } = mockWithFindQuizBy(promiseReject);
+        const { fetchQuiz } = mockWithFindQuizBy(promiseReject);
         const id = 0;
         const mockDispatch = jest.fn();
         // when:
@@ -65,9 +67,7 @@ describe('actions/fetchedQuizzes', () => {
         it('dispatches a success action', () => {
           // given:
           const quiz = 'foo';
-          const { fetchQuiz, FETCH_QUIZ_OK } = mockWithFindQuizBy(() =>
-            Promise.resolve(quiz)
-          );
+          const { fetchQuiz } = mockWithFindQuizBy(() => Promise.resolve(quiz));
           const id = 0;
           const mockDispatch = jest.fn();
           // when:
@@ -82,9 +82,7 @@ describe('actions/fetchedQuizzes', () => {
       describe('> when fetchQuiz throws an error', () => {
         it('dispatches an error action', () => {
           // given:
-          const { fetchQuiz, FETCH_QUIZ_ERROR } = mockWithFindQuizBy(
-            promiseReject
-          );
+          const { fetchQuiz } = mockWithFindQuizBy(promiseReject);
           const id = 0;
           const mockDispatch = jest.fn();
           // when:

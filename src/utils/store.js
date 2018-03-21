@@ -3,7 +3,7 @@ import { devToolsEnhancer } from 'redux-devtools-extension/logOnlyInProduction';
 import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import reducer from '../reducers';
-import * as actions from '../actions';
+import * as actions from '../actions/creators';
 import routerHistory from '../utils/routerHistory';
 
 const store = createStore(

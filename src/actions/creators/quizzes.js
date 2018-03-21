@@ -1,4 +1,4 @@
-export const ADD_QUIZ = '@@NavDrawer/ADD_QUIZ';
+import { ADD_QUIZ } from '../types';
 
 export function addQuiz(id, quiz) {
   return { type: ADD_QUIZ, id, quiz };

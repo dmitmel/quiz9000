@@ -1,12 +1,16 @@
+import { FETCH_QUIZZES, FETCH_QUIZZES_OK, FETCH_QUIZZES_ERROR } from '../types';
+
 const promiseResolve = () => Promise.resolve();
 const promiseReject = () => Promise.reject();
 
-describe('actions/Explore', () => {
+describe('actions/creators/Explore', () => {
   describe('+ fetchQuizzes()', () => {
     beforeEach(() => jest.resetModules());
 
     function mockWithFetchQuizzes(mockFetchQuizzes) {
-      jest.doMock('../db/quizzes', () => ({ fetchQuizzes: mockFetchQuizzes }));
+      jest.doMock('../../db/quizzes', () => ({
+        fetchQuizzes: mockFetchQuizzes
+      }));
       return require('./Explore');
     }
 
@@ -41,9 +45,7 @@ describe('actions/Explore', () => {
 
       it('dispatches default action', () => {
         // given:
-        const { fetchQuizzes, FETCH_QUIZZES } = mockWithFetchQuizzes(
-          promiseReject
-        );
+        const { fetchQuizzes } = mockWithFetchQuizzes(promiseReject);
         const offset = 0;
         const limit = 3;
         const mockDispatch = jest.fn();
@@ -75,7 +77,7 @@ describe('actions/Explore', () => {
         it('dispatches a success action', () => {
           // given:
           const quizzes = ['foo', 'bar'];
-          const { fetchQuizzes, FETCH_QUIZZES_OK } = mockWithFetchQuizzes(() =>
+          const { fetchQuizzes } = mockWithFetchQuizzes(() =>
             Promise.resolve(quizzes)
           );
           const offset = 0;
@@ -98,9 +100,7 @@ describe('actions/Explore', () => {
       describe('> when fetchQuizzes throws an error', () => {
         it('dispatches an error action', () => {
           // given:
-          const { fetchQuizzes, FETCH_QUIZZES_ERROR } = mockWithFetchQuizzes(
-            promiseReject
-          );
+          const { fetchQuizzes } = mockWithFetchQuizzes(promiseReject);
           const offset = 0;
           const limit = 3;
           const mockDispatch = jest.fn();

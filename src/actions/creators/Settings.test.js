@@ -1,11 +1,7 @@
-import {
-  openSettings,
-  OPEN_SETTINGS,
-  closeSettings,
-  CLOSE_SETTINGS
-} from './Settings';
+import { openSettings, closeSettings } from './Settings';
+import { OPEN_SETTINGS, CLOSE_SETTINGS } from '../types';
 
-describe('actions/Settings', () => {
+describe('actions/creators/Settings', () => {
   describe('+ openSettings()', () => {
     it('returns a valid action', () => {
       // when:

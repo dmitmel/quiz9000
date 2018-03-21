@@ -1,5 +1,5 @@
 import reducer from './NavDrawer';
-import * as actions from '../actions/NavDrawer';
+import * as actions from '../actions/types';
 
 describe('reducers/NavDrawer', () => {
   it('initializes empty state', () => {

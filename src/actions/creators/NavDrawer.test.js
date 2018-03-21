@@ -1,6 +1,7 @@
-import { openNav, OPEN_NAV, closeNav, CLOSE_NAV } from './NavDrawer';
+import { openNav, closeNav } from './NavDrawer';
+import { OPEN_NAV, CLOSE_NAV } from '../types';
 
-describe('actions/NavDrawer', () => {
+describe('actions/creators/NavDrawer', () => {
   describe('+ openNav()', () => {
     it('returns a valid action', () => {
       // when:

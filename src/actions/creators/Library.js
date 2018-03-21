@@ -1,5 +1,4 @@
-export const SAVE_QUIZ = '@@Library/SAVE_QUIZ';
-export const REMOVE_QUIZ = '@@Library/REMOVE_QUIZ';
+import { SAVE_QUIZ, REMOVE_QUIZ } from '../types';
 
 export function saveQuiz(id) {
   return { type: SAVE_QUIZ, id };

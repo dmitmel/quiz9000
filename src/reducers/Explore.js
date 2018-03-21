@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 
-import * as actions from '../actions';
+import * as actions from '../actions/types';
 
 export default function Explore(
   state = {

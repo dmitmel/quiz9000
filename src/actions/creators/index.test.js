@@ -1,9 +1,9 @@
 import fs from 'fs-extra';
 import * as index from './index';
 
-jest.mock('../db/quizzes', () => {});
+jest.mock('../../db/quizzes', () => {});
 
-describe('actions', () => {
+describe('actions/creators', () => {
   describe('it re-exports everything from', () => {
     fs
       .readdirSync(__dirname)

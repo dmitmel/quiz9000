@@ -1,5 +1,4 @@
-export const OPEN_NAV = '@@NavDrawer/OPEN';
-export const CLOSE_NAV = '@@NavDrawer/CLOSE';
+import { OPEN_NAV, CLOSE_NAV } from '../types';
 
 export function openNav() {
   return { type: OPEN_NAV };

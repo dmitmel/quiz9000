@@ -1,5 +1,4 @@
-export const OPEN_SETTINGS = '@@Settings/OPEN';
-export const CLOSE_SETTINGS = '@@Settings/CLOSE';
+import { OPEN_SETTINGS, CLOSE_SETTINGS } from '../types';
 
 export function openSettings() {
   return { type: OPEN_SETTINGS };

@@ -1,5 +1,5 @@
 import reducer from './Settings';
-import * as actions from '../actions/Settings';
+import * as actions from '../actions/types';
 
 describe('reducers/Settings', () => {
   it('initializes empty state', () => {

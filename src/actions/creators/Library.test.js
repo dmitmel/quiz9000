@@ -1,6 +1,7 @@
-import { saveQuiz, SAVE_QUIZ, removeQuiz, REMOVE_QUIZ } from './Library';
+import { saveQuiz, removeQuiz } from './Library';
+import { SAVE_QUIZ, REMOVE_QUIZ } from '../types';
 
-describe('actions/Library', () => {
+describe('actions/creators/Library', () => {
   describe('+ saveQuiz()', () => {
     it('returns a valid action', () => {
       // given:

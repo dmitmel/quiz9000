@@ -1,6 +1,7 @@
-import { addQuiz, ADD_QUIZ } from './quizzes';
+import { addQuiz } from './quizzes';
+import { ADD_QUIZ } from '../types';
 
-describe('actions/quizzes', () => {
+describe('actions/creators/quizzes', () => {
   describe('+ addQuiz()', () => {
     it('returns a valid action', () => {
       // given:

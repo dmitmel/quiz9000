@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import lifecycle from 'recompose/lifecycle';
-import * as actions from '../actions';
+import * as actions from '../actions/creators';
 import Explore from '../components/Explore';
 
 const quizzesPerPage = 10;

@@ -3,7 +3,7 @@ import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
 import withHandlers from 'recompose/withHandlers';
 import lifecycle from 'recompose/lifecycle';
-import * as actions from '../actions';
+import * as actions from '../actions/creators';
 import QuizDetails from '../components/QuizDetails';
 
 export default compose(
