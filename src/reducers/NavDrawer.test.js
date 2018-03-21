@@ -21,12 +21,32 @@ describe('reducers/NavDrawer', () => {
       // then:
       expect(nextState).toEqual({ open: true });
     });
+
+    it('does not do anything if the nav is opened', () => {
+      // given:
+      const state = { open: true };
+      const action = { type: actions.OPEN_NAV };
+      // when:
+      const nextState = reducer(state, action);
+      // then:
+      expect(nextState).toEqual({ open: true });
+    });
   });
 
   describe('+ CLOSE_NAV', () => {
     it('closes the nav if it is opened', () => {
       // given:
       const state = { open: true };
+      const action = { type: actions.CLOSE_NAV };
+      // when:
+      const nextState = reducer(state, action);
+      // then:
+      expect(nextState).toEqual({ open: false });
+    });
+
+    it('does not do anything if the nav is closed', () => {
+      // given:
+      const state = { open: false };
       const action = { type: actions.CLOSE_NAV };
       // when:
       const nextState = reducer(state, action);
