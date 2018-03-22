@@ -19,17 +19,16 @@ export default compose(
     })
   ),
   withHandlers({
-    getQuiz: ({ quizzes }) => id =>
-      quizzes[id] || { loading: false, data: null }
+    getQuiz: ({ quizzes }) => id => quizzes[id] || {}
   }),
   withHandlers({
     fetchQuiz: ({ getQuiz, fetchQuiz }) => id => {
-      const { data, loading } = getQuiz(id);
-      if (!data && !loading) fetchQuiz(id);
+      const { status, data } = getQuiz(id);
+      if (!data && status !== 'loading') fetchQuiz(id);
     },
     onRefresh: ({ id, getQuiz, fetchQuiz }) => () => {
-      const { loading } = getQuiz(id);
-      if (!loading) fetchQuiz(id);
+      const { status } = getQuiz(id);
+      if (status !== 'loading') fetchQuiz(id);
     },
     onSave: ({ id, onSave }) => () => onSave(id),
     onRemove: ({ id, onRemove }) => () => onRemove(id)
@@ -43,5 +42,8 @@ export default compose(
       fetchQuiz(id);
     }
   }),
-  withProps(({ getQuiz, id }) => getQuiz(id))
+  withProps(({ getQuiz, id }) => {
+    const { status, data } = getQuiz(id);
+    return { loading: status === 'loading', data };
+  })
 )(QuizDetails);

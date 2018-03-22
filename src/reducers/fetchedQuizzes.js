@@ -6,9 +6,8 @@ export default function fetchedQuizzes(state = {}, action) {
       return {
         ...state,
         [action.id]: {
-          loading: action.status === 'loading',
-          data: action.status === 'success' ? action.quiz : null,
-          error: action.status === 'error'
+          status: action.status,
+          data: action.status === 'success' ? action.quiz : null
         }
       };
     }
@@ -16,9 +15,8 @@ export default function fetchedQuizzes(state = {}, action) {
       const newQuizzes = {};
       action.quizzes.forEach(quiz => {
         newQuizzes[quiz.id] = {
-          loading: false,
-          data: quiz,
-          error: false
+          status: 'success',
+          data: quiz
         };
       });
       return { ...state, ...newQuizzes };
