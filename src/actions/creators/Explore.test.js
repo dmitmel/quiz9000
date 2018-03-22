@@ -1,4 +1,4 @@
-import { FETCH_QUIZZES, FETCH_QUIZZES_OK, FETCH_QUIZZES_ERROR } from '../types';
+import { FETCH_QUIZZES } from '../types';
 
 const promiseResolve = () => Promise.resolve();
 const promiseReject = () => Promise.reject();
@@ -54,6 +54,7 @@ describe('actions/creators/Explore', () => {
           const [action] = mockDispatch.mock.calls[0];
           expect(action).toEqual({
             type: FETCH_QUIZZES,
+            status: 'loading',
             limit,
             offset
           });
@@ -88,7 +89,8 @@ describe('actions/creators/Explore', () => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
             expect(action).toEqual({
-              type: FETCH_QUIZZES_OK,
+              type: FETCH_QUIZZES,
+              status: 'success',
               limit,
               offset,
               quizzes
@@ -109,7 +111,8 @@ describe('actions/creators/Explore', () => {
             // then:
             const [action] = mockDispatch.mock.calls[1];
             expect(action).toEqual({
-              type: FETCH_QUIZZES_ERROR,
+              type: FETCH_QUIZZES,
+              status: 'error',
               limit,
               offset
             });

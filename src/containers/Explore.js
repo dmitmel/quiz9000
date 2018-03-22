@@ -10,10 +10,10 @@ const quizzesPerPage = 10;
 export default compose(
   connect(
     state => {
-      const { loading, ids } = state.Explore;
+      const { status, ids } = state.Explore;
 
       return {
-        loading,
+        loading: status === 'loading',
         quizzes: Object.keys(ids)
           .filter(i => ids[i] != null)
           .map(i => {

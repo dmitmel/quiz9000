@@ -11,7 +11,9 @@ export default function fetchedQuizzes(state = {}, action) {
         }
       };
     }
-    case actions.FETCH_QUIZZES_OK: {
+    case actions.FETCH_QUIZZES: {
+      if (action.status !== 'success') return state;
+
       const newQuizzes = {};
       action.quizzes.forEach(quiz => {
         newQuizzes[quiz.id] = {

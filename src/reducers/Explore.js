@@ -4,44 +4,27 @@ import * as actions from '../actions/types';
 
 export default function Explore(
   state = {
-    loading: false,
-    ids: {},
-    error: false
+    state: 'success',
+    ids: {}
   },
   action
 ) {
   switch (action.type) {
     case actions.FETCH_QUIZZES: {
       const newIds = {};
-      for (let i = 0; i < action.limit; i++)
-        newIds[action.offset + i] = undefined;
+
+      for (let i = 0; i < action.limit; i++) {
+        newIds[action.offset + i] =
+          action.status === 'success' ? action.quizzes[i].id : undefined;
+      }
 
       return {
         ...state,
-        ids: { ...state.ids, ...newIds },
-        loading: true,
-        error: false
+        status: action.status,
+        ids: { ...state.ids, ...newIds }
       };
     }
-    case actions.FETCH_QUIZZES_OK: {
-      const newIds = {};
-      for (let i = 0; i < action.limit; i++)
-        newIds[action.offset + i] = action.quizzes[i].id;
 
-      return {
-        ...state,
-        loading: false,
-        ids: { ...state.ids, ...newIds },
-        error: false
-      };
-    }
-    case actions.FETCH_QUIZZES_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        error: true
-      };
-    }
     default: {
       return state;
     }
