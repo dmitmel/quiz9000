@@ -1,6 +1,4 @@
-const env = require('./env');
-
-const envType = process.env.BABEL_ENV || env.type;
+const envType = process.env.BABEL_ENV || process.env.NODE_ENV || 'development';
 
 module.exports = (api, options) => ({
   presets: getPresets(options),

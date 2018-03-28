@@ -3,31 +3,35 @@ const wbCore = require('@webpack-blocks/webpack');
 const wbBabel = require('@webpack-blocks/babel');
 const wbExtractText = require('@webpack-blocks/extract-text');
 const wbAssets = require('@webpack-blocks/assets');
-const wbUglify = require('@webpack-blocks/uglify');
 const wbPostCSS = require('@webpack-blocks/postcss');
 const wbESLint = require('@webpack-blocks/eslint');
 
+const autoprefixer = require('autoprefixer');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackManifestPlugin = require('webpack-manifest-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const postcssFlexBugsFixes = require('postcss-flexbugs-fixes');
-const autoprefixer = require('autoprefixer');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const WebpackManifestPlugin = require('webpack-manifest-plugin');
+
 const WebAppManifestPlugin = require('./WebAppManifestPlugin');
 const paths = require('./paths');
-const env = require('./env');
+const appConfig = require('./app.config');
 
-const commonsChunk = (options = {}) =>
-  wbCore.addPlugins([new webpack.optimize.CommonsChunkPlugin(options)]);
+const envType = process.env.NODE_ENV || 'development';
 
-const splitVendor = (name = 'vendor') =>
-  commonsChunk({
-    name,
-    minChunks: ({ resource }) => resource && /node_modules/.test(resource)
-  });
+const setMode = mode => (context, util) => util.merge({ mode });
+const optimization = options => (context, util) =>
+  util.merge({ optimization: options });
+
+const uglify = options =>
+  optimization({ minimizer: [new UglifyJsPlugin(options)] });
 
 module.exports = wbCore.createConfig([
+  setMode(envType),
+
   // entry
   wbCore.entryPoint([require.resolve('./polyfills')]),
   wbCore.env('development', [
@@ -46,7 +50,7 @@ module.exports = wbCore.createConfig([
   wbCore.match(/\.css/, [
     wbAssets.css({
       importLoaders: 1,
-      minimize: env.type === 'production',
+      minimize: envType === 'production',
       sourceMap: true
     }),
     wbPostCSS({
@@ -82,19 +86,30 @@ module.exports = wbCore.createConfig([
 
   // env variables
   wbCore.addPlugins([
-    new webpack.DefinePlugin({ 'process.env': env.stringified })
+    new webpack.DefinePlugin({
+      'process.env': Object.keys(appConfig).reduce((envVars, key) => {
+        envVars[key] = JSON.stringify(appConfig[key]);
+        return envVars;
+      }, {})
+    })
   ]),
 
   // code splitting
-  splitVendor(),
-  // extracts webpack runtime into a different chunk
-  commonsChunk({ name: 'manifest' }),
-  // tells Webpack to use file paths as module IDs
-  wbCore.addPlugins([new webpack.NamedModulesPlugin()]),
+  optimization({
+    // extracts webpack runtime into a different chunk
+    runtimeChunk: true,
+    // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
+    splitChunks: {
+      chunks: 'all'
+    },
+    // tells Webpack to use file paths as module IDs
+    // https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
+    namedModules: true
+  }),
 
   // development tools
   wbCore.setDevTool(
-    env.type === 'development' ? 'cheap-module-source-map' : 'source-map'
+    envType === 'development' ? 'cheap-module-source-map' : 'source-map'
   ),
   wbCore.addPlugins([
     new SimpleProgressWebpackPlugin({
@@ -107,11 +122,11 @@ module.exports = wbCore.createConfig([
 
   // output
   wbCore.addPlugins([
-    // injects <script> tags into `index.html`
+    // injects `<script>` tags into `index.html`
     new HtmlWebpackPlugin({
       inject: 'body',
       template: paths.appHtml,
-      minify: env.type === 'production' && {
+      minify: envType === 'production' && {
         removeComments: true,
         collapseWhitespace: true,
         removeRedundantAttributes: true,
@@ -124,6 +139,8 @@ module.exports = wbCore.createConfig([
         minifyURLs: true
       }
     }),
+    // adds `async` attributes to all `<script>` tags
+    new ScriptExtHtmlWebpackPlugin({ defaultAttribute: 'async' }),
     // generates manifest.json and browserconfig.xml
     new WebAppManifestPlugin(),
     // generates a manifest file which contains a mapping of all asset
@@ -132,14 +149,11 @@ module.exports = wbCore.createConfig([
   ]),
   wbCore.setOutput({
     filename: `static/js/[name]${
-      env.type === 'development' ? '' : '.[chunkhash:8]'
+      envType === 'development' ? '' : '.[chunkhash:8]'
     }.js`,
     chunkFilename: `static/js/[name]${
-      env.type === 'development' ? '' : '.[chunkhash:8]'
+      envType === 'development' ? '' : '.[chunkhash:8]'
     }.chunk.js`,
-    // add /* filename */ comments to require()s in the generated output in
-    // development
-    pathinfo: env.type === 'development',
     // this is where the app is served from (`/` in development)
     publicPath: paths.ensureSlash(paths.servedPath, true)
   }),
@@ -175,7 +189,7 @@ module.exports = wbCore.createConfig([
         }
       })
     ]),
-    wbUglify({
+    uglify({
       uglifyOptions: {
         compress: {
           warnings: false,
@@ -193,8 +207,6 @@ module.exports = wbCore.createConfig([
         }
       },
       sourceMap: true
-    }),
-    // fail immediately on first error
-    wbCore.customConfig({ bail: true })
+    })
   ])
 ]);
