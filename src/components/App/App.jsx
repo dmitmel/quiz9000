@@ -1,12 +1,29 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { hot } from 'react-hot-loader';
+import Loadable from 'react-loadable';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
+import LoadingPage from './LoadingPage';
 import routerHistory from '../../utils/routerHistory';
-import Library from '../../containers/Library';
-import Explore from '../../containers/Explore';
-import QuizDetails from '../../containers/QuizDetails';
+
+const Library = Loadable({
+  loader: () =>
+    import(/* webpackChunkName: "Library" */ '../../containers/Library'),
+  loading: LoadingPage
+});
+
+const Explore = Loadable({
+  loader: () =>
+    import(/* webpackChunkName: "Explore" */ '../../containers/Explore'),
+  loading: LoadingPage
+});
+
+const QuizDetails = Loadable({
+  loader: () =>
+    import(/* webpackChunkName: "QuizDetails" */ '../../containers/QuizDetails'),
+  loading: LoadingPage
+});
 
 const App = () => (
   <Router history={routerHistory}>

@@ -139,8 +139,14 @@ module.exports = wbCore.createConfig([
         minifyURLs: true
       }
     }),
-    // adds `async` attributes to all `<script>` tags
-    new ScriptExtHtmlWebpackPlugin({ defaultAttribute: 'async' }),
+    // adds custom attributes to `<script>` tags
+    new ScriptExtHtmlWebpackPlugin({
+      async: /\.js$/,
+      prefetch: {
+        test: /\.js$/,
+        chunks: 'async'
+      }
+    }),
     // generates manifest.json and browserconfig.xml
     new WebAppManifestPlugin(),
     // generates a manifest file which contains a mapping of all asset
