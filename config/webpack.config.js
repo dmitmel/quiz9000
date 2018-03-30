@@ -11,9 +11,9 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const postcssFlexBugsFixes = require('postcss-flexbugs-fixes');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 
 const WebAppManifestPlugin = require('./WebAppManifestPlugin');
@@ -112,8 +112,10 @@ module.exports = wbCore.createConfig([
     envType === 'development' ? 'cheap-module-source-map' : 'source-map'
   ),
   wbCore.addPlugins([
-    new SimpleProgressWebpackPlugin({
-      format: process.stdout.isTTY ? 'minimal' : 'verbose'
+    // shows build progress
+    new WebpackBar({
+      buildTitle: null,
+      showCursor: true
     })
   ]),
   wbCore.env('development', [
