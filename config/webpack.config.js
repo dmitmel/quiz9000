@@ -62,7 +62,8 @@ module.exports = wbCore.createConfig([
             '>1%',
             'last 4 versions',
             'Firefox ESR',
-            'not ie < 9' // React doesn't support IE8
+            // Material-UI supports only IE 11
+            'ie 11'
           ],
           flexbox: 'no-2009'
         })

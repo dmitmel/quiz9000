@@ -21,8 +21,8 @@ function getPresets({ react }) {
             node: 'current'
           }
         : {
-            // React parses on IE 9
-            ie: 9,
+            // Material-UI supports only IE 11
+            ie: 11,
             // transform everything in production because UglifyJS doesn't
             // support ES6 and later
             forceAllTransforms: envType === 'production'
