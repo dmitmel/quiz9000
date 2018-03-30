@@ -1,3 +1,5 @@
+<img src="src/assets/logo/blue.svg" alt="logo" width="180" height="180" align="right">
+
 # quiz9000
 
 [![Travis](https://img.shields.io/travis/dmitmel/quiz9000.svg?style=flat-square)](https://travis-ci.org/dmitmel/quiz9000)
