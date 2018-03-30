@@ -11,8 +11,8 @@ import Divider from 'material-ui/Divider/Divider';
 import NavItem from './NavItem';
 import Settings from '../../containers/Settings';
 
-import logoBlue from '../../img/logo/blue.svg';
-import logoWhite from '../../img/logo/white.svg';
+import logoBlue from '../../assets/logo/blue.svg';
+import logoWhite from '../../assets/logo/white.svg';
 
 const styles = theme => ({
   drawerPaper: {
