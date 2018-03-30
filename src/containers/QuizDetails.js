@@ -10,28 +10,31 @@ export default compose(
   connect(
     (state, { id }) => ({
       quizzes: state.fetchedQuizzes,
-      isSaved: state.Library.savedQuizzes.indexOf(id) >= 0
+      isSaved: Boolean(state.Library[id])
     }),
     dispatch => ({
       fetchQuiz: id => dispatch(actions.fetchQuiz(id)),
-      onSave: id => dispatch(actions.saveQuiz(id)),
+      onSave: (id, data) => dispatch(actions.addQuiz(id, data)),
       onRemove: id => dispatch(actions.removeQuiz(id))
     })
   ),
-  withHandlers({
-    getQuiz: ({ quizzes }) => id => quizzes[id] || {}
+  withProps(({ quizzes, id }) => {
+    const { status, data } = quizzes[id] || {};
+    return { loading: status === 'loading', data };
   }),
   withHandlers({
-    fetchQuiz: ({ getQuiz, fetchQuiz }) => id => {
-      const { status, data } = getQuiz(id);
-      if (!data && status !== 'loading') fetchQuiz(id);
+    fetchQuiz: ({ loading, data, fetchQuiz }) => id => {
+      if (!data && !loading) fetchQuiz(id);
     },
-    onRefresh: ({ id, getQuiz, fetchQuiz }) => () => {
-      const { status } = getQuiz(id);
-      if (status !== 'loading') fetchQuiz(id);
+    onRefresh: ({ id, loading, fetchQuiz }) => () => {
+      if (!loading) fetchQuiz(id);
     },
-    onSave: ({ id, onSave }) => () => onSave(id),
-    onRemove: ({ id, onRemove }) => () => onRemove(id)
+    onSave: ({ id, loading, data, onSave }) => () => {
+      if (!loading) onSave(id, data);
+    },
+    onRemove: ({ id, loading, onRemove }) => () => {
+      if (!loading) onRemove(id);
+    }
   }),
   lifecycle({
     componentDidMount() {
@@ -41,9 +44,5 @@ export default compose(
     componentWillReceiveProps({ id, fetchQuiz }) {
       fetchQuiz(id);
     }
-  }),
-  withProps(({ getQuiz, id }) => {
-    const { status, data } = getQuiz(id);
-    return { loading: status === 'loading', data };
   })
 )(QuizDetails);

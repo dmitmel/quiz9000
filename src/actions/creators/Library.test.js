@@ -1,15 +1,16 @@
-import { saveQuiz, removeQuiz } from './Library';
-import { SAVE_QUIZ, REMOVE_QUIZ } from '../types';
+import { addQuiz, removeQuiz } from './Library';
+import { ADD_QUIZ, REMOVE_QUIZ } from '../types';
 
 describe('actions/creators/Library', () => {
-  describe('+ saveQuiz()', () => {
+  describe('+ addQuiz()', () => {
     it('returns a valid action', () => {
       // given:
       const id = 0;
+      const data = { foo: 'bar' };
       // when:
-      const action = saveQuiz(id);
+      const action = addQuiz(id, data);
       // then:
-      expect(action).toEqual({ type: SAVE_QUIZ, id });
+      expect(action).toEqual({ type: ADD_QUIZ, id, data });
     });
   });
 
