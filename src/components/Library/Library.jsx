@@ -10,8 +10,8 @@ const Library = ({ quizzes, addQuiz }) => (
     <MainAppBar title="Library" />
     <PageContent>
       <QuizList quizzes={quizzes} />
-      <UploadQuiz addQuiz={addQuiz} />
     </PageContent>
+    <UploadQuiz addQuiz={addQuiz} />
   </Page>
 );
 

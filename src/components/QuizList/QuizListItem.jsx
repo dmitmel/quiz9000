@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Truncate from 'react-dotdotdot';
 import withStyles from 'material-ui/styles/withStyles';
 import Card from 'material-ui/Card/Card';
 import CardContent from 'material-ui/Card/CardContent';
@@ -32,6 +33,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2
   },
   text: {
+    width: '100%',
     padding: 0,
     alignSelf: 'flex-start'
   }
@@ -47,9 +49,11 @@ const QuizListItem = ({ id, image, name, description, classes }) => (
         className={classes.image}
       />
       <CardContent className={classes.text}>
-        <Typography variant="headline">{name}</Typography>
+        <Typography variant="headline">
+          <Truncate clamp={1}>{name}</Truncate>
+        </Typography>
         <Typography variant="subheading" color="textSecondary">
-          {description}
+          <Truncate clamp={3}>{description}</Truncate>
         </Typography>
       </CardContent>
     </ButtonBase>
