@@ -7,7 +7,6 @@ import Typography from 'material-ui/Typography/Typography';
 import IconButton from 'material-ui/IconButton/IconButton';
 import Icon from 'material-ui/Icon/Icon';
 import NavDrawer from '../NavDrawer';
-import MainAppBarMenu from './MainAppBarMenu';
 
 const styles = theme => ({
   root: {
@@ -26,14 +25,10 @@ const styles = theme => ({
   title: {
     // fill all available space
     flex: 1
-  },
-  menuButton: {
-    width: 36,
-    marginRight: -12
   }
 });
 
-const MainAppBar = ({ openNav, title, buttons, menuItems, classes }) => (
+const MainAppBar = ({ openNav, title, children, classes }) => (
   <AppBar position="absolute" className={classes.root}>
     <Toolbar>
       <IconButton
@@ -54,14 +49,7 @@ const MainAppBar = ({ openNav, title, buttons, menuItems, classes }) => (
         </Typography>
       )}
 
-      {buttons}
-
-      {menuItems && (
-        <MainAppBarMenu
-          items={menuItems}
-          classes={{ button: classes.menuButton }}
-        />
-      )}
+      {children}
     </Toolbar>
   </AppBar>
 );
@@ -69,8 +57,6 @@ const MainAppBar = ({ openNav, title, buttons, menuItems, classes }) => (
 MainAppBar.propTypes = {
   openNav: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  buttons: PropTypes.any,
-  menuItems: PropTypes.array,
   classes: PropTypes.object.isRequired
 };
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'material-ui/styles/withStyles';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import Button from 'material-ui/Button/Button';
 import CircularProgress from 'material-ui/Progress/CircularProgress';
 import IconButton from 'material-ui/IconButton/IconButton';
 import Icon from 'material-ui/Icon/Icon';
 import Page, { PageContent } from '../Page';
 import MainAppBar from '../../containers/MainAppBar';
+import { MainAppBarMenu } from '../MainAppBar';
 import QuizList from '../QuizList';
 
 const styles = theme => ({
@@ -33,24 +35,20 @@ const Explore = ({ loading, quizzes, fetchMore, onRefresh, classes }) => {
 
   return (
     <Page>
-      <MainAppBar
-        title="Explore"
-        buttons={
-          <IconButton color="inherit" aria-label="Search">
-            <Icon>search</Icon>
-          </IconButton>
-        }
-        menuItems={[
-          {
-            name: 'Sort by'
-          },
-          {
-            name: 'Refresh',
-            disabled: !hasQuizzes || loading,
-            onClick: onRefresh
-          }
-        ]}
-      />
+      <MainAppBar title="Explore">
+        <IconButton color="inherit" aria-label="Search">
+          <Icon>search</Icon>
+        </IconButton>
+        <MainAppBarMenu>
+          <MenuItem key="sort-by">Sort by</MenuItem>
+          <MenuItem
+            key="refresh"
+            disabled={!hasQuizzes || loading}
+            onClick={onRefresh}>
+            Refresh
+          </MenuItem>
+        </MainAppBarMenu>
+      </MainAppBar>
 
       <PageContent>
         {hasQuizzes ? (

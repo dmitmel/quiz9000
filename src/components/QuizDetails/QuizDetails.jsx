@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'material-ui/styles/withStyles';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import Icon from 'material-ui/Icon/Icon';
 import CircularProgress from 'material-ui/Progress/CircularProgress';
@@ -10,6 +11,7 @@ import Divider from 'material-ui/Divider/Divider';
 import Button from 'material-ui/Button/Button';
 import Page, { PageContent } from '../Page';
 import MainAppBar from '../../containers/MainAppBar';
+import { MainAppBarMenu } from '../MainAppBar';
 
 const styles = theme => ({
   loading: {
@@ -53,21 +55,16 @@ const QuizDetails = ({
   classes
 }) => (
   <Page>
-    <MainAppBar
-      title="Quiz"
-      buttons={
-        <IconButton color="inherit" aria-label="Search">
-          <Icon>search</Icon>
-        </IconButton>
-      }
-      menuItems={[
-        {
-          name: 'Refresh',
-          disabled: loading,
-          onClick: onRefresh
-        }
-      ]}
-    />
+    <MainAppBar title="Quiz">
+      <IconButton color="inherit" aria-label="Search">
+        <Icon>search</Icon>
+      </IconButton>
+      <MainAppBarMenu>
+        <MenuItem disabled={loading} onClick={onRefresh}>
+          Refresh
+        </MenuItem>
+      </MainAppBarMenu>
+    </MainAppBar>
 
     <PageContent>
       {loading && <CircularProgress className={classes.loading} />}

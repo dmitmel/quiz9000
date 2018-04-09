@@ -7,15 +7,12 @@ import withStyles from 'material-ui/styles/withStyles';
 import IconButton from 'material-ui/IconButton/IconButton';
 import Icon from 'material-ui/Icon/Icon';
 import Menu from 'material-ui/Menu/Menu';
-import MenuItem from 'material-ui/Menu/MenuItem';
 
 const styles = {
   root: {},
-  button: {},
-  item: {
-    '&:focus': {
-      outline: 'none'
-    }
+  button: {
+    marginLeft: -8,
+    marginRight: -16
   }
 };
 
@@ -24,18 +21,11 @@ class MainAppBarMenu extends React.Component {
     open: PropTypes.bool.isRequired,
     onOpen: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        disabled: PropTypes.bool,
-        onClick: PropTypes.func
-      }).isRequired
-    ).isRequired,
     classes: PropTypes.object.isRequired
   };
 
   render() {
-    const { open, onOpen, onClose, items, classes } = this.props;
+    const { open, onOpen, onClose, children, classes } = this.props;
 
     return (
       <>
@@ -52,26 +42,14 @@ class MainAppBarMenu extends React.Component {
           <Icon>more_vert</Icon>
         </IconButton>
 
-        {items && (
-          <Menu
-            id={classes.root}
-            anchorEl={this.button}
-            open={open}
-            onClose={onClose}>
-            {items &&
-              items.map(({ name, disabled, onClick }) => (
-                <MenuItem
-                  key={name}
-                  disabled={disabled}
-                  onClick={() => {
-                    onClose();
-                    if (onClick) onClick();
-                  }}>
-                  {name}
-                </MenuItem>
-              ))}
-          </Menu>
-        )}
+        <Menu
+          id={classes.root}
+          anchorEl={this.button}
+          open={open}
+          onClick={onClose}
+          onClose={onClose}>
+          {children}
+        </Menu>
       </>
     );
   }
