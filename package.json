@@ -16,7 +16,6 @@
     "connected-react-router": "^4.3.0",
     "es6-promise": "^4.2.4",
     "history": "^4.7.2",
-    "left-pad": "^1.2.0",
     "material-ui": "^1.0.0-beta.39",
     "normalize.css": "^8.0.0",
     "object-assign": "^4.1.1",
