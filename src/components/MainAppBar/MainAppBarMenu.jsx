@@ -13,6 +13,10 @@ const styles = {
   button: {
     marginLeft: -8,
     marginRight: -16
+  },
+  menu: {
+    marginTop: -8,
+    marginLeft: 8
   }
 };
 
@@ -47,7 +51,8 @@ class MainAppBarMenu extends React.Component {
           anchorEl={this.button}
           open={open}
           onClick={onClose}
-          onClose={onClose}>
+          onClose={onClose}
+          className={classes.menu}>
           {children}
         </Menu>
       </>
