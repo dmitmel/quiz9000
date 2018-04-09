@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import withHandlers from 'recompose/withHandlers';
 import lifecycle from 'recompose/lifecycle';
+import FetchStatus from '../utils/FetchStatus';
 import * as actions from '../actions/creators';
 import Explore from '../components/Explore';
 
@@ -13,7 +14,7 @@ export default compose(
       const { status, ids } = state.Explore;
 
       return {
-        loading: status === 'loading',
+        loading: status === FetchStatus.LOADING,
         quizzes: Object.keys(ids)
           .filter(i => ids[i] != null)
           .map(i => {

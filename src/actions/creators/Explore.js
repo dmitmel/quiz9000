@@ -1,11 +1,12 @@
 import { FETCH_QUIZZES } from '../types';
+import FetchStatus from '../../utils/FetchStatus';
 import { fetchQuizzes as dbFetchQuizzes } from '../../db/quizzes';
 
 export function fetchQuizzes(offset, limit) {
   return dispatch => {
     dispatch({
       type: FETCH_QUIZZES,
-      status: 'loading',
+      status: FetchStatus.LOADING,
       offset,
       limit
     });
@@ -13,7 +14,7 @@ export function fetchQuizzes(offset, limit) {
       quizzes => {
         dispatch({
           type: FETCH_QUIZZES,
-          status: 'success',
+          status: FetchStatus.SUCCESS,
           offset,
           limit,
           quizzes
@@ -23,7 +24,7 @@ export function fetchQuizzes(offset, limit) {
       () => {
         dispatch({
           type: FETCH_QUIZZES,
-          status: 'error',
+          status: FetchStatus.ERROR,
           offset,
           limit
         });

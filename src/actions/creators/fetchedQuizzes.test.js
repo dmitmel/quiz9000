@@ -1,4 +1,5 @@
 import { FETCH_QUIZ } from '../types';
+import FetchStatus from '../../utils/FetchStatus';
 
 const promiseResolve = () => Promise.resolve();
 const promiseReject = () => Promise.reject();
@@ -50,7 +51,7 @@ describe('actions/creators/fetchedQuizzes', () => {
           const [action] = mockDispatch.mock.calls[0];
           expect(action).toEqual({
             type: FETCH_QUIZ,
-            status: 'loading',
+            status: FetchStatus.LOADING,
             id
           });
         });
@@ -80,7 +81,7 @@ describe('actions/creators/fetchedQuizzes', () => {
             const [action] = mockDispatch.mock.calls[1];
             expect(action).toEqual({
               type: FETCH_QUIZ,
-              status: 'success',
+              status: FetchStatus.SUCCESS,
               id,
               quiz
             });
@@ -100,7 +101,7 @@ describe('actions/creators/fetchedQuizzes', () => {
             const [action] = mockDispatch.mock.calls[1];
             expect(action).toEqual({
               type: FETCH_QUIZ,
-              status: 'error',
+              status: FetchStatus.ERROR,
               id
             });
           });

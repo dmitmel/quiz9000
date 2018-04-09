@@ -3,6 +3,7 @@ import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
 import withHandlers from 'recompose/withHandlers';
 import lifecycle from 'recompose/lifecycle';
+import FetchStatus from '../utils/FetchStatus';
 import * as actions from '../actions/creators';
 import QuizDetails from '../components/QuizDetails';
 
@@ -20,7 +21,7 @@ export default compose(
   ),
   withProps(({ quizzes, id }) => {
     const { status, data } = quizzes[id] || {};
-    return { loading: status === 'loading', data };
+    return { loading: status === FetchStatus.LOADING, data };
   }),
   withHandlers({
     fetchQuiz: ({ loading, data, fetchQuiz }) => id => {

@@ -1,10 +1,11 @@
 /* eslint-disable no-plusplus */
 
 import * as actions from '../actions/types';
+import FetchStatus from '../utils/FetchStatus';
 
 export default function Explore(
   state = {
-    state: 'success',
+    state: FetchStatus.SUCCESS,
     ids: {}
   },
   action
@@ -15,7 +16,9 @@ export default function Explore(
 
       for (let i = 0; i < action.limit; i++) {
         newIds[action.offset + i] =
-          action.status === 'success' ? action.quizzes[i].id : undefined;
+          action.status === FetchStatus.SUCCESS
+            ? action.quizzes[i].id
+            : undefined;
       }
 
       return {
