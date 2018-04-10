@@ -71,8 +71,8 @@ describe('actions/creators/fetchedQuizzes', () => {
 
         it('dispatches a success action', () => {
           // given:
-          const quiz = 'foo';
-          const { fetchQuiz } = mockWithFindQuizBy(() => Promise.resolve(quiz));
+          const data = 'foo';
+          const { fetchQuiz } = mockWithFindQuizBy(() => Promise.resolve(data));
           const id = 0;
           const mockDispatch = jest.fn();
           // when:
@@ -83,7 +83,7 @@ describe('actions/creators/fetchedQuizzes', () => {
               type: FETCH_QUIZ,
               status: FetchStatus.SUCCESS,
               id,
-              quiz
+              data
             });
           });
         });

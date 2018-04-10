@@ -8,7 +8,7 @@ export default function fetchedQuizzes(state = {}, action) {
         ...state,
         [action.id]: {
           status: action.status,
-          data: action.status === FetchStatus.SUCCESS ? action.quiz : null
+          data: action.status === FetchStatus.SUCCESS ? action.data : undefined
         }
       };
     }
@@ -16,12 +16,10 @@ export default function fetchedQuizzes(state = {}, action) {
       if (action.status !== FetchStatus.SUCCESS) return state;
 
       const newQuizzes = {};
-      action.quizzes.forEach(quiz => {
-        newQuizzes[quiz.id] = {
-          status: FetchStatus.SUCCESS,
-          data: quiz
-        };
+      action.quizzes.forEach(data => {
+        newQuizzes[data.id] = { status: FetchStatus.SUCCESS, data };
       });
+
       return { ...state, ...newQuizzes };
     }
     default: {
