@@ -5,7 +5,7 @@ import FetchStatus from '../utils/FetchStatus';
 
 export default function Explore(
   state = {
-    state: FetchStatus.SUCCESS,
+    status: FetchStatus.SUCCESS,
     ids: {}
   },
   action
