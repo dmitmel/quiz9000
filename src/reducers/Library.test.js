@@ -2,13 +2,24 @@ import reducer from './Library';
 import * as actions from '../actions/types';
 
 describe('reducers/Library', () => {
+  const initialState = {};
+
   it('initializes empty state', () => {
     // given:
     const action = { type: 'INIT' };
     // when:
     const nextState = reducer(undefined, action);
     // then:
-    expect(nextState).toEqual({});
+    expect(nextState).toEqual(initialState);
+  });
+
+  it('ignores invalid actions', () => {
+    // given:
+    const action = { type: 'TOTALLY_USELESS_ACTION' };
+    // when:
+    const nextState = reducer(undefined, action);
+    // then:
+    expect(nextState).toEqual(initialState);
   });
 
   describe('+ ADD_QUIZ', () => {

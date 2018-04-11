@@ -2,13 +2,24 @@ import reducer from './NavDrawer';
 import * as actions from '../actions/types';
 
 describe('reducers/NavDrawer', () => {
+  const initialState = { open: false };
+
   it('initializes empty state', () => {
     // given:
     const action = { type: 'INIT' };
     // when:
     const nextState = reducer(undefined, action);
     // then:
-    expect(nextState).toEqual({ open: false });
+    expect(nextState).toEqual(initialState);
+  });
+
+  it('ignores invalid actions', () => {
+    // given:
+    const action = { type: 'TOTALLY_USELESS_ACTION' };
+    // when:
+    const nextState = reducer(undefined, action);
+    // then:
+    expect(nextState).toEqual(initialState);
   });
 
   describe('+ OPEN_NAV', () => {

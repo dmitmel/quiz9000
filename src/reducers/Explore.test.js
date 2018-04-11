@@ -3,16 +3,27 @@ import * as actions from '../actions/types';
 import FetchStatus from '../utils/FetchStatus';
 
 describe('reducers/Explore', () => {
+  const initialState = {
+    status: FetchStatus.SUCCESS,
+    ids: {}
+  };
+
   it('initializes empty state', () => {
     // given:
     const action = { type: 'INIT' };
     // when:
     const nextState = reducer(undefined, action);
     // then:
-    expect(nextState).toEqual({
-      status: FetchStatus.SUCCESS,
-      ids: {}
-    });
+    expect(nextState).toEqual(initialState);
+  });
+
+  it('ignores invalid actions', () => {
+    // given:
+    const action = { type: 'TOTALLY_USELESS_ACTION' };
+    // when:
+    const nextState = reducer(undefined, action);
+    // then:
+    expect(nextState).toEqual(initialState);
   });
 
   describe('+ FETCH_QUIZZES', () => {
