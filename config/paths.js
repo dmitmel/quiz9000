@@ -18,7 +18,9 @@ function ensureSlash(filePath, needsSlash) {
   const hasSlash = filePath.endsWith('/');
   return hasSlash && !needsSlash
     ? filePath.slice(0, -1)
-    : !hasSlash && needsSlash ? `${filePath}/` : filePath;
+    : !hasSlash && needsSlash
+      ? `${filePath}/`
+      : filePath;
 }
 
 module.exports = {

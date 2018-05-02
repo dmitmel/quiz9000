@@ -1,6 +1,7 @@
-// Firebase polyfills
-import '@firebase/polyfill/dist/esm/src/shims/Array';
-import '@firebase/polyfill/dist/esm/src/shims/String';
+// polyfills for Firebase
+import 'core-js/fn/array/find';
+import 'core-js/fn/array/find-index';
+import 'core-js/fn/string/starts-with';
 
 import 'es6-promise/auto';
 

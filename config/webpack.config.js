@@ -70,7 +70,7 @@ module.exports = wbCore.createConfig([
       ]
     }),
     wbCore.env('production', [
-      wbExtractText('static/css/[name].[contenthash:8].css')
+      wbExtractText('static/css/[name].[md5:contenthash:hex:8].css')
     ])
   ]),
   wbCore.match(/\.(bmp|gif|jpe?g|png)$/, [
@@ -114,10 +114,7 @@ module.exports = wbCore.createConfig([
   ),
   wbCore.addPlugins([
     // shows build progress
-    new WebpackBar({
-      buildTitle: null,
-      showCursor: true
-    })
+    new WebpackBar()
   ]),
   wbCore.env('development', [
     wbCore.addPlugins([new webpack.HotModuleReplacementPlugin()])
