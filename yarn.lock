@@ -2776,8 +2776,8 @@ eslint-config-airbnb@^16.1.0:
     eslint-config-airbnb-base "^12.1.0"
 
 eslint-config-dmitmel@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-dmitmel/-/eslint-config-dmitmel-1.1.1.tgz#ac995a34394b8c5c8bc81b0b853f449dded6d608"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-dmitmel/-/eslint-config-dmitmel-1.2.0.tgz#75049ce4c721898990ace710f5c9c710d58297ba"
   dependencies:
     eslint-config-airbnb "^16.1.0"
     eslint-config-airbnb-base "^12.1.0"
