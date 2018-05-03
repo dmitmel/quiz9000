@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@firebase/app": "^0.2.0",
+    "@firebase/auth": "^0.4.2",
     "@firebase/database": "^0.2.0",
     "@firebase/polyfill": "^0.3.0",
     "blueimp-md5": "^2.10.0",

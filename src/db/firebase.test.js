@@ -3,6 +3,7 @@ describe('db/firebase', () => {
 
   function mockWithFirebaseApp(mockFirebaseApp) {
     jest.doMock('@firebase/app', () => mockFirebaseApp);
+    jest.doMock('@firebase/auth', () => ({}));
     jest.doMock('@firebase/database', () => ({}));
     return require('./firebase');
   }
@@ -13,11 +14,14 @@ describe('db/firebase', () => {
     // when:
     mockWithFirebaseApp({
       initializeApp: mockInitializeApp,
+      auth: () => {},
       database: () => {}
     });
     // then:
     expect(mockInitializeApp).toHaveBeenCalledTimes(1);
     expect(mockInitializeApp).toHaveBeenCalledWith({
+      apiKey: expect.any(String),
+      authDomain: expect.any(String),
       databaseURL: expect.any(String)
     });
   });
@@ -26,6 +30,7 @@ describe('db/firebase', () => {
     // given:
     const fakeFirebaseApp = {
       initializeApp: () => {},
+      auth: () => {},
       database: () => {}
     };
     // when:
@@ -34,12 +39,26 @@ describe('db/firebase', () => {
     expect(app.default).toBe(fakeFirebaseApp);
   });
 
+  it('exports Firebase auth', () => {
+    // given:
+    const fakeFirebaseAuth = { foo: 'bar' };
+    // when:
+    const { auth } = mockWithFirebaseApp({
+      initializeApp: () => {},
+      auth: () => fakeFirebaseAuth,
+      database: () => {}
+    });
+    // then:
+    expect(auth).toBe(fakeFirebaseAuth);
+  });
+
   it('exports Firebase database', () => {
     // given:
     const fakeFirebaseDatabase = { foo: 'bar' };
     // when:
     const { database } = mockWithFirebaseApp({
       initializeApp: () => {},
+      auth: () => {},
       database: () => fakeFirebaseDatabase
     });
     // then:
