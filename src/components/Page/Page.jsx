@@ -6,10 +6,16 @@ import NavDrawer from '../../containers/NavDrawer';
 const styles = {
   root: {
     display: 'flex',
-    height: '100%'
+    height: '100%',
+    animation: 'pageTransition 0.3s linear'
   },
   contentWrapper: {
     width: '100%'
+  },
+
+  '@keyframes pageTransition': {
+    from: { opacity: 0, transform: 'scale(0.9)' },
+    to: { opacity: 1, transform: 'scale(1)' }
   }
 };
 
