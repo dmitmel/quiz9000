@@ -6,9 +6,12 @@ import Toolbar from 'material-ui/Toolbar/Toolbar';
 import Typography from 'material-ui/Typography/Typography';
 import Drawer from 'material-ui/Drawer/Drawer';
 import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import ListItemIcon from 'material-ui/List/ListItemIcon';
+import ListItemText from 'material-ui/List/ListItemText';
+import Icon from 'material-ui/Icon';
 import Hidden from 'material-ui/Hidden/Hidden';
 import Divider from 'material-ui/Divider/Divider';
-import NavItem from './NavItem';
 import Settings from '../../containers/Settings';
 
 import logoBlue from '../../assets/logo/blue.svg';
@@ -31,6 +34,22 @@ const styles = theme => ({
 const width = 280;
 
 const NavDrawer = ({ open, onClose, openSettings, classes, theme }) => {
+  // eslint-disable-next-line react/prop-types
+  const NavItem = ({ icon, text, onClick, ...linkProps }) => (
+    <ListItem
+      button
+      onClick={e => {
+        onClose(e);
+        if (onClick) onClick(e);
+      }}
+      {...linkProps}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={text} />
+    </ListItem>
+  );
+
   const navItems = (
     <div>
       <Toolbar>
@@ -51,39 +70,25 @@ const NavDrawer = ({ open, onClose, openSettings, classes, theme }) => {
           text="Library"
           component={Link}
           to="/library"
-          onClick={onClose}
         />
-        <NavItem
-          icon="explore"
-          text="Explore"
-          component={Link}
-          to="/explore"
-          onClick={onClose}
-        />
+
+        <NavItem icon="explore" text="Explore" component={Link} to="/explore" />
       </List>
       <Divider />
       <List>
-        <NavItem
-          icon="settings"
-          text="Settings"
-          onClick={() => {
-            onClose();
-            openSettings();
-          }}
-        />
+        <NavItem icon="settings" text="Settings" onClick={openSettings} />
+
         <NavItem
           icon="code"
           text="Source code"
           component="a"
           href={process.env.APP_REPOSITORY}
-          onClick={onClose}
         />
         <NavItem
           icon="bug_report"
           text="Report a bug"
           component="a"
           href={process.env.APP_BUGS}
-          onClick={onClose}
         />
       </List>
     </div>
