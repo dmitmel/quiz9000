@@ -1,3 +1,4 @@
+export * from './auth';
 export * from './Explore';
 export * from './fetchedQuizzes';
 export * from './Library';

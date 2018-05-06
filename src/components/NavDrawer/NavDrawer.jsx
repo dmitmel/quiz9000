@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import withStyles from 'material-ui/styles/withStyles';
-import Toolbar from 'material-ui/Toolbar/Toolbar';
-import Typography from 'material-ui/Typography/Typography';
 import Drawer from 'material-ui/Drawer/Drawer';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -12,10 +10,9 @@ import ListItemText from 'material-ui/List/ListItemText';
 import Icon from 'material-ui/Icon';
 import Hidden from 'material-ui/Hidden/Hidden';
 import Divider from 'material-ui/Divider/Divider';
+import CurrentUser from './CurrentUser';
 import Settings from '../../containers/Settings';
-
-import logoBlue from '../../assets/logo/blue.svg';
-import logoWhite from '../../assets/logo/white.svg';
+import { auth } from '../../db/firebase';
 
 const styles = theme => ({
   drawerPaper: {
@@ -23,17 +20,12 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       position: 'relative'
     }
-  },
-  logo: {
-    width: 48,
-    marginLeft: -12,
-    marginRight: 20
   }
 });
 
 const width = 280;
 
-const NavDrawer = ({ open, onClose, openSettings, classes, theme }) => {
+const NavDrawer = ({ open, onClose, openSettings, user, classes }) => {
   // eslint-disable-next-line react/prop-types
   const NavItem = ({ icon, text, onClick, ...linkProps }) => (
     <ListItem
@@ -52,17 +44,16 @@ const NavDrawer = ({ open, onClose, openSettings, classes, theme }) => {
 
   const navItems = (
     <div>
-      <Toolbar>
-        <img
-          alt="logo"
-          src={theme.palette.type === 'dark' ? logoWhite : logoBlue}
-          className={classes.logo}
-        />
-        <Typography variant="title" noWrap>
-          {process.env.APP_TITLE}
-        </Typography>
-      </Toolbar>
-      <Divider />
+      {user && (
+        <>
+          <CurrentUser
+            photoURL={user.photoURL}
+            displayName={user.displayName}
+            email={user.email}
+          />
+          <Divider />
+        </>
+      )}
 
       <List>
         <NavItem
@@ -89,6 +80,19 @@ const NavDrawer = ({ open, onClose, openSettings, classes, theme }) => {
           text="Report a bug"
           component="a"
           href={process.env.APP_BUGS}
+        />
+      </List>
+      <Divider />
+      <List>
+        <NavItem
+          icon="exit_to_app"
+          text="Sign out"
+          component="a"
+          href={process.env.APP_BUGS}
+          onClick={e => {
+            e.preventDefault();
+            auth.signOut();
+          }}
         />
       </List>
     </div>
@@ -127,8 +131,8 @@ NavDrawer.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   openSettings: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  user: PropTypes.object,
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(NavDrawer);
+export default withStyles(styles)(NavDrawer);
