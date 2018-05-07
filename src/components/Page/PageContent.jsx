@@ -5,7 +5,7 @@ import Container from '../Container';
 
 const contentMarginTop = value => ({
   height: `calc(100% - ${value}px)`,
-  marginTop: value
+  marginTop: value,
 });
 
 const styles = theme => ({
@@ -16,7 +16,7 @@ const styles = theme => ({
 
     ...contentMarginTop(56),
     '@media (orientation: landscape)': contentMarginTop(48),
-    [theme.breakpoints.up('sm')]: contentMarginTop(64)
+    [theme.breakpoints.up('sm')]: contentMarginTop(64),
   },
   padding: {
     height: '100%',
@@ -24,9 +24,9 @@ const styles = theme => ({
 
     padding: theme.spacing.unit * 2,
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing.unit * 3
-    }
-  }
+      padding: theme.spacing.unit * 3,
+    },
+  },
 });
 
 const PageContent = ({ classes, children }) => (
@@ -36,7 +36,7 @@ const PageContent = ({ classes, children }) => (
 );
 
 PageContent.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(PageContent);

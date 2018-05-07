@@ -12,22 +12,22 @@ import logoWhite from '../../assets/logo/white.svg';
 const styles = theme => ({
   root: {
     padding: theme.spacing.unit * 2,
-    verticalAlign: 'top'
+    verticalAlign: 'top',
   },
   images: {
     display: 'flex',
     marginBottom: theme.spacing.unit * 2,
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   image: {
     width: 64,
-    height: 64
+    height: 64,
   },
   noPhotoIcon: {
     color: theme.palette.text.secondary,
-    fontSize: 64
-  }
+    fontSize: 64,
+  },
 });
 
 // eslint-disable-next-line
@@ -57,7 +57,7 @@ CurrentUser.propTypes = {
   displayName: PropTypes.string,
   email: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(CurrentUser);

@@ -18,9 +18,9 @@ const styles = theme => ({
   drawerPaper: {
     width: NavDrawer.width,
     [theme.breakpoints.up('md')]: {
-      position: 'relative'
-    }
-  }
+      position: 'relative',
+    },
+  },
 });
 
 const width = 280;
@@ -132,7 +132,7 @@ NavDrawer.propTypes = {
   onClose: PropTypes.func.isRequired,
   openSettings: PropTypes.func.isRequired,
   user: PropTypes.object,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(NavDrawer);

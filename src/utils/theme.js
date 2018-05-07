@@ -6,6 +6,6 @@ export default createMuiTheme({
   palette: {
     primary: indigo,
     secondary: pink,
-    type: 'light'
-  }
+    type: 'light',
+  },
 });

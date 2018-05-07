@@ -15,14 +15,14 @@ describe('db/firebase', () => {
     mockWithFirebaseApp({
       initializeApp: mockInitializeApp,
       auth: () => {},
-      database: () => {}
+      database: () => {},
     });
     // then:
     expect(mockInitializeApp).toHaveBeenCalledTimes(1);
     expect(mockInitializeApp).toHaveBeenCalledWith({
       apiKey: expect.any(String),
       authDomain: expect.any(String),
-      databaseURL: expect.any(String)
+      databaseURL: expect.any(String),
     });
   });
 
@@ -31,7 +31,7 @@ describe('db/firebase', () => {
     const fakeFirebaseApp = {
       initializeApp: () => {},
       auth: () => {},
-      database: () => {}
+      database: () => {},
     };
     // when:
     const app = mockWithFirebaseApp(fakeFirebaseApp);
@@ -46,7 +46,7 @@ describe('db/firebase', () => {
     const { auth } = mockWithFirebaseApp({
       initializeApp: () => {},
       auth: () => fakeFirebaseAuth,
-      database: () => {}
+      database: () => {},
     });
     // then:
     expect(auth).toBe(fakeFirebaseAuth);
@@ -59,7 +59,7 @@ describe('db/firebase', () => {
     const { database } = mockWithFirebaseApp({
       initializeApp: () => {},
       auth: () => {},
-      database: () => fakeFirebaseDatabase
+      database: () => fakeFirebaseDatabase,
     });
     // then:
     expect(database).toBe(fakeFirebaseDatabase);

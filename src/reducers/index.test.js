@@ -16,10 +16,10 @@ describe('reducers', () => {
         expect(mockCombineReducers).toHaveBeenCalledTimes(1);
         expect(mockCombineReducers).toHaveBeenCalledWith(
           expect.objectContaining({
-            [path.basename(fileName, '.js')]: expect.any(Function)
-          })
+            [path.basename(fileName, '.js')]: expect.any(Function),
+          }),
         );
-      })
+      }),
     );
   });
 });

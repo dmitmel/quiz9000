@@ -24,7 +24,7 @@ const Settings = ({ open, onClose }) => (
 
 Settings.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Settings;

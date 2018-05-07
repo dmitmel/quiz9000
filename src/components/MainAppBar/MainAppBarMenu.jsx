@@ -12,12 +12,12 @@ const styles = {
   root: {},
   button: {
     marginLeft: -8,
-    marginRight: -16
+    marginRight: -16,
   },
   menu: {
     marginTop: -8,
-    marginLeft: 8
-  }
+    marginLeft: 8,
+  },
 };
 
 class MainAppBarMenu extends React.Component {
@@ -25,7 +25,7 @@ class MainAppBarMenu extends React.Component {
     open: PropTypes.bool.isRequired,
     onOpen: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
   };
 
   render() {
@@ -64,7 +64,7 @@ export default compose(
   withState('open', 'setOpen', false),
   withHandlers({
     onOpen: ({ setOpen }) => () => setOpen(true),
-    onClose: ({ setOpen }) => () => setOpen(false)
+    onClose: ({ setOpen }) => () => setOpen(false),
   }),
-  withStyles(styles)
+  withStyles(styles),
 )(MainAppBarMenu);

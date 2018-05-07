@@ -12,31 +12,31 @@ import Typography from 'material-ui/Typography';
 const styles = theme => ({
   root: {
     margin: theme.spacing.unit,
-    flexGrow: 1
+    flexGrow: 1,
   },
   button: {
     display: 'flex',
     justifyContent: 'flex-start',
     padding: theme.spacing.unit * 2,
     transition: theme.transitions.create('background-color', {
-      duration: theme.transitions.duration.shortest
+      duration: theme.transitions.duration.shortest,
     }),
     '&:hover': {
       '@media (hover: hover)': {
-        backgroundColor: theme.palette.action.hover
-      }
-    }
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
   },
   image: {
     width: 56,
     height: 56,
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing.unit * 2,
   },
   text: {
     width: '100%',
     padding: 0,
-    alignSelf: 'flex-start'
-  }
+    alignSelf: 'flex-start',
+  },
 });
 
 const QuizListItem = ({ id, image, name, description, classes }) => (
@@ -65,7 +65,7 @@ QuizListItem.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(QuizListItem);

@@ -13,9 +13,9 @@ const store = createStore(
     applyMiddleware(thunk, routerMiddleware(routerHistory)),
     devToolsEnhancer({
       name: 'Quiz9000',
-      actionCreators: actions
-    })
-  )
+      actionCreators: actions,
+    }),
+  ),
 );
 
 auth.connectStateObserver(store.dispatch);

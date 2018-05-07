@@ -10,7 +10,7 @@ describe('actions/creators/Explore', () => {
 
     function mockWithFetchQuizzes(mockFetchQuizzes) {
       jest.doMock('../../db/quizzes', () => ({
-        fetchQuizzes: mockFetchQuizzes
+        fetchQuizzes: mockFetchQuizzes,
       }));
       return require('./Explore');
     }
@@ -57,7 +57,7 @@ describe('actions/creators/Explore', () => {
             type: FETCH_QUIZZES,
             status: FetchStatus.LOADING,
             limit,
-            offset
+            offset,
           });
         });
       });
@@ -66,7 +66,7 @@ describe('actions/creators/Explore', () => {
         it('returns a quizzes list', () => {
           const quizzes = ['foo', 'bar'];
           const { fetchQuizzes } = mockWithFetchQuizzes(() =>
-            Promise.resolve(quizzes)
+            Promise.resolve(quizzes),
           );
           const mockDispatch = () => {};
           // when:
@@ -80,7 +80,7 @@ describe('actions/creators/Explore', () => {
           // given:
           const quizzes = ['foo', 'bar'];
           const { fetchQuizzes } = mockWithFetchQuizzes(() =>
-            Promise.resolve(quizzes)
+            Promise.resolve(quizzes),
           );
           const offset = 0;
           const limit = 3;
@@ -94,7 +94,7 @@ describe('actions/creators/Explore', () => {
               status: FetchStatus.SUCCESS,
               limit,
               offset,
-              quizzes
+              quizzes,
             });
           });
         });
@@ -115,7 +115,7 @@ describe('actions/creators/Explore', () => {
               type: FETCH_QUIZZES,
               status: FetchStatus.ERROR,
               limit,
-              offset
+              offset,
             });
           });
         });

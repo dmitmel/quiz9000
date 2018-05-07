@@ -11,8 +11,8 @@ const styles = {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)'
-  }
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 const uiConfig = {
@@ -21,12 +21,12 @@ const uiConfig = {
   // We will display email and Google as auth providers
   signInOptions: [
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ],
   callbacks: {
     // Avoid redirects after sign-in.
-    signInSuccess: () => false
-  }
+    signInSuccess: () => false,
+  },
 };
 
 const SignIn = ({ classes }) => (
@@ -38,7 +38,7 @@ const SignIn = ({ classes }) => (
 );
 
 SignIn.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SignIn);

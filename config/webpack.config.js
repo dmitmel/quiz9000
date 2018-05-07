@@ -35,7 +35,7 @@ module.exports = wbCore.createConfig([
   // entry
   wbCore.entryPoint([require.resolve('./polyfills')]),
   wbCore.env('development', [
-    wbCore.entryPoint([require.resolve('react-dev-utils/webpackHotDevClient')])
+    wbCore.entryPoint([require.resolve('react-dev-utils/webpackHotDevClient')]),
   ]),
   wbCore.entryPoint([paths.appIndexJs]),
 
@@ -45,13 +45,13 @@ module.exports = wbCore.createConfig([
   // loaders
   wbCore.match(/\.jsx?/, { include: paths.appSrc }, [
     wbESLint({ formatter: eslintFormatter }),
-    wbBabel()
+    wbBabel(),
   ]),
   wbCore.match(/\.css/, [
     wbAssets.css({
       importLoaders: 1,
       minimize: envType === 'production',
-      sourceMap: true
+      sourceMap: true,
     }),
     wbPostCSS({
       sourceMap: true,
@@ -63,26 +63,26 @@ module.exports = wbCore.createConfig([
             'last 4 versions',
             'Firefox ESR',
             // Material-UI supports only IE 11
-            'ie 11'
+            'ie 11',
           ],
-          flexbox: 'no-2009'
-        })
-      ]
+          flexbox: 'no-2009',
+        }),
+      ],
     }),
     wbCore.env('production', [
-      wbExtractText('static/css/[name].[md5:contenthash:hex:8].css')
-    ])
+      wbExtractText('static/css/[name].[md5:contenthash:hex:8].css'),
+    ]),
   ]),
   wbCore.match(/\.(bmp|gif|jpe?g|png)$/, [
     wbAssets.url({
       limit: 8 * 1024, // 8 KiB
-      name: 'static/media/[name].[hash:8].[ext]'
-    })
+      name: 'static/media/[name].[hash:8].[ext]',
+    }),
   ]),
   wbCore.match(
     undefined,
     { exclude: /\.(jsx?|json|bmp|gif|jpe?g|png|css|html)$/ },
-    [wbAssets.file({ name: 'static/media/[name].[hash:8].[ext]' })]
+    [wbAssets.file({ name: 'static/media/[name].[hash:8].[ext]' })],
   ),
 
   // env variables
@@ -91,8 +91,8 @@ module.exports = wbCore.createConfig([
       'process.env': Object.keys(appConfig).reduce((envVars, key) => {
         envVars[key] = JSON.stringify(appConfig[key]);
         return envVars;
-      }, {})
-    })
+      }, {}),
+    }),
   ]),
 
   // code splitting
@@ -101,23 +101,23 @@ module.exports = wbCore.createConfig([
     runtimeChunk: true,
     // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
     },
     // tells Webpack to use file paths as module IDs
     // https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
-    namedModules: true
+    namedModules: true,
   }),
 
   // development tools
   wbCore.setDevTool(
-    envType === 'development' ? 'cheap-module-source-map' : 'source-map'
+    envType === 'development' ? 'cheap-module-source-map' : 'source-map',
   ),
   wbCore.addPlugins([
     // shows build progress
-    new WebpackBar()
+    new WebpackBar(),
   ]),
   wbCore.env('development', [
-    wbCore.addPlugins([new webpack.HotModuleReplacementPlugin()])
+    wbCore.addPlugins([new webpack.HotModuleReplacementPlugin()]),
   ]),
 
   // output
@@ -136,22 +136,22 @@ module.exports = wbCore.createConfig([
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     // adds custom attributes to `<script>` tags
     new ScriptExtHtmlWebpackPlugin({
       async: /\.js$/,
       prefetch: {
         test: /\.js$/,
-        chunks: 'async'
-      }
+        chunks: 'async',
+      },
     }),
     // generates manifest.json and browserconfig.xml
     new WebAppManifestPlugin(),
     // generates a manifest file which contains a mapping of all asset
     // filenames to their corresponding output file
-    new WebpackManifestPlugin({ fileName: 'asset-manifest.json' })
+    new WebpackManifestPlugin({ fileName: 'asset-manifest.json' }),
   ]),
   wbCore.setOutput({
     filename: `static/js/[name]${
@@ -161,7 +161,7 @@ module.exports = wbCore.createConfig([
       envType === 'development' ? '' : '.[chunkhash:8]'
     }.chunk.js`,
     // this is where the app is served from (`/` in development)
-    publicPath: paths.ensureSlash(paths.servedPath, true)
+    publicPath: paths.ensureSlash(paths.servedPath, true),
   }),
   wbCore.env('production', [
     wbCore.setOutput({ path: paths.appBuild }),
@@ -192,8 +192,8 @@ module.exports = wbCore.createConfig([
             // https://github.com/facebookincubator/create-react-app/issues/2612
             return;
           console.log(message);
-        }
-      })
+        },
+      }),
     ]),
     uglify({
       uglifyOptions: {
@@ -203,16 +203,16 @@ module.exports = wbCore.createConfig([
           // https://github.com/facebookincubator/create-react-app/issues/2376
           // Pending further investigation:
           // https://github.com/mishoo/UglifyJS2/issues/2011
-          comparisons: false
+          comparisons: false,
         },
         output: {
           comments: false,
           // Turned on because emoji and regex is not minified properly using default
           // https://github.com/facebookincubator/create-react-app/issues/2488
-          ascii_only: true
-        }
+          ascii_only: true,
+        },
       },
-      sourceMap: true
-    })
-  ])
+      sourceMap: true,
+    }),
+  ]),
 ]);

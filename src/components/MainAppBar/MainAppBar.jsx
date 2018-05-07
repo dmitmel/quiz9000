@@ -12,20 +12,20 @@ const styles = theme => ({
   root: {
     [theme.breakpoints.up('md')]: {
       // appBar has `left: auto` so it'll stick to right
-      width: `calc(100% - ${NavDrawer.width}px)`
-    }
+      width: `calc(100% - ${NavDrawer.width}px)`,
+    },
   },
   navButton: {
     marginLeft: -12,
     marginRight: 20,
     [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   title: {
     // fill all available space
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 
 const MainAppBar = ({ openNav, title, children, classes }) => (
@@ -57,7 +57,7 @@ const MainAppBar = ({ openNav, title, children, classes }) => (
 MainAppBar.propTypes = {
   openNav: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(MainAppBar);

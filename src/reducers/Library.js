@@ -5,13 +5,13 @@ export default function Library(state = {}, action) {
     case actions.ADD_QUIZ: {
       return {
         ...state,
-        [action.id]: action.data
+        [action.id]: action.data,
       };
     }
     case actions.REMOVE_QUIZ: {
       return {
         ...state,
-        [action.id]: undefined
+        [action.id]: undefined,
       };
     }
     default: {

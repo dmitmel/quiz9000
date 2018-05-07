@@ -16,14 +16,14 @@ const styles = theme => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
   },
   moreButton: {
     display: 'block',
     margin: '0 auto',
     marginTop: theme.spacing.unit * 2,
-    position: 'relative'
-  }
+    position: 'relative',
+  },
 });
 
 const Explore = ({ loading, quizzes, fetchMore, onRefresh, classes }) => {
@@ -78,7 +78,7 @@ Explore.propTypes = {
   quizzes: PropTypes.array.isRequired,
   fetchMore: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Explore);

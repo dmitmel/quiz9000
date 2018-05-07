@@ -18,31 +18,31 @@ const styles = theme => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
   },
   header: {
     display: 'flex',
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing.unit * 2,
   },
   buttons: {
     display: 'flex',
     marginBottom: theme.spacing.unit * 2,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   button: {
     '&:not(:last-child)': {
-      marginRight: theme.spacing.unit * 1.5
-    }
+      marginRight: theme.spacing.unit * 1.5,
+    },
   },
   img: {
     width: 72,
     height: 72,
     marginRight: theme.spacing.unit * 2,
-    borderRadius: 0
+    borderRadius: 0,
   },
   description: {
-    marginTop: theme.spacing.unit * 2
-  }
+    marginTop: theme.spacing.unit * 2,
+  },
 });
 
 const QuizDetails = ({
@@ -52,7 +52,7 @@ const QuizDetails = ({
   onRefresh,
   onSave,
   onRemove,
-  classes
+  classes,
 }) => (
   <Page>
     <MainAppBar title="Quiz">
@@ -128,7 +128,7 @@ QuizDetails.propTypes = {
   onRefresh: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(QuizDetails);

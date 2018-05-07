@@ -52,7 +52,7 @@ describe('actions/creators/fetchedQuizzes', () => {
           expect(action).toEqual({
             type: FETCH_QUIZ,
             status: FetchStatus.LOADING,
-            id
+            id,
           });
         });
       });
@@ -83,7 +83,7 @@ describe('actions/creators/fetchedQuizzes', () => {
               type: FETCH_QUIZ,
               status: FetchStatus.SUCCESS,
               id,
-              data
+              data,
             });
           });
         });
@@ -102,7 +102,7 @@ describe('actions/creators/fetchedQuizzes', () => {
             expect(action).toEqual({
               type: FETCH_QUIZ,
               status: FetchStatus.ERROR,
-              id
+              id,
             });
           });
         });

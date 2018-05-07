@@ -6,9 +6,9 @@ import FetchStatus from '../utils/FetchStatus';
 export default function Explore(
   state = {
     status: FetchStatus.SUCCESS,
-    ids: {}
+    ids: {},
   },
-  action
+  action,
 ) {
   switch (action.type) {
     case actions.FETCH_QUIZZES: {
@@ -24,7 +24,7 @@ export default function Explore(
       return {
         ...state,
         status: action.status,
-        ids: { ...state.ids, ...newIds }
+        ids: { ...state.ids, ...newIds },
       };
     }
 

@@ -14,16 +14,16 @@ import AuthStatus from '../../utils/AuthStatus';
 const createPage = loader => Loadable({ loader, loading: LoadingPage });
 
 const SignIn = createPage(() =>
-  import(/* webpackChunkName: "SignIn" */ '../SignIn')
+  import(/* webpackChunkName: "SignIn" */ '../SignIn'),
 );
 const Library = createPage(() =>
-  import(/* webpackChunkName: "Library" */ '../../containers/Library')
+  import(/* webpackChunkName: "Library" */ '../../containers/Library'),
 );
 const Explore = createPage(() =>
-  import(/* webpackChunkName: "Explore" */ '../../containers/Explore')
+  import(/* webpackChunkName: "Explore" */ '../../containers/Explore'),
 );
 const QuizDetails = createPage(() =>
-  import(/* webpackChunkName: "QuizDetails" */ '../../containers/QuizDetails')
+  import(/* webpackChunkName: "QuizDetails" */ '../../containers/QuizDetails'),
 );
 
 const App = ({ authStatus }) => (
@@ -50,10 +50,10 @@ const App = ({ authStatus }) => (
 );
 
 App.propTypes = {
-  authStatus: PropTypes.string.isRequired
+  authStatus: PropTypes.string.isRequired,
 };
 
 export default compose(
   hot(module),
-  connect(state => ({ authStatus: state.auth.status }))
+  connect(state => ({ authStatus: state.auth.status })),
 )(App);

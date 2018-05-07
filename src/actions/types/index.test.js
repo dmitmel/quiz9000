@@ -11,7 +11,7 @@ describe('actions/types', () => {
           // eslint-disable-next-line import/no-dynamic-require
           const module = require(`./${fileName}`);
           expect(index).toMatchObject(module);
-        })
+        }),
       );
   });
 });

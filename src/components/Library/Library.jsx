@@ -17,7 +17,7 @@ const Library = ({ quizzes, addQuiz }) => (
 
 Library.propTypes = {
   quizzes: PropTypes.array.isRequired,
-  addQuiz: PropTypes.func.isRequired
+  addQuiz: PropTypes.func.isRequired,
 };
 
 export default Library;

@@ -37,5 +37,5 @@ module.exports = {
   publicUrl,
   // `servedPath` is where the app is served from
   servedPath: ensureSlash(url.parse(publicUrl).pathname, false),
-  ensureSlash
+  ensureSlash,
 };

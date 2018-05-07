@@ -8,7 +8,7 @@ export function fetchQuizzes(offset, limit) {
       type: FETCH_QUIZZES,
       status: FetchStatus.LOADING,
       offset,
-      limit
+      limit,
     });
     return dbFetchQuizzes(offset, limit).then(
       quizzes => {
@@ -17,7 +17,7 @@ export function fetchQuizzes(offset, limit) {
           status: FetchStatus.SUCCESS,
           offset,
           limit,
-          quizzes
+          quizzes,
         });
         return quizzes;
       },
@@ -26,9 +26,9 @@ export function fetchQuizzes(offset, limit) {
           type: FETCH_QUIZZES,
           status: FetchStatus.ERROR,
           offset,
-          limit
+          limit,
         });
-      }
+      },
     );
   };
 }

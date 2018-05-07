@@ -12,7 +12,7 @@ export function fetchQuiz(id) {
       },
       () => {
         dispatch({ type: FETCH_QUIZ, status: FetchStatus.ERROR, id });
-      }
+      },
     );
   };
 }

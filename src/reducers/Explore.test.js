@@ -5,7 +5,7 @@ import FetchStatus from '../utils/FetchStatus';
 describe('reducers/Explore', () => {
   const initialState = {
     status: FetchStatus.SUCCESS,
-    ids: {}
+    ids: {},
   };
 
   it('initializes empty state', () => {
@@ -31,7 +31,7 @@ describe('reducers/Explore', () => {
       // given:
       const state = {
         status: FetchStatus.SUCCESS,
-        ids: {}
+        ids: {},
       };
       const status = 'myCustomStatus';
       const action = { type: actions.FETCH_QUIZZES, status };
@@ -46,20 +46,20 @@ describe('reducers/Explore', () => {
         // given:
         const state = {
           status: 'myCustomStatus',
-          ids: { 0: 'a', 1: 'b', 2: 'c', 3: 'd' }
+          ids: { 0: 'a', 1: 'b', 2: 'c', 3: 'd' },
         };
         const action = {
           type: actions.FETCH_QUIZZES,
           status: 'myCustomStatus',
           offset: 1,
-          limit: 2
+          limit: 2,
         };
         // when:
         const nextState = reducer(state, action);
         // then:
         expect(nextState).toEqual({
           ...state,
-          ids: { 0: 'a', 3: 'd' }
+          ids: { 0: 'a', 3: 'd' },
         });
       });
     });
@@ -69,21 +69,21 @@ describe('reducers/Explore', () => {
         // given:
         const state = {
           status: FetchStatus.SUCCESS,
-          ids: { 0: 'a', 1: 'some', 2: 'thing', 3: 'd' }
+          ids: { 0: 'a', 1: 'some', 2: 'thing', 3: 'd' },
         };
         const action = {
           type: actions.FETCH_QUIZZES,
           status: FetchStatus.SUCCESS,
           offset: 1,
           limit: 2,
-          quizzes: [{ id: 'b' }, { id: 'c' }]
+          quizzes: [{ id: 'b' }, { id: 'c' }],
         };
         // when:
         const nextState = reducer(state, action);
         // then:
         expect(nextState).toEqual({
           ...state,
-          ids: { 0: 'a', 1: 'b', 2: 'c', 3: 'd' }
+          ids: { 0: 'a', 1: 'b', 2: 'c', 3: 'd' },
         });
       });
     });

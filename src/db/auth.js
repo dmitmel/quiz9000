@@ -10,9 +10,9 @@ export function connectStateObserver(dispatch) {
       dispatch(
         actions.changeAuthState(
           user ? AuthStatus.SIGNED_IN : AuthStatus.SIGNED_OUT,
-          user
-        )
+          user,
+        ),
       ),
-    () => dispatch(actions.changeAuthState(AuthStatus.ERROR))
+    () => dispatch(actions.changeAuthState(AuthStatus.ERROR)),
   );
 }

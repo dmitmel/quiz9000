@@ -7,5 +7,5 @@ module.exports = {
   APP_TITLE: 'Quiz9000',
   APP_THEME_COLOR: '#3f51b5',
   APP_REPOSITORY: packageJson.repository,
-  APP_BUGS: packageJson.bugs
+  APP_BUGS: packageJson.bugs,
 };

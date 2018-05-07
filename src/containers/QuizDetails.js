@@ -11,13 +11,13 @@ export default compose(
   connect(
     (state, { id }) => ({
       quizzes: state.fetchedQuizzes,
-      isSaved: Boolean(state.Library[id])
+      isSaved: Boolean(state.Library[id]),
     }),
     dispatch => ({
       fetchQuiz: id => dispatch(actions.fetchQuiz(id)),
       onSave: (id, data) => dispatch(actions.addQuiz(id, data)),
-      onRemove: id => dispatch(actions.removeQuiz(id))
-    })
+      onRemove: id => dispatch(actions.removeQuiz(id)),
+    }),
   ),
   withProps(({ quizzes, id }) => {
     const { status, data } = quizzes[id] || {};
@@ -35,7 +35,7 @@ export default compose(
     },
     onRemove: ({ id, loading, onRemove }) => () => {
       if (!loading) onRemove(id);
-    }
+    },
   }),
   lifecycle({
     componentDidMount() {
@@ -44,6 +44,6 @@ export default compose(
     },
     componentWillReceiveProps({ id, fetchQuiz }) {
       fetchQuiz(id);
-    }
-  })
+    },
+  }),
 )(QuizDetails);

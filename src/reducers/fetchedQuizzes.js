@@ -8,8 +8,8 @@ export default function fetchedQuizzes(state = {}, action) {
         ...state,
         [action.id]: {
           status: action.status,
-          data: action.status === FetchStatus.SUCCESS ? action.data : undefined
-        }
+          data: action.status === FetchStatus.SUCCESS ? action.data : undefined,
+        },
       };
     }
     case actions.FETCH_QUIZZES: {

@@ -12,12 +12,12 @@ const styles = theme => ({
     right: theme.spacing.unit * 2,
     [theme.breakpoints.up('sm')]: {
       bottom: theme.spacing.unit * 3,
-      right: theme.spacing.unit * 3
-    }
+      right: theme.spacing.unit * 3,
+    },
   },
   input: {
-    display: 'none'
-  }
+    display: 'none',
+  },
 });
 
 const readFile = file =>
@@ -31,7 +31,7 @@ const readFile = file =>
 class UploadQuiz extends React.Component {
   static propTypes = {
     addQuiz: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
   };
 
   onButtonClick = () => this.input.click();

@@ -21,24 +21,24 @@ export default compose(
             const id = ids[i];
             const quiz = state.fetchedQuizzes[id];
             return quiz.data;
-          })
+          }),
       };
     },
     dispatch => ({
       fetchQuizzes: (limit, offset) =>
-        dispatch(actions.fetchQuizzes(limit, offset))
-    })
+        dispatch(actions.fetchQuizzes(limit, offset)),
+    }),
   ),
   withHandlers({
     fetchMore: ({ quizzes, fetchQuizzes }) => () =>
       fetchQuizzes(quizzes.length, quizzesPerPage),
     onRefresh: ({ quizzes, fetchQuizzes }) => () =>
-      fetchQuizzes(0, quizzes.length)
+      fetchQuizzes(0, quizzes.length),
   }),
   lifecycle({
     componentDidMount() {
       const { quizzes, fetchMore } = this.props;
       if (!quizzes.length) fetchMore();
-    }
-  })
+    },
+  }),
 )(Explore);

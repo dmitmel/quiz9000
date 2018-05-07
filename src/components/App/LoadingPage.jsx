@@ -8,8 +8,8 @@ const styles = {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)'
-  }
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 const LoadingPage = ({ classes }) => (
@@ -17,7 +17,7 @@ const LoadingPage = ({ classes }) => (
 );
 
 LoadingPage.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LoadingPage);

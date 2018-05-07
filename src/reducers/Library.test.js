@@ -27,12 +27,12 @@ describe('reducers/Library', () => {
       // given:
       const state = {
         a: { foo: 'bar' },
-        b: { bar: 'foo' }
+        b: { bar: 'foo' },
       };
       const action = {
         type: actions.ADD_QUIZ,
         id: 'c',
-        data: { some: 'thing' }
+        data: { some: 'thing' },
       };
       // when:
       const nextState = reducer(state, action);
@@ -40,7 +40,7 @@ describe('reducers/Library', () => {
       expect(nextState).toEqual({
         a: { foo: 'bar' },
         b: { bar: 'foo' },
-        c: { some: 'thing' }
+        c: { some: 'thing' },
       });
     });
 
@@ -49,12 +49,12 @@ describe('reducers/Library', () => {
       const state = {
         a: { foo: 'bar' },
         b: { bar: 'foo' },
-        c: { some: 'thing' }
+        c: { some: 'thing' },
       };
       const action = {
         type: actions.ADD_QUIZ,
         id: 'c',
-        data: { some: 'thing' }
+        data: { some: 'thing' },
       };
       // when:
       const nextState = reducer(state, action);
@@ -62,7 +62,7 @@ describe('reducers/Library', () => {
       expect(nextState).toEqual({
         a: { foo: 'bar' },
         b: { bar: 'foo' },
-        c: { some: 'thing' }
+        c: { some: 'thing' },
       });
     });
   });
@@ -73,18 +73,18 @@ describe('reducers/Library', () => {
       const state = {
         a: { foo: 'bar' },
         b: { bar: 'foo' },
-        c: { some: 'thing' }
+        c: { some: 'thing' },
       };
       const action = {
         type: actions.REMOVE_QUIZ,
-        id: 'c'
+        id: 'c',
       };
       // when:
       const nextState = reducer(state, action);
       // then:
       expect(nextState).toEqual({
         a: { foo: 'bar' },
-        b: { bar: 'foo' }
+        b: { bar: 'foo' },
       });
     });
 
@@ -92,18 +92,18 @@ describe('reducers/Library', () => {
       // given:
       const state = {
         a: { foo: 'bar' },
-        b: { bar: 'foo' }
+        b: { bar: 'foo' },
       };
       const action = {
         type: actions.REMOVE_QUIZ,
-        id: 'c'
+        id: 'c',
       };
       // when:
       const nextState = reducer(state, action);
       // then:
       expect(nextState).toEqual({
         a: { foo: 'bar' },
-        b: { bar: 'foo' }
+        b: { bar: 'foo' },
       });
     });
   });

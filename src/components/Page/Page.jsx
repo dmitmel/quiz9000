@@ -7,16 +7,16 @@ const styles = {
   root: {
     display: 'flex',
     height: '100%',
-    animation: 'pageTransition 0.3s linear'
+    animation: 'pageTransition 0.3s linear',
   },
   contentWrapper: {
-    width: '100%'
+    width: '100%',
   },
 
   '@keyframes pageTransition': {
     from: { opacity: 0, transform: 'scale(0.9)' },
-    to: { opacity: 1, transform: 'scale(1)' }
-  }
+    to: { opacity: 1, transform: 'scale(1)' },
+  },
 };
 
 const Page = ({ classes, children }) => (
@@ -27,7 +27,7 @@ const Page = ({ classes, children }) => (
 );
 
 Page.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Page);

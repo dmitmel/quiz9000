@@ -7,9 +7,9 @@ export default connect(
     quizzes: Object.keys(state.Library).map(id => {
       const data = state.Library[id];
       return { ...data, id };
-    })
+    }),
   }),
   dispatch => ({
-    addQuiz: (id, data) => dispatch(actions.addQuiz(id, data))
-  })
+    addQuiz: (id, data) => dispatch(actions.addQuiz(id, data)),
+  }),
 )(Library);

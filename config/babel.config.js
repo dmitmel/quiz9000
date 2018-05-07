@@ -2,7 +2,7 @@ const envType = process.env.BABEL_ENV || process.env.NODE_ENV || 'development';
 
 module.exports = (api, options) => ({
   presets: getPresets(options),
-  plugins: getPlugins(options)
+  plugins: getPlugins(options),
 });
 
 function addTo(list, path, opts) {
@@ -18,16 +18,16 @@ function getPresets({ react }) {
       envType === 'test'
         ? {
             // enable ECMAScript features necessary for user's Node version
-            node: 'current'
+            node: 'current',
           }
         : {
             // Material-UI supports only IE 11
             ie: 11,
             // transform everything in production because UglifyJS doesn't
             // support ES6 and later
-            forceAllTransforms: envType === 'production'
+            forceAllTransforms: envType === 'production',
           },
-    modules: envType === 'test' && 'commonjs'
+    modules: envType === 'test' && 'commonjs',
   });
 
   if (react) {
@@ -37,7 +37,7 @@ function getPresets({ react }) {
       // the `development` option adds two things:
       // 1. component stack to warning messages
       // 2. `__self` attribute to JSX which React uses for some warnings
-      development: envType === 'development' || envType === 'test'
+      development: envType === 'development' || envType === 'test',
     });
   }
 
@@ -51,13 +51,13 @@ function getPlugins({ react }) {
     helpers: true,
     polyfill: false,
     // use polyfills needed for `async`/`await` and generators
-    regenerator: true
+    regenerator: true,
   });
 
   addTo(plugins, '@babel/plugin-proposal-class-properties');
   addTo(plugins, '@babel/plugin-proposal-object-rest-spread', {
     // use Object.assign directly instead of Babel's `extends` helper
-    useBuiltIns: true
+    useBuiltIns: true,
   });
 
   // add syntax support for `import()`

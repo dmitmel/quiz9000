@@ -18,6 +18,6 @@ window.addEventListener('load', () => {
         <App />
       </MuiThemeProvider>
     </ReduxStoreProvider>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 });

@@ -13,7 +13,7 @@ describe('actions/creators', () => {
           // eslint-disable-next-line import/no-dynamic-require
           const module = require(`./${fileName}`);
           expect(index).toMatchObject(module);
-        })
+        }),
       );
   });
 });

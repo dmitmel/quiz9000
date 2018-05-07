@@ -28,20 +28,20 @@ describe('reducers/fetchedQuizzes', () => {
       // given:
       const state = {
         a: { status: FetchStatus.LOADING },
-        b: { status: FetchStatus.ERROR }
+        b: { status: FetchStatus.ERROR },
       };
       const status = 'myCustomStatus';
       const action = {
         type: actions.FETCH_QUIZ,
         status,
-        id: 'c'
+        id: 'c',
       };
       // when:
       const nextState = reducer(state, action);
       // then:
       expect(nextState).toEqual({
         ...state,
-        c: { status }
+        c: { status },
       });
     });
 
@@ -50,19 +50,19 @@ describe('reducers/fetchedQuizzes', () => {
       const state = {
         a: { status: FetchStatus.LOADING },
         b: { status: FetchStatus.ERROR },
-        c: { status: FetchStatus.SUCCESS, data: { foo: 'bar' } }
+        c: { status: FetchStatus.SUCCESS, data: { foo: 'bar' } },
       };
       const action = {
         type: actions.FETCH_QUIZ,
         status: FetchStatus.LOADING,
-        id: 'c'
+        id: 'c',
       };
       // when:
       const nextState = reducer(state, action);
       // then:
       expect(nextState).toEqual({
         ...state,
-        c: { status: FetchStatus.LOADING }
+        c: { status: FetchStatus.LOADING },
       });
     });
 
@@ -71,21 +71,21 @@ describe('reducers/fetchedQuizzes', () => {
         // given:
         const state = {
           a: { status: FetchStatus.LOADING },
-          b: { status: FetchStatus.ERROR }
+          b: { status: FetchStatus.ERROR },
         };
         const data = { foo: 'bar' };
         const action = {
           type: actions.FETCH_QUIZ,
           status: FetchStatus.SUCCESS,
           id: 'c',
-          data
+          data,
         };
         // when:
         const nextState = reducer(state, action);
         // then:
         expect(nextState).toEqual({
           ...state,
-          c: { status: FetchStatus.SUCCESS, data }
+          c: { status: FetchStatus.SUCCESS, data },
         });
       });
     });
@@ -98,11 +98,11 @@ describe('reducers/fetchedQuizzes', () => {
         const state = {
           a: { status: FetchStatus.LOADING },
           b: { status: FetchStatus.ERROR },
-          c: { status: FetchStatus.SUCCESS, data: { foo: 'bar' } }
+          c: { status: FetchStatus.SUCCESS, data: { foo: 'bar' } },
         };
         const action = {
           type: actions.FETCH_QUIZZES,
-          status: FetchStatus.LOADING
+          status: FetchStatus.LOADING,
         };
         // when:
         const nextState = reducer(state, action);
@@ -117,17 +117,17 @@ describe('reducers/fetchedQuizzes', () => {
         const state = {
           a: { status: FetchStatus.LOADING },
           b: { status: FetchStatus.ERROR },
-          c: { status: FetchStatus.SUCCESS, data: { foo: 'bar' } }
+          c: { status: FetchStatus.SUCCESS, data: { foo: 'bar' } },
         };
         const quizzes = [
           { id: 'foobar', foo: 'bar' },
           { id: 'something', some: 'thing' },
-          { id: 'hello_there', hello: 'there' }
+          { id: 'hello_there', hello: 'there' },
         ];
         const action = {
           type: actions.FETCH_QUIZZES,
           status: FetchStatus.SUCCESS,
-          quizzes
+          quizzes,
         };
         // when:
         const nextState = reducer(state, action);
@@ -136,7 +136,7 @@ describe('reducers/fetchedQuizzes', () => {
           ...state,
           foobar: { status: FetchStatus.SUCCESS, data: quizzes[0] },
           something: { status: FetchStatus.SUCCESS, data: quizzes[1] },
-          hello_there: { status: FetchStatus.SUCCESS, data: quizzes[2] }
+          hello_there: { status: FetchStatus.SUCCESS, data: quizzes[2] },
         });
       });
     });

@@ -8,8 +8,8 @@ const styles = theme => ({
     display: 'flex',
     // compensate margins of `QuizListItem`s
     margin: -theme.spacing.unit,
-    flexWrap: 'wrap'
-  }
+    flexWrap: 'wrap',
+  },
 });
 
 const QuizList = ({ quizzes, classes }) => (
@@ -20,7 +20,7 @@ const QuizList = ({ quizzes, classes }) => (
 
 QuizList.propTypes = {
   quizzes: PropTypes.array.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(QuizList);

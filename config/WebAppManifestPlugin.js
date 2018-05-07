@@ -8,12 +8,12 @@ const manifestJson = JSON.stringify({
   icons: [192, 512].map(size => ({
     src: `${servedPath}/android-chrome-${size}x${size}.png`,
     sizes: `${size}x${size}`,
-    type: 'image/png'
+    type: 'image/png',
   })),
   start_url: `${servedPath}/`,
   display: 'standalone',
   theme_color: APP_THEME_COLOR,
-  background_color: APP_THEME_COLOR
+  background_color: APP_THEME_COLOR,
 });
 
 // generate browserconfig.xml
@@ -36,7 +36,7 @@ module.exports = class WebAppManifestPlugin {
       function addFile(name, data) {
         compilation.assets[name] = {
           source: () => data,
-          size: () => data.length
+          size: () => data.length,
         };
       }
 
