@@ -5,7 +5,7 @@ export default function Library(state = {}, action) {
     case actions.ADD_QUIZ: {
       return {
         ...state,
-        [action.id]: action.data,
+        [action.data.id]: action.data,
       };
     }
     case actions.REMOVE_QUIZ: {

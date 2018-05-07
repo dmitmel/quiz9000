@@ -26,43 +26,41 @@ describe('reducers/Library', () => {
     it('adds quiz to the list', () => {
       // given:
       const state = {
-        a: { foo: 'bar' },
-        b: { bar: 'foo' },
+        a: { id: 'a', foo: 'bar' },
+        b: { id: 'b', bar: 'foo' },
       };
       const action = {
         type: actions.ADD_QUIZ,
-        id: 'c',
-        data: { some: 'thing' },
+        data: { id: 'c', some: 'thing' },
       };
       // when:
       const nextState = reducer(state, action);
       // then:
       expect(nextState).toEqual({
-        a: { foo: 'bar' },
-        b: { bar: 'foo' },
-        c: { some: 'thing' },
+        a: { id: 'a', foo: 'bar' },
+        b: { id: 'b', bar: 'foo' },
+        c: { id: 'c', some: 'thing' },
       });
     });
 
     it('does not do anything if quiz is already in the list', () => {
       // given:
       const state = {
-        a: { foo: 'bar' },
-        b: { bar: 'foo' },
-        c: { some: 'thing' },
+        a: { id: 'a', foo: 'bar' },
+        b: { id: 'b', bar: 'foo' },
+        c: { id: 'c', some: 'thing' },
       };
       const action = {
         type: actions.ADD_QUIZ,
-        id: 'c',
-        data: { some: 'thing' },
+        data: { id: 'c', some: 'thing' },
       };
       // when:
       const nextState = reducer(state, action);
       // then:
       expect(nextState).toEqual({
-        a: { foo: 'bar' },
-        b: { bar: 'foo' },
-        c: { some: 'thing' },
+        a: { id: 'a', foo: 'bar' },
+        b: { id: 'b', bar: 'foo' },
+        c: { id: 'c', some: 'thing' },
       });
     });
   });

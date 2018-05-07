@@ -5,12 +5,11 @@ describe('actions/creators/Library', () => {
   describe('+ addQuiz()', () => {
     it('returns a valid action', () => {
       // given:
-      const id = 0;
       const data = { foo: 'bar' };
       // when:
-      const action = addQuiz(id, data);
+      const action = addQuiz(data);
       // then:
-      expect(action).toEqual({ type: ADD_QUIZ, id, data });
+      expect(action).toEqual({ type: ADD_QUIZ, data });
     });
   });
 
