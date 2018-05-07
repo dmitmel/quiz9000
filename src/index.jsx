@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider as ReduxStoreProvider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'normalize.css';
+import 'firebaseui/dist/firebaseui.css';
 import registerServiceWorker from './utils/registerServiceWorker';
 import './resets.css';
 import App from './components/App';

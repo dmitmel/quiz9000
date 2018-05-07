@@ -17,6 +17,7 @@
     "connected-react-router": "^4.3.0",
     "core-js": "^2.5.5",
     "es6-promise": "^4.2.4",
+    "firebaseui": "^2.7.0",
     "history": "^4.7.2",
     "material-ui": "^1.0.0-beta.39",
     "normalize.css": "^8.0.0",
