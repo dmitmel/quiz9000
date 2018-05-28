@@ -1,6 +1,3 @@
-// polyfills for Firebase
-import '@firebase/polyfill';
-
 // `fetch()` polyfill for making API calls.
 import 'whatwg-fetch';
 
