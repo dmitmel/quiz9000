@@ -1,6 +1,6 @@
 import { FETCH_QUIZ } from '../types';
 import FetchStatus from '../../utils/FetchStatus';
-import { findQuizBy } from '../../db/quizzes';
+import { findQuizBy } from '../../firebase/quizzes';
 
 export function fetchQuiz(id) {
   return dispatch => {

@@ -1,6 +1,6 @@
 import { FETCH_QUIZZES } from '../types';
 import FetchStatus from '../../utils/FetchStatus';
-import { fetchQuizzes as dbFetchQuizzes } from '../../db/quizzes';
+import { fetchQuizzes as dbFetchQuizzes } from '../../firebase/quizzes';
 
 export function fetchQuizzes(offset, limit) {
   return dispatch => {

@@ -1,11 +1,11 @@
-describe('db/firebase', () => {
+describe('firebase', () => {
   beforeEach(() => jest.resetModules());
 
   function mockWithFirebaseApp(mockFirebaseApp) {
     jest.doMock('firebase/app', () => mockFirebaseApp);
     jest.doMock('firebase/auth', () => ({}));
     jest.doMock('firebase/database', () => ({}));
-    return require('./firebase');
+    return require('./');
   }
 
   it('initializes app correctly', () => {

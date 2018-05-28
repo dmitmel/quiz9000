@@ -5,7 +5,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import reducer from '../reducers';
 import * as actions from '../actions/creators';
 import routerHistory from '../utils/routerHistory';
-import * as auth from '../db/auth';
+import * as auth from '../firebase/auth';
 
 const store = createStore(
   connectRouter(routerHistory)(reducer),

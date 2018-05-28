@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FirebaseAuth } from 'react-firebaseui';
 import withStyles from 'material-ui/styles/withStyles';
-import firebase, { auth } from '../../db/firebase';
+import firebase, { auth } from '../../firebase';
 
 const styles = {
   signInForm: {

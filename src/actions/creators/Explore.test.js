@@ -9,7 +9,7 @@ describe('actions/creators/Explore', () => {
     beforeEach(() => jest.resetModules());
 
     function mockWithFetchQuizzes(mockFetchQuizzes) {
-      jest.doMock('../../db/quizzes', () => ({
+      jest.doMock('../../firebase/quizzes', () => ({
         fetchQuizzes: mockFetchQuizzes,
       }));
       return require('./Explore');

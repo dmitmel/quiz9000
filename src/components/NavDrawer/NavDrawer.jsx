@@ -12,7 +12,7 @@ import Hidden from 'material-ui/Hidden/Hidden';
 import Divider from 'material-ui/Divider/Divider';
 import CurrentUser from './CurrentUser';
 import Settings from '../../containers/Settings';
-import { auth } from '../../db/firebase';
+import { auth } from '../../firebase';
 
 const styles = theme => ({
   drawerPaper: {

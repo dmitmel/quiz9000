@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { auth } from './firebase';
+import { auth } from './';
 import * as actions from '../actions/creators';
 import AuthStatus from '../utils/AuthStatus';
 

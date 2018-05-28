@@ -9,7 +9,9 @@ describe('actions/creators/fetchedQuizzes', () => {
     beforeEach(() => jest.resetModules());
 
     function mockWithFindQuizBy(mockFindQuizBy) {
-      jest.doMock('../../db/quizzes', () => ({ findQuizBy: mockFindQuizBy }));
+      jest.doMock('../../firebase/quizzes', () => ({
+        findQuizBy: mockFindQuizBy,
+      }));
       return require('./fetchedQuizzes');
     }
 
