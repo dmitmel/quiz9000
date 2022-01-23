@@ -13,12 +13,11 @@ export default function Explore(
   switch (action.type) {
     case actions.FETCH_QUIZZES: {
       const newIds = {};
+      const ids = action.quizzes && Object.keys(action.quizzes);
 
       for (let i = 0; i < action.limit; i++) {
         newIds[action.offset + i] =
-          action.status === FetchStatus.SUCCESS
-            ? action.quizzes[i].id
-            : undefined;
+          action.status === FetchStatus.SUCCESS ? ids[i] : undefined;
       }
 
       return {

@@ -15,7 +15,7 @@ export default compose(
     }),
     dispatch => ({
       fetchQuiz: id => dispatch(actions.fetchQuiz(id)),
-      onSave: data => dispatch(actions.addQuiz(data)),
+      onSave: (id, data) => dispatch(actions.addQuiz(id, data)),
       onRemove: id => dispatch(actions.removeQuiz(id)),
     }),
   ),
@@ -30,8 +30,8 @@ export default compose(
     onRefresh: ({ id, loading, fetchQuiz }) => () => {
       if (!loading) fetchQuiz(id);
     },
-    onSave: ({ loading, data, onSave }) => () => {
-      if (!loading) onSave(data);
+    onSave: ({ id, loading, data, onSave }) => () => {
+      if (!loading) onSave(id, data);
     },
     onRemove: ({ id, loading, onRemove }) => () => {
       if (!loading) onRemove(id);

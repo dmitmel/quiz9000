@@ -1,30 +1,24 @@
 /* istanbul ignore file */
 
-import { database } from './';
+import { firestore } from './';
 
-export const rootRef = database.ref('/quizzes');
-export const listRef = rootRef.child('list');
-export const lengthRef = rootRef.child('length');
+const quizzesCollection = firestore.collection('quizzes');
 
-export function findQuizBy(prop, val) {
-  return listRef
-    .orderByChild(prop)
-    .equalTo(val)
-    .limitToFirst(1)
-    .once('child_added')
-    .then(snapshot => snapshot.val());
+export function fetchQuiz(id) {
+  return quizzesCollection
+    .doc(id)
+    .get()
+    .then(docSnapshot => docSnapshot.data());
 }
 
 export function fetchQuizzes(offset, limit) {
-  return listRef
-    .startAt(null, String(offset))
-    .limitToFirst(limit)
-    .once('value')
-    .then(snapshot => {
-      const quizzes = [];
-      snapshot.forEach(quizSnapshot => {
-        quizzes.push(quizSnapshot.val());
-      });
-      return quizzes;
-    });
+  return quizzesCollection
+    .limit(offset + limit)
+    .get()
+    .then(collectionSnapshot =>
+      collectionSnapshot.docs.reduce((quizzes, quizSnapshot, index) => {
+        if (index >= offset) quizzes[quizSnapshot.id] = quizSnapshot.data();
+        return quizzes;
+      }, {}),
+    );
 }

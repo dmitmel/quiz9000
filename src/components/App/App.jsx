@@ -37,9 +37,7 @@ const App = ({ authStatus }) => (
         <Route
           exact
           path="/quiz/:id"
-          render={({ match }) => (
-            <QuizDetails id={parseInt(match.params.id, 10)} />
-          )}
+          render={({ match }) => <QuizDetails id={match.params.id} />}
         />
         <Redirect to="/library" />
       </Switch>

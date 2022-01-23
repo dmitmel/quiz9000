@@ -13,12 +13,14 @@ export default function fetchedQuizzes(state = {}, action) {
       };
     }
     case actions.FETCH_QUIZZES: {
-      if (action.status !== FetchStatus.SUCCESS) return state;
-
       const newQuizzes = {};
-      action.quizzes.forEach(data => {
-        newQuizzes[data.id] = { status: FetchStatus.SUCCESS, data };
-      });
+
+      if (action.status === FetchStatus.SUCCESS) {
+        Object.keys(action.quizzes).forEach(id => {
+          const data = action.quizzes[id];
+          newQuizzes[id] = { status: FetchStatus.SUCCESS, data };
+        });
+      }
 
       return { ...state, ...newQuizzes };
     }

@@ -26,8 +26,15 @@ const styles = theme => ({
   },
 });
 
-const Explore = ({ loading, quizzes, fetchMore, onRefresh, classes }) => {
-  const hasQuizzes = Boolean(quizzes && quizzes.length);
+const Explore = ({
+  loading,
+  quizzesCount,
+  quizzes,
+  fetchMore,
+  onRefresh,
+  classes,
+}) => {
+  const hasQuizzes = Boolean(quizzesCount);
 
   const renderProgress = size => (
     <CircularProgress size={size} className={classes.progress} />
@@ -75,7 +82,8 @@ const Explore = ({ loading, quizzes, fetchMore, onRefresh, classes }) => {
 
 Explore.propTypes = {
   loading: PropTypes.bool.isRequired,
-  quizzes: PropTypes.array.isRequired,
+  quizzesCount: PropTypes.number.isRequired,
+  quizzes: PropTypes.object.isRequired,
   fetchMore: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,

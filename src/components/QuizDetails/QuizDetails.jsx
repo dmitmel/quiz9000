@@ -76,7 +76,7 @@ const QuizDetails = ({
             <div className={classes.headerRight}>
               <Typography variant="title">{data.name}</Typography>
               <Typography variant="subheading">
-                By {data.author ? data.author.name : 'Unknown author'}
+                By {data.author || 'Unknown author'}
               </Typography>
             </div>
           </div>

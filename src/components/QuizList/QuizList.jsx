@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'material-ui/styles/withStyles';
 import QuizListItem from './QuizListItem';
+import { map as mapObject } from '../../utils/object';
 
 const styles = theme => ({
   root: {
@@ -14,12 +15,15 @@ const styles = theme => ({
 
 const QuizList = ({ quizzes, classes }) => (
   <div className={classes.root}>
-    {quizzes.map(quiz => quiz && <QuizListItem key={quiz.id} {...quiz} />)}
+    {mapObject(
+      quizzes,
+      (id, quiz) => quiz && <QuizListItem key={id} id={id} {...quiz} />,
+    )}
   </div>
 );
 
 QuizList.propTypes = {
-  quizzes: PropTypes.array.isRequired,
+  quizzes: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

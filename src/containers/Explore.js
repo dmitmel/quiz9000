@@ -5,6 +5,7 @@ import lifecycle from 'recompose/lifecycle';
 import FetchStatus from '../utils/FetchStatus';
 import * as actions from '../actions/creators';
 import Explore from '../components/Explore';
+import { filter as filterObject } from '../utils/object';
 
 const quizzesPerPage = 10;
 
@@ -12,16 +13,17 @@ export default compose(
   connect(
     state => {
       const { status, ids } = state.Explore;
+      const indexes = filterObject(ids, (index, id) => id != null);
 
       return {
         loading: status === FetchStatus.LOADING,
-        quizzes: Object.keys(ids)
-          .filter(i => ids[i] != null)
-          .map(i => {
-            const id = ids[i];
-            const quiz = state.fetchedQuizzes[id];
-            return quiz.data;
-          }),
+        quizzesCount: indexes.length,
+        quizzes: indexes.reduce((quizzes, index) => {
+          const id = ids[index];
+          const { data } = state.fetchedQuizzes[id];
+          quizzes[id] = data;
+          return quizzes;
+        }, {}),
       };
     },
     dispatch => ({
@@ -30,15 +32,15 @@ export default compose(
     }),
   ),
   withHandlers({
-    fetchMore: ({ quizzes, fetchQuizzes }) => () =>
-      fetchQuizzes(quizzes.length, quizzesPerPage),
-    onRefresh: ({ quizzes, fetchQuizzes }) => () =>
-      fetchQuizzes(0, quizzes.length),
+    fetchMore: ({ quizzesCount, fetchQuizzes }) => () =>
+      fetchQuizzes(quizzesCount, quizzesPerPage),
+    onRefresh: ({ quizzesCount, fetchQuizzes }) => () =>
+      fetchQuizzes(0, quizzesCount),
   }),
   lifecycle({
     componentDidMount() {
-      const { quizzes, fetchMore } = this.props;
-      if (!quizzes.length) fetchMore();
+      const { quizzesCount, fetchMore } = this.props;
+      if (!quizzesCount) fetchMore();
     },
   }),
 )(Explore);

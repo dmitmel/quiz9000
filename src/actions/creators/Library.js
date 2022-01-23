@@ -1,7 +1,7 @@
 import { ADD_QUIZ, REMOVE_QUIZ } from '../types';
 
-export function addQuiz(data) {
-  return { type: ADD_QUIZ, data };
+export function addQuiz(id) {
+  return { type: ADD_QUIZ, id };
 }
 
 export function removeQuiz(id) {
